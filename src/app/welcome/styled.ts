@@ -8,15 +8,26 @@ export const AppContainer = styled.div`
   background-color: white;
   font-family: "Be Vietnam Pro", "Noto Sans", sans-serif;
   min-height: 100vh;
+  position: relative;
 `;
 
 export const Header = styled.div`
+  width: 100%;
   display: flex;
   justify-content: space-between;
-  align-items: center;
+  align-items: flex-start;
   padding: 16px;
   padding-bottom: 8px;
   background: #e72925;
+  flex-direction: column;
+  position: fixed;
+  z-index: 100;
+`;
+
+export const WrapperMap = styled.div`
+m
+  z-index: 1;
+  overflow: hidden;
 `;
 
 export const Icon = styled.div`
@@ -135,11 +146,14 @@ export const FooterLink = styled.a<{ active?: boolean }>`
   display: flex;
   flex-direction: column;
   align-items: center;
-
   justify-content: flex-end;
   gap: 4px;
   flex: 1;
   color: ${(props) => (props.active ? "#181111" : "#896161")};
+  position: fixed;
+  background: #e72925;
+  bottom: 0px;
+  z-index: 100;
 `;
 
 export const FooterIcon = styled.div`

@@ -2,10 +2,6 @@
 import React from "react";
 import {
   AppContainer,
-  Card,
-  CardImage,
-  CardSubText,
-  CardText,
   ChangeUbicationIcon,
   Footer,
   FooterIcon,
@@ -20,12 +16,13 @@ import {
   SearchInputIcon,
   SearchInputWrapper,
   SearchLabel,
+  WrapperMap,
 } from "./styled";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
 import Image from "next/image";
 import MyLocationIcon from "@mui/icons-material/MyLocation";
 import MapView from "@/components/ui/MapView";
-import "mapbox-gl/dist/mapbox-gl.css";
+
 const Dashboard = () => {
   return (
     <AppContainer>
@@ -38,38 +35,41 @@ const Dashboard = () => {
             height={35}
           />
         </Icon>
+
+        <SearchBar>
+          <SearchLabel>
+            <SearchInputWrapper>
+              <SearchInputIcon>
+                <MyLocationIcon />
+              </SearchInputIcon>
+              <SearchInput placeholder="Origen" />
+              <SearchButton>
+                <SearchChangeIcon>
+                  <ChangeUbicationIcon fontSize={"small"} />
+                </SearchChangeIcon>
+              </SearchButton>
+            </SearchInputWrapper>
+          </SearchLabel>
+        </SearchBar>
+        <SearchBar>
+          <SearchLabel>
+            <SearchInputWrapper>
+              <SearchInputIcon>
+                <LocationOnIcon />
+              </SearchInputIcon>
+              <SearchInput placeholder="Destino" />
+              <SearchButton>
+                <SearchChangeIcon>
+                  <ChangeUbicationIcon fontSize={"small"} />
+                </SearchChangeIcon>
+              </SearchButton>
+            </SearchInputWrapper>
+          </SearchLabel>
+        </SearchBar>
       </Header>
-      <SearchBar>
-        <SearchLabel>
-          <SearchInputWrapper>
-            <SearchInputIcon>
-              <MyLocationIcon />
-            </SearchInputIcon>
-            <SearchInput placeholder="Origen" />
-            <SearchButton>
-              <SearchChangeIcon>
-                <ChangeUbicationIcon fontSize={"small"} />
-              </SearchChangeIcon>
-            </SearchButton>
-          </SearchInputWrapper>
-        </SearchLabel>
-      </SearchBar>
-      <SearchBar>
-        <SearchLabel>
-          <SearchInputWrapper>
-            <SearchInputIcon>
-              <LocationOnIcon />
-            </SearchInputIcon>
-            <SearchInput placeholder="Destino" />
-            <SearchButton>
-              <SearchChangeIcon>
-                <ChangeUbicationIcon fontSize={"small"} />
-              </SearchChangeIcon>
-            </SearchButton>
-          </SearchInputWrapper>
-        </SearchLabel>
-      </SearchBar>
-      <MapView />
+      <WrapperMap>
+        <MapView />
+      </WrapperMap>
       <Footer>
         <FooterLink active={true}>
           <FooterIcon>{/* SVG content */}</FooterIcon>
