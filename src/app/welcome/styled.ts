@@ -14,20 +14,25 @@ export const AppContainer = styled.div`
 export const Header = styled.div`
   width: 100%;
   display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
+  justify-content: flex-start;
+  align-items: center;
   padding: 16px;
   padding-bottom: 8px;
   background: #e72925;
-  flex-direction: column;
+  flex-direction: row;
+
   position: fixed;
   z-index: 100;
+
+  @media (min-width: 0px) and (max-width: 700px) {
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: flex-start;
+  }
 `;
 
 export const WrapperMap = styled.div`
-m
   z-index: 1;
-  overflow: hidden;
 `;
 
 export const Icon = styled.div`
@@ -38,7 +43,12 @@ export const Icon = styled.div`
 
 export const SearchBar = styled.div`
   padding: 12px 16px;
+  box-sizing: border-box;
   background: #e72925;
+
+  @media (min-width: 0px) and (max-width: 700px) {
+    width: 100%;
+  }
 `;
 
 export const SearchLabel = styled.label`
@@ -47,7 +57,6 @@ export const SearchLabel = styled.label`
   min-width: 40px;
   height: 48px;
   width: 100%;
-  max-width: 500px;
 `;
 
 export const SearchInputWrapper = styled.div`
@@ -96,6 +105,12 @@ export const SearchButton = styled.button`
   color: #181111;
   padding-right: 16px;
   cursor: pointer;
+`;
+export const CotizationButton = styled.div`
+  color: black;
+  background-color: white;
+  padding: 15px;
+  border-radius: 15px;
 `;
 
 export const ChangeUbicationIcon = styled(SyncAltIcon)``;

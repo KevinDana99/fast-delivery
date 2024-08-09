@@ -1,8 +1,9 @@
 "use client";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
   AppContainer,
   ChangeUbicationIcon,
+  CotizationButton,
   Footer,
   FooterIcon,
   FooterLink,
@@ -22,8 +23,11 @@ import LocationOnIcon from "@mui/icons-material/LocationOn";
 import Image from "next/image";
 import MyLocationIcon from "@mui/icons-material/MyLocation";
 import MapView from "@/components/ui/MapView";
+import { LocationType, RouteInfo } from "./types";
 
 const Dashboard = () => {
+  const [infoLocation, setInfoLocation] = useState<LocationType[]>([]);
+  const [routeInfo, setRouteInfo] = useState<RouteInfo | null>(null);
   return (
     <AppContainer>
       <Header>
@@ -42,10 +46,13 @@ const Dashboard = () => {
               <SearchInputIcon>
                 <MyLocationIcon />
               </SearchInputIcon>
-              <SearchInput placeholder="Origen" />
+              <SearchInput
+                placeholder="Origen"
+                value={infoLocation[0]?.info ?? ""}
+              />
               <SearchButton>
                 <SearchChangeIcon>
-                  <ChangeUbicationIcon fontSize={"small"} />
+                  {/* <ChangeUbicationIcon fontSize={"small"} /> */}
                 </SearchChangeIcon>
               </SearchButton>
             </SearchInputWrapper>
@@ -57,18 +64,27 @@ const Dashboard = () => {
               <SearchInputIcon>
                 <LocationOnIcon />
               </SearchInputIcon>
-              <SearchInput placeholder="Destino" />
+              <SearchInput
+                placeholder="Destino"
+                value={infoLocation[1]?.info ?? ""}
+              />
               <SearchButton>
                 <SearchChangeIcon>
-                  <ChangeUbicationIcon fontSize={"small"} />
+                  {/* <ChangeUbicationIcon fontSize={"small"} /> */}
                 </SearchChangeIcon>
               </SearchButton>
             </SearchInputWrapper>
           </SearchLabel>
         </SearchBar>
+        <CotizationButton>Cotizar envio</CotizationButton>
       </Header>
       <WrapperMap>
-        <MapView />
+        <MapView
+          setInfoLocation={setInfoLocation}
+          locationInfo={infoLocation}
+          setRouteInfo={setRouteInfo}
+          routeInfo={routeInfo}
+        />
       </WrapperMap>
       <Footer>
         <FooterLink active={true}>
