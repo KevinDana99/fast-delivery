@@ -1,5 +1,6 @@
 import { styled } from "styled-components";
 import SyncAltIcon from "@mui/icons-material/SyncAlt";
+import theme from "@/globals/theme";
 export const AppContainer = styled.div`
   display: flex;
   width: 100%;
@@ -18,7 +19,7 @@ export const Header = styled.div`
   align-items: center;
   padding: 16px;
   padding-bottom: 8px;
-  background: #e72925;
+  background: ${theme.main.color};
   flex-direction: row;
 
   position: fixed;
@@ -44,7 +45,7 @@ export const Icon = styled.div`
 export const SearchBar = styled.div`
   padding: 12px 16px;
   box-sizing: border-box;
-  background: #e72925;
+  background: ${theme.main.color};
 
   @media (min-width: 0px) and (max-width: 700px) {
     width: 100%;
@@ -150,23 +151,34 @@ export const CardSubText = styled.div`
 `;
 
 export const Footer = styled.div`
+  width: 100%;
+  height: 50px;
+  position: fixed;
   display: flex;
+  align-items: center;
   gap: 8px;
   border-top: 1px solid #f4f0f0;
-  background-color: white;
-  padding: 16px;
+  padding: 10px;
+  z-index: 100;
+  bottom: 0px;
+  background: ${theme.main.color};
+  box-sizing: border-box;
+
+  @media (min-width: 700px) {
+    display: none;
+  }
 `;
 
 export const FooterLink = styled.a<{ active?: boolean }>`
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: flex-end;
+  justify-content: center;
   gap: 4px;
   flex: 1;
   color: ${(props) => (props.active ? "#181111" : "#896161")};
   position: fixed;
-  background: #e72925;
+
   bottom: 0px;
   z-index: 100;
 `;
@@ -176,5 +188,5 @@ export const FooterIcon = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  color: inherit;
+  color: white;
 `;

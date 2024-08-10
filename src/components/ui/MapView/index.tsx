@@ -4,25 +4,37 @@ import React, { useEffect, useRef, useState } from "react";
 import { MapContainer, Marker, Popup, TileLayer } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 import L from "leaflet";
-import { Container, Metrics, Tag as StyledTag } from "./styled";
+import { Container, Icon, Metrics, Tag as StyledTag } from "./styled";
 import markerIcon2x from "leaflet/dist/images/marker-icon-2x.png";
 import markerIcon from "leaflet/dist/images/marker-icon.png";
 import markerShadow from "leaflet/dist/images/marker-shadow.png";
 import MapClickHandler from "./MapClickHandler";
 import MapRoutingMachine from "./MapRoutingMachine";
 import { LocationType, RouteInfo } from "@/app/welcome/types";
-
+import AccessTimeFilledIcon from "@mui/icons-material/AccessTimeFilled";
+import AccessTimeIcon from "@mui/icons-material/AccessTime";
+import TimelineIcon from "@mui/icons-material/Timeline";
+import AttachMoneyIcon from "@mui/icons-material/AttachMoney";
 L.Icon.Default.mergeOptions({
   iconRetinaUrl: markerIcon2x.src,
   iconUrl: markerIcon.src,
   shadowUrl: markerShadow.src,
 });
 
-const Tag = ({ title, label }: { title: string; label: string }) => {
+const Tag = ({
+  title,
+  label,
+  icon,
+}: {
+  title: string;
+  label: string;
+  icon: JSX.Element;
+}) => {
   return (
     <StyledTag>
-      <span>{label}</span>
-      <br></br>
+      <Icon>
+        <span>{icon}</span>
+      </Icon>
       <span>{title}</span>
     </StyledTag>
   );
@@ -111,12 +123,25 @@ const MapView = ({
         <MapClickHandler onMapClick={handleMapClick} />
       </MapContainer>
       <Metrics>
-        <Tag title={calculatePrice(routeInfo?.distance, 550)} label="Price" />
         <Tag
-          title={Math.round(routeInfo?.distance) + "km" ?? ""}
+          icon={<AttachMoneyIcon />}
+          title={
+            routeInfo?.distance
+              ? calculatePrice(routeInfo?.distance, 550).toString()
+              : ""
+          }
+          label="Price"
+        />
+        <Tag
+          icon={<TimelineIcon />}
+          title={routeInfo?.time ? `${Math.round(routeInfo.distance)} Km` : ""}
           label="Distancia"
         />
-        <Tag title={Math.round(routeInfo?.time) + "min" ?? ""} label="Tiempo" />
+        <Tag
+          icon={<AccessTimeIcon />}
+          title={routeInfo?.time ? `${Math.round(routeInfo.time)} min` : ""}
+          label="Tiempo"
+        />
       </Metrics>
     </Container>
   );

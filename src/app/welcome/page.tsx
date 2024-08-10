@@ -76,7 +76,6 @@ const Dashboard = () => {
             </SearchInputWrapper>
           </SearchLabel>
         </SearchBar>
-        <CotizationButton>Cotizar envio</CotizationButton>
       </Header>
       <WrapperMap>
         <MapView
@@ -88,10 +87,14 @@ const Dashboard = () => {
       </WrapperMap>
       <Footer>
         <FooterLink active={true}>
-          <FooterIcon>{/* SVG content */}</FooterIcon>
+          <FooterIcon>
+            <ChangeUbicationIcon fontSize={"small"} />
+          </FooterIcon>
         </FooterLink>
         <FooterLink>
-          <FooterIcon>{/* SVG content */}</FooterIcon>
+          <FooterIcon>
+            <ChangeUbicationIcon fontSize={"small"} />
+          </FooterIcon>
         </FooterLink>
         <FooterLink>
           <FooterIcon>{/* SVG content */}</FooterIcon>

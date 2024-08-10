@@ -1,3 +1,4 @@
+import theme from "@/globals/theme";
 import styled from "styled-components";
 
 export const Tabs = styled.div`
@@ -5,7 +6,7 @@ export const Tabs = styled.div`
   border-bottom: 1px solid #e6dbdb;
   padding: 0 16px;
   gap: 32px;
-  background: #e72925;
+  background: ${theme.main.color};
 `;
 
 export const Tab = styled.a<{ active?: boolean }>`
