@@ -3,7 +3,10 @@ import { MapContainer, TileLayer, useMap } from "react-leaflet";
 import L from "leaflet";
 import "leaflet-routing-machine";
 import { RouteInfo } from "@/app/welcome/types";
-
+import { MyLocation } from "@mui/icons-material";
+import useLocation from "@/hooks/useLocation";
+import getCustomIcon from "@/components/icons";
+import SportsMotorsportsIcon from "@mui/icons-material/SportsMotorsports";
 const MapRoutingMachine = ({
   start,
   end,
@@ -15,7 +18,7 @@ const MapRoutingMachine = ({
 }) => {
   const map = useMap();
   const controlRef = React.useRef<null | L.Routing.Control>(null);
-
+  const myLocation = useLocation();
   useEffect(() => {
     if (!map || !start || !end || start.length !== 2 || end.length !== 2)
       return;
@@ -25,7 +28,11 @@ const MapRoutingMachine = ({
     }
 
     controlRef.current = L.Routing.control({
-      waypoints: [L.latLng(start[0], start[1]), L.latLng(end[0], end[1])],
+      waypoints: [
+        L.latLng(myLocation[0], myLocation[1]),
+        L.latLng(start[0], start[1]),
+        L.latLng(end[0], end[1]),
+      ],
       show: false,
       fitSelectedRoutes: false,
       showAlternatives: false,
@@ -33,6 +40,22 @@ const MapRoutingMachine = ({
       addWaypoints: false,
       lineOptions: {
         styles: [{ color: "#267ECA", weight: 6 }],
+      },
+      createMarker: function (i: number, waypoint: L.Routing.Waypoint, _) {
+        // Usa el ícono personalizado solo en el primer waypoint
+        if (i === 0) {
+          return L.marker(waypoint.latLng, {
+            icon: getCustomIcon({
+              icon: (
+                <SportsMotorsportsIcon
+                  style={{ color: "red", fontSize: "30" }}
+                />
+              ),
+            }),
+          });
+        }
+        // Usa el ícono por defecto para los otros waypoints
+        return L.marker(waypoint.latLng);
       },
     })
       .on("routesfound", function (e) {

@@ -11,10 +11,12 @@ import markerShadow from "leaflet/dist/images/marker-shadow.png";
 import MapClickHandler from "./MapClickHandler";
 import MapRoutingMachine from "./MapRoutingMachine";
 import { LocationType, RouteInfo } from "@/app/welcome/types";
-import AccessTimeFilledIcon from "@mui/icons-material/AccessTimeFilled";
 import AccessTimeIcon from "@mui/icons-material/AccessTime";
 import TimelineIcon from "@mui/icons-material/Timeline";
 import AttachMoneyIcon from "@mui/icons-material/AttachMoney";
+import useLocation from "@/hooks/useLocation";
+import SportsMotorsportsIcon from "@mui/icons-material/SportsMotorsports";
+
 L.Icon.Default.mergeOptions({
   iconRetinaUrl: markerIcon2x.src,
   iconUrl: markerIcon.src,
@@ -115,6 +117,7 @@ const MapView = ({
             A pretty CSS3 popup. <br /> Easily customizable.
           </Popup>
         </Marker>
+
         <MapRoutingMachine
           start={locationInfo[0]?.marker ?? undefined}
           end={locationInfo[1]?.marker ?? undefined}

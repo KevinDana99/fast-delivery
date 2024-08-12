@@ -1,6 +1,7 @@
 import { styled } from "styled-components";
 import SyncAltIcon from "@mui/icons-material/SyncAlt";
 import theme from "@/globals/theme";
+import Link from "next/link";
 export const AppContainer = styled.div`
   display: flex;
   width: 100%;
@@ -171,16 +172,27 @@ export const Footer = styled.div`
 
 export const FooterLink = styled.a<{ active?: boolean }>`
   display: flex;
-  flex-direction: column;
-  align-items: center;
+  flex-direction: row;
   justify-content: center;
+  align-items: center;
+
   gap: 4px;
   flex: 1;
   color: ${(props) => (props.active ? "#181111" : "#896161")};
-  position: fixed;
-
-  bottom: 0px;
   z-index: 100;
+`;
+
+export const ButtonFooterLink = styled.a`
+  background-color: white;
+  width: 100px;
+  height: 30px;
+  padding: 10px;
+  box-sizing: border-box;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 6px;
+  color: ${theme.main.color};
 `;
 
 export const FooterIcon = styled.div`

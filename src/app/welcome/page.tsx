@@ -18,6 +18,7 @@ import {
   SearchInputWrapper,
   SearchLabel,
   WrapperMap,
+  ButtonFooterLink,
 } from "./styled";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
 import Image from "next/image";
@@ -28,6 +29,14 @@ import { LocationType, RouteInfo } from "./types";
 const Dashboard = () => {
   const [infoLocation, setInfoLocation] = useState<LocationType[]>([]);
   const [routeInfo, setRouteInfo] = useState<RouteInfo | null>(null);
+  const originLocation = [
+    infoLocation[0]?.marker[0],
+    infoLocation[0]?.marker[1],
+  ];
+  const destinationLocation = [
+    infoLocation[1]?.marker[0],
+    infoLocation[1]?.marker[1],
+  ];
   return (
     <AppContainer>
       <Header>
@@ -86,25 +95,16 @@ const Dashboard = () => {
         />
       </WrapperMap>
       <Footer>
-        <FooterLink active={true}>
-          <FooterIcon>
-            <ChangeUbicationIcon fontSize={"small"} />
-          </FooterIcon>
-        </FooterLink>
-        <FooterLink>
-          <FooterIcon>
-            <ChangeUbicationIcon fontSize={"small"} />
-          </FooterIcon>
-        </FooterLink>
-        <FooterLink>
-          <FooterIcon>{/* SVG content */}</FooterIcon>
-        </FooterLink>
-        <FooterLink>
-          <FooterIcon>{/* SVG content */}</FooterIcon>
-        </FooterLink>
-        <FooterLink>
-          <FooterIcon>{/* SVG content */}</FooterIcon>
-        </FooterLink>
+        {destinationLocation[0] && (
+          <FooterLink>
+            <ButtonFooterLink
+              target="_blank"
+              href={`https://wa.me/?text=https://www.google.com/maps/dir/${originLocation[0]},${originLocation[1]}/${destinationLocation[0]},${destinationLocation[1]}`}
+            >
+              Confirmar
+            </ButtonFooterLink>
+          </FooterLink>
+        )}
       </Footer>
     </AppContainer>
   );
