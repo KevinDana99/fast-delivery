@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import {
   AppContainer,
   ChangeUbicationIcon,
@@ -23,9 +23,12 @@ import {
 import LocationOnIcon from "@mui/icons-material/LocationOn";
 import Image from "next/image";
 import MyLocationIcon from "@mui/icons-material/MyLocation";
-import MapView from "@/components/ui/MapView";
 import { LocationType, RouteInfo } from "./types";
+import dynamic from "next/dynamic";
 
+const DynamicMapView = dynamic(() => import("@/components/ui/MapView"), {
+  ssr: false,
+});
 const Dashboard = () => {
   const [infoLocation, setInfoLocation] = useState<LocationType[]>([]);
   const [routeInfo, setRouteInfo] = useState<RouteInfo | null>(null);
@@ -37,6 +40,7 @@ const Dashboard = () => {
     infoLocation[1]?.marker[0],
     infoLocation[1]?.marker[1],
   ];
+
   return (
     <AppContainer>
       <Header>
@@ -87,7 +91,7 @@ const Dashboard = () => {
         </SearchBar>
       </Header>
       <WrapperMap>
-        <MapView
+        <DynamicMapView
           setInfoLocation={setInfoLocation}
           locationInfo={infoLocation}
           setRouteInfo={setRouteInfo}

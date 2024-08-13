@@ -1,0 +1,31 @@
+ReferenceError: window is not defined
+    at /Users/kevindana/fast-app/.next/server/app/welcome/page.js:15:493923
+    at 8052 (/Users/kevindana/fast-app/.next/server/app/welcome/page.js:15:640380)
+    at t (/Users/kevindana/fast-app/.next/server/webpack-runtime.js:1:128)
+    at 2904 (/Users/kevindana/fast-app/.next/server/app/welcome/page.js:180:263)
+    at Object.t [as require] (/Users/kevindana/fast-app/.next/server/webpack-runtime.js:1:128)
+    at require (/Users/kevindana/fast-app/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:16:18490)
+    at I (/Users/kevindana/fast-app/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:94362)
+    at /Users/kevindana/fast-app/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:96668
+    at F._fromJSON (/Users/kevindana/fast-app/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:97106)
+    at JSON.parse (<anonymous>) {
+  digest: '1577623692'
+}
+
+Error occurred prerendering page "/welcome". Read more: https://nextjs.org/docs/messages/prerender-error
+
+ReferenceError: window is not defined
+    at /Users/kevindana/fast-app/.next/server/app/welcome/page.js:15:493923
+    at 8052 (/Users/kevindana/fast-app/.next/server/app/welcome/page.js:15:640380)
+    at t (/Users/kevindana/fast-app/.next/server/webpack-runtime.js:1:128)
+    at 2904 (/Users/kevindana/fast-app/.next/server/app/welcome/page.js:180:263)
+    at Object.t [as require] (/Users/kevindana/fast-app/.next/server/webpack-runtime.js:1:128)
+    at require (/Users/kevindana/fast-app/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:16:18490)
+    at I (/Users/kevindana/fast-app/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:94362)
+    at /Users/kevindana/fast-app/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:96668
+    at F._fromJSON (/Users/kevindana/fast-app/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:97106)
+    at JSON.parse (<anonymous>)
+
+> Export encountered errors on following paths:
+	/welcome/page: /welcome
+[?25h

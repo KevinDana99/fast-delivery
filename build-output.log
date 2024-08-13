@@ -1,0 +1,56 @@
+  ▲ Next.js 14.2.5
+
+   Creating an optimized production build ...
+ ⚠ For production Image Optimization with Next.js, the optional 'sharp' package is strongly recommended. Run 'npm i sharp', and Next.js will use it automatically for Image Optimization.
+Read more: https://nextjs.org/docs/messages/sharp-missing-in-production
+ ⚠ For production Image Optimization with Next.js, the optional 'sharp' package is strongly recommended. Run 'npm i sharp', and Next.js will use it automatically for Image Optimization.
+Read more: https://nextjs.org/docs/messages/sharp-missing-in-production
+ ✓ Compiled successfully
+   Linting and checking validity of types ...
+
+./src/components/ui/MapView/MapClickHandler/index.tsx
+22:6  Warning: React Hook useEffect has a missing dependency: 'onMapClick'. Either include it or remove the dependency array. If 'onMapClick' changes too often, find the parent component that defines it and wrap that definition in useCallback.  react-hooks/exhaustive-deps
+
+./src/components/ui/MapView/MapRoutingMachine/index.tsx
+86:6  Warning: React Hook useEffect has missing dependencies: 'myLocation' and 'onRouteFound'. Either include them or remove the dependency array. If 'onRouteFound' changes too often, find the parent component that defines it and wrap that definition in useCallback.  react-hooks/exhaustive-deps
+
+./src/components/ui/MapView/index.tsx
+86:6  Warning: React Hook useEffect has missing dependencies: 'locationInfo.length' and 'setInfoLocation'. Either include them or remove the dependency array. If 'setInfoLocation' changes too often, find the parent component that defines it and wrap that definition in useCallback.  react-hooks/exhaustive-deps
+
+info  - Need to disable some ESLint rules? Learn more here: https://nextjs.org/docs/basic-features/eslint#disabling-rules
+   Collecting page data ...
+   Generating static pages (0/6) ...
+   Generating static pages (1/6) 
+   Generating static pages (2/6) 
+   Generating static pages (4/6) 
+ReferenceError: window is not defined
+    at /Users/kevindana/fast-app/.next/server/app/welcome/page.js:15:493923
+    at 8052 (/Users/kevindana/fast-app/.next/server/app/welcome/page.js:15:640380)
+    at t (/Users/kevindana/fast-app/.next/server/webpack-runtime.js:1:128)
+    at 2904 (/Users/kevindana/fast-app/.next/server/app/welcome/page.js:180:263)
+    at Object.t [as require] (/Users/kevindana/fast-app/.next/server/webpack-runtime.js:1:128)
+    at require (/Users/kevindana/fast-app/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:16:18490)
+    at I (/Users/kevindana/fast-app/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:94362)
+    at /Users/kevindana/fast-app/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:96668
+    at F._fromJSON (/Users/kevindana/fast-app/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:97106)
+    at JSON.parse (<anonymous>) {
+  digest: '1577623692'
+}
+
+Error occurred prerendering page "/welcome". Read more: https://nextjs.org/docs/messages/prerender-error
+
+ReferenceError: window is not defined
+    at /Users/kevindana/fast-app/.next/server/app/welcome/page.js:15:493923
+    at 8052 (/Users/kevindana/fast-app/.next/server/app/welcome/page.js:15:640380)
+    at t (/Users/kevindana/fast-app/.next/server/webpack-runtime.js:1:128)
+    at 2904 (/Users/kevindana/fast-app/.next/server/app/welcome/page.js:180:263)
+    at Object.t [as require] (/Users/kevindana/fast-app/.next/server/webpack-runtime.js:1:128)
+    at require (/Users/kevindana/fast-app/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:16:18490)
+    at I (/Users/kevindana/fast-app/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:94362)
+    at /Users/kevindana/fast-app/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:96668
+    at F._fromJSON (/Users/kevindana/fast-app/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:97106)
+    at JSON.parse (<anonymous>)
+ ✓ Generating static pages (6/6)
+
+> Export encountered errors on following paths:
+	/welcome/page: /welcome

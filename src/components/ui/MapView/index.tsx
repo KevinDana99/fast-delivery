@@ -14,8 +14,7 @@ import { LocationType, RouteInfo } from "@/app/welcome/types";
 import AccessTimeIcon from "@mui/icons-material/AccessTime";
 import TimelineIcon from "@mui/icons-material/Timeline";
 import AttachMoneyIcon from "@mui/icons-material/AttachMoney";
-import useLocation from "@/hooks/useLocation";
-import SportsMotorsportsIcon from "@mui/icons-material/SportsMotorsports";
+import { LatLngTuple } from "leaflet";
 
 L.Icon.Default.mergeOptions({
   iconRetinaUrl: markerIcon2x.src,
@@ -106,13 +105,13 @@ const MapView = ({
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         />
 
-        <Marker position={locationInfo[0]?.marker ?? [0, 0]}>
+        <Marker position={(locationInfo[0]?.marker as LatLngTuple) ?? [0, 0]}>
           <Popup>
             A pretty CSS3 popup. <br /> Easily customizable.
           </Popup>
         </Marker>
 
-        <Marker position={locationInfo[1]?.marker ?? [0, 0]}>
+        <Marker position={(locationInfo[1]?.marker as LatLngTuple) ?? [0, 0]}>
           <Popup>
             A pretty CSS3 popup. <br /> Easily customizable.
           </Popup>
