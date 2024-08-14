@@ -4,7 +4,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { MapContainer, Marker, Popup, TileLayer } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 import L from "leaflet";
-import { Container, Icon, Metrics, Tag as StyledTag } from "./styled";
+import { Container, Metrics } from "./styled";
 import markerIcon2x from "leaflet/dist/images/marker-icon-2x.png";
 import markerIcon from "leaflet/dist/images/marker-icon.png";
 import markerShadow from "leaflet/dist/images/marker-shadow.png";
@@ -15,31 +15,17 @@ import AccessTimeIcon from "@mui/icons-material/AccessTime";
 import TimelineIcon from "@mui/icons-material/Timeline";
 import AttachMoneyIcon from "@mui/icons-material/AttachMoney";
 import { LatLngTuple } from "leaflet";
+import useMapView from "./hooks/useMapView";
+import Tag from "../../tags/Tag";
+import { LatLngExpression } from "leaflet";
+
+const center_map: LatLngExpression = [-42.774434, -65.039204];
 
 L.Icon.Default.mergeOptions({
   iconRetinaUrl: markerIcon2x.src,
   iconUrl: markerIcon.src,
   shadowUrl: markerShadow.src,
 });
-
-const Tag = ({
-  title,
-  label,
-  icon,
-}: {
-  title: string;
-  label: string;
-  icon: JSX.Element;
-}) => {
-  return (
-    <StyledTag>
-      <Icon>
-        <span>{icon}</span>
-      </Icon>
-      <span>{title}</span>
-    </StyledTag>
-  );
-};
 
 const MapView = ({
   setInfoLocation,
@@ -52,47 +38,15 @@ const MapView = ({
   setRouteInfo: React.Dispatch<React.SetStateAction<RouteInfo | null>>;
   routeInfo: RouteInfo | null;
 }) => {
-  const [currentLocation, setCurrentLocation] = useState<{
-    info: string;
-    marker: number[];
-  } | null>(null);
-  const getCurrentMarkerLocationInfo = async (latlng: L.LatLng) => {
-    const response = await fetch(
-      `https://nominatim.openstreetmap.org/reverse?lat=${latlng.lat}&lon=${latlng.lng}&format=json&addressdetails=1`
-    );
-    const data = await response.json();
+  const { handleMapClick, calculatePrice } = useMapView(
+    locationInfo,
+    setInfoLocation
+  );
 
-    return data.address
-      ? `${data.address.road} ${data.address.house_number ?? ""}, ${
-          data.address.city.split(" ")[2]
-        } ${data.address.city.split(" ")[3]}, ${data.address.country}`
-      : "Dirección no disponible";
-  };
-
-  const handleMapClick = async (latlng: L.LatLng) => {
-    const infoLocation = await getCurrentMarkerLocationInfo(latlng);
-
-    setCurrentLocation({
-      info: infoLocation,
-      marker: [latlng.lat, latlng.lng],
-    });
-  };
-
-  useEffect(() => {
-    if (locationInfo.length >= 2) {
-      setInfoLocation([]);
-    }
-    setInfoLocation((prevLocation) => [...prevLocation, currentLocation]);
-  }, [currentLocation]);
-
-  const calculatePrice = (dist: number, pricePerKm: number) => {
-    const distance = Math.round(Math.round(dist) * pricePerKm);
-    return distance;
-  };
   return (
     <Container>
       <MapContainer
-        center={[-42.774434, -65.039204]}
+        center={center_map}
         zoom={13}
         scrollWheelZoom={true}
         style={{ height: "100%", width: "100%" }}
@@ -132,17 +86,14 @@ const MapView = ({
               ? calculatePrice(routeInfo?.distance, 550).toString()
               : ""
           }
-          label="Price"
         />
         <Tag
           icon={<TimelineIcon />}
           title={routeInfo?.time ? `${Math.round(routeInfo.distance)} Km` : ""}
-          label="Distancia"
         />
         <Tag
           icon={<AccessTimeIcon />}
           title={routeInfo?.time ? `${Math.round(routeInfo.time)} min` : ""}
-          label="Tiempo"
         />
       </Metrics>
     </Container>
