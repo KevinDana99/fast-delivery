@@ -1,4 +1,4 @@
-import React, { MouseEventHandler } from "react";
+import React from "react";
 import {
   Icon,
   SearchBar,
@@ -49,6 +49,7 @@ const Header = ({ infoLocation, setInfoLocation }: HeaderType) => {
             <SearchInputIcon>
               <LocationOnIcon />
             </SearchInputIcon>
+
             <SearchInput
               placeholder="Destino"
               value={infoLocation[1]?.info}

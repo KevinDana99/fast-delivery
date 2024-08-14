@@ -59,21 +59,9 @@ const MapView = ({
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         />
 
-        <Marker position={(locationInfo[0]?.marker as LatLngTuple) ?? [0, 0]}>
-          <Popup>
-            A pretty CSS3 popup. <br /> Easily customizable.
-          </Popup>
-        </Marker>
-
-        <Marker position={(locationInfo[1]?.marker as LatLngTuple) ?? [0, 0]}>
-          <Popup>
-            A pretty CSS3 popup. <br /> Easily customizable.
-          </Popup>
-        </Marker>
-
         <MapRoutingMachine
-          start={locationInfo[0]?.marker ?? undefined}
-          end={locationInfo[1]?.marker ?? undefined}
+          start={locationInfo[0]?.marker}
+          end={locationInfo[1]?.marker}
           onRouteFound={(info) => setRouteInfo(info)}
         />
         <MapClickHandler onMapClick={handleMapClick} />
@@ -101,3 +89,19 @@ const MapView = ({
 };
 
 export default MapView;
+
+/*
+
+        <Marker position={(locationInfo[0]?.marker as LatLngTuple) ?? [0, 0]}>
+          <Popup>
+            A pretty CSS3 popup. <br /> Easily customizable.
+          </Popup>
+        </Marker>
+
+        <Marker position={(locationInfo[1]?.marker as LatLngTuple) ?? [0, 0]}>
+          <Popup>
+            A pretty CSS3 popup. <br /> Easily customizable.
+          </Popup>
+        </Marker>
+
+        */

@@ -1,15 +1,17 @@
+import { LocationType } from "@/app/welcome/types";
 import { useEffect, useState } from "react";
 
-const useMapView = (locationInfo, setLocationInfo) => {
+const useMapView = (
+  locationInfo: LocationType[],
+  setLocationInfo: React.Dispatch<React.SetStateAction<LocationType[]>>
+) => {
   const [currentLocation, setCurrentLocation] = useState<{
     info: string;
     marker: number[];
-  } | null>(null);
-
+  }>({ info: "geremias", marker: [] });
   const getCurrentMarkerLocationInfo = async (latlng: L.LatLng) => {
-    const response = await fetch(
-      `https://nominatim.openstreetmap.org/reverse?lat=${latlng.lat}&lon=${latlng.lng}&format=json&addressdetails=1`
-    );
+    const API_URL = `https://nominatim.openstreetmap.org/reverse?lat=${latlng.lat}&lon=${latlng.lng}&format=json&addressdetails=1`;
+    const response = await fetch(API_URL);
     const data = await response.json();
 
     return data.address
