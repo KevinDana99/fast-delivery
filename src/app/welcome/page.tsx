@@ -103,7 +103,7 @@ const Dashboard = () => {
           <FooterLink>
             <ButtonFooterLink
               target="_blank"
-              href={`https://wa.me/?text=https://www.google.com/maps/dir/${originLocation[0]},${originLocation[1]}/${destinationLocation[0]},${destinationLocation[1]}`}
+              href={`https://wa.me/+5492805062685?text=https://www.google.com/maps/dir/${originLocation[0]},${originLocation[1]}/${destinationLocation[0]},${destinationLocation[1]}`}
             >
               Confirmar
             </ButtonFooterLink>
