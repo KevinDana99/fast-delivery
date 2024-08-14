@@ -1,4 +1,4 @@
-import React from "react";
+import React, { MouseEventHandler } from "react";
 import {
   Icon,
   SearchBar,
@@ -12,9 +12,12 @@ import {
 import LocationOnIcon from "@mui/icons-material/LocationOn";
 import Image from "next/image";
 import MyLocationIcon from "@mui/icons-material/MyLocation";
-import { LocationType } from "@/app/welcome/types";
+import { HeaderType } from "./types";
+import useHeader from "./hooks/useHeader";
 
-const Header = ({ infoLocation }: { infoLocation: LocationType[] }) => {
+const Header = ({ infoLocation, setInfoLocation }: HeaderType) => {
+  const { handleChangeDestinationLocation, handleChangeOriginLocation } =
+    useHeader({ infoLocation, setInfoLocation });
   return (
     <Container>
       <Icon>
@@ -25,7 +28,6 @@ const Header = ({ infoLocation }: { infoLocation: LocationType[] }) => {
           height={35}
         />
       </Icon>
-
       <SearchBar>
         <SearchLabel>
           <SearchInputWrapper>
@@ -34,7 +36,8 @@ const Header = ({ infoLocation }: { infoLocation: LocationType[] }) => {
             </SearchInputIcon>
             <SearchInput
               placeholder="Origen"
-              value={infoLocation[0]?.info ?? ""}
+              value={infoLocation[0]?.info}
+              onChange={handleChangeOriginLocation}
             />
             <SearchButton></SearchButton>
           </SearchInputWrapper>
@@ -48,7 +51,8 @@ const Header = ({ infoLocation }: { infoLocation: LocationType[] }) => {
             </SearchInputIcon>
             <SearchInput
               placeholder="Destino"
-              value={infoLocation[1]?.info ?? ""}
+              value={infoLocation[1]?.info}
+              onChange={handleChangeDestinationLocation}
             />
             <SearchButton></SearchButton>
           </SearchInputWrapper>
