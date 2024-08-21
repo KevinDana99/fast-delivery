@@ -7,22 +7,22 @@ import { RouteInfo } from "@/app/welcome/types";
 import useLocation from "@/hooks/useLocation";
 import getCustomIcon from "@/components/icons";
 import SportsMotorsportsIcon from "@mui/icons-material/SportsMotorsports";
+const initValue = [0, 0];
 const MapRoutingMachine = ({
-  start,
-  end,
+  start = initValue,
+  end = initValue,
   onRouteFound,
 }: {
   start: number[];
   end: number[];
   onRouteFound?: ({ distance, time, instructions }: RouteInfo) => void;
 }) => {
+  console.log(start, end, "start-end");
   const map = useMap();
   const controlRef = React.useRef<null | L.Routing.Control>(null);
   const myLocation = useLocation();
-  useEffect(() => {
-    if (!map || !start || !end || start.length !== 2 || end.length !== 2)
-      return;
 
+  useEffect(() => {
     if (controlRef.current) {
       map.removeControl(controlRef.current);
     }
