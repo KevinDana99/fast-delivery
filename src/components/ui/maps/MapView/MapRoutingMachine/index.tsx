@@ -67,10 +67,6 @@ const MapRoutingMachine = ({
         const time = summary.totalTime / 60;
         const instructions = routes[0].instructions;
 
-        instructions.forEach((step: any, index: number) => {
-          console.log(`${index + 1}: ${step.text}`);
-        });
-
         if (onRouteFound) {
           onRouteFound({ distance, time, instructions });
         }

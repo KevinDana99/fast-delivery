@@ -4,6 +4,7 @@ import { LocationType, RouteInfo } from "../types";
 const useWelcome = () => {
   const [infoLocation, setInfoLocation] = useState<LocationType[]>([]);
   const [routeInfo, setRouteInfo] = useState<RouteInfo | null>(null);
+  console.log(infoLocation, "info-welcome");
   const originLocation = [
     infoLocation[0]?.marker[0],
     infoLocation[0]?.marker[1],

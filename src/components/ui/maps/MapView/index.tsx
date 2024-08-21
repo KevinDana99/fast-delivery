@@ -14,7 +14,6 @@ import { LocationType, RouteInfo } from "@/app/welcome/types";
 import AccessTimeIcon from "@mui/icons-material/AccessTime";
 import TimelineIcon from "@mui/icons-material/Timeline";
 import AttachMoneyIcon from "@mui/icons-material/AttachMoney";
-import { LatLngTuple } from "leaflet";
 import useMapView from "./hooks/useMapView";
 import Tag from "../../tags/Tag";
 import { LatLngExpression } from "leaflet";

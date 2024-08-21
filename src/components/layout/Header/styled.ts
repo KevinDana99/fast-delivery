@@ -53,6 +53,7 @@ export const SearchInputWrapper = styled.div`
   border-radius: 16px;
   height: 100%;
   background-color: #f4f0f0;
+  position: relative;
 `;
 
 export const SearchInputIcon = styled.div`
@@ -97,4 +98,28 @@ export const CotizationButton = styled.div`
   background-color: white;
   padding: 15px;
   border-radius: 15px;
+`;
+
+export const Select = styled.div<{ visible: boolean }>`
+  width: 100%;
+height: auto;
+  overflow: scroll;
+  background-color: white;
+  border-radius: 10px;
+  position: absolute;
+  top: 55px;
+  box-sizing: border-box;
+  z-index: 10;
+  display: ${({ visible }) => (visible ? "flex" : "none")};
+  flex-direction: column;
+`;
+export const Option = styled.div`
+  color: black;
+  font-size: 16px;
+  padding: 15px;
+  box-sizing: border-box;
+  z-index: 10;
+  border-bottom: solid 1px lightgray;
+  width: 100%;
+  height: 40px;
 `;

@@ -8,6 +8,8 @@ import {
   SearchInput,
   SearchInputIcon,
   SearchInputWrapper,
+  Select,
+  Option,
 } from "./styled";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
 import Image from "next/image";
@@ -16,8 +18,13 @@ import { HeaderType } from "./types";
 import useHeader from "./hooks/useHeader";
 
 const Header = ({ infoLocation, setInfoLocation }: HeaderType) => {
-  const { handleChangeDestinationLocation, handleChangeOriginLocation } =
-    useHeader({ infoLocation, setInfoLocation });
+  const {
+    handleChangeDestinationLocation,
+    handleChangeOriginLocation,
+    query,
+    searchOptions,
+  } = useHeader({ infoLocation, setInfoLocation });
+
   return (
     <Container>
       <Icon>
@@ -36,9 +43,23 @@ const Header = ({ infoLocation, setInfoLocation }: HeaderType) => {
             </SearchInputIcon>
             <SearchInput
               placeholder="Origen"
-              value={infoLocation[0]?.info}
+              value={query.origin}
               onChange={handleChangeOriginLocation}
             />
+
+            <Select
+              visible={
+                searchOptions?.origin?.length !== 0 && query.origin
+                  ? true
+                  : false
+              }
+            >
+              {searchOptions?.origin?.map(({ address }) => (
+                <Option>
+                  {address.road} {address?.house_number}
+                </Option>
+              ))}
+            </Select>
             <SearchButton></SearchButton>
           </SearchInputWrapper>
         </SearchLabel>
@@ -52,10 +73,24 @@ const Header = ({ infoLocation, setInfoLocation }: HeaderType) => {
 
             <SearchInput
               placeholder="Destino"
-              value={infoLocation[1]?.info}
+              value={query.destination}
               onChange={handleChangeDestinationLocation}
             />
+
             <SearchButton></SearchButton>
+            <Select
+              visible={
+                searchOptions?.destination?.length !== 0 && query.destination
+                  ? true
+                  : false
+              }
+            >
+              {searchOptions?.destination?.map(({ address }) => (
+                <Option>
+                  {address.road} {address?.house_number}
+                </Option>
+              ))}
+            </Select>
           </SearchInputWrapper>
         </SearchLabel>
       </SearchBar>
