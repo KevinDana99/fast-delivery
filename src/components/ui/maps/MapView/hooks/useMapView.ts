@@ -44,6 +44,7 @@ const useMapView = (
     setCurrentLocation,
     calculatePrice,
     handleMapClick,
+    getCurrentMarkerLocationInfo,
   };
 };
 

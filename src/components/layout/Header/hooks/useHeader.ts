@@ -1,15 +1,17 @@
-import React, { useEffect, useState } from "react";
+import React, { ChangeEvent, MouseEvent, useEffect, useState } from "react";
 import { HeaderType } from "../types";
-import { SearchOptions } from "./types";
+import { SearchOption, SearchOptions } from "./types";
+import { LocationType } from "@/app/welcome/types";
 
 const useHeader = ({ infoLocation, setInfoLocation }: HeaderType) => {
+  const infoLocationPrimary: LocationType = infoLocation[0];
+  const infoLocationSecondary: LocationType = infoLocation[1];
+
   const [query, setQuery] = useState({
-    origin: infoLocation[0]?.info ?? "1",
-    destination: infoLocation[1]?.info ?? "2",
+    origin: infoLocation[0]?.info ?? "",
+    destination: infoLocation[1]?.info ?? "",
   });
 
-  console.log(infoLocation, "info-header");
-  console.log(query, "info-query");
   const [searchOptions, setSearchOptions] = useState<{
     origin: SearchOptions | null;
     destination: SearchOptions | null;
@@ -48,11 +50,67 @@ const useHeader = ({ infoLocation, setInfoLocation }: HeaderType) => {
     const currentInfo = e.target.value;
     setQuery({ ...query, destination: currentInfo });
     const result = await handleSearchLocation(currentInfo);
+
     setSearchOptions({ ...searchOptions, destination: result });
   };
 
+  const handleSelectedLocation = async (
+    option: SearchOption,
+    type: "origin" | "destination"
+  ) => {
+    switch (type) {
+      case "origin":
+        setInfoLocation([
+          {
+            ...infoLocationPrimary,
+            info: `${option.address.road} ${option.address?.house_number}`,
+            marker: [parseFloat(option.lat), parseFloat(option.lon)],
+          },
+          infoLocationSecondary,
+        ]);
+        break;
+      case "destination":
+        setInfoLocation([
+          infoLocationPrimary,
+          {
+            ...infoLocationSecondary,
+            info: `${option.address.road} ${option.address?.house_number}`,
+            marker: [parseFloat(option.lat), parseFloat(option.lon)],
+          },
+        ]);
+    }
+
+    setSearchOptions({
+      origin: null,
+      destination: null,
+    });
+  };
+
+  const handleCleanInput = (type: "origin" | "destination") => {
+    switch (type) {
+      case "origin":
+        setQuery({
+          ...query,
+          origin: "",
+        });
+        setInfoLocation([
+          { ...infoLocationPrimary, info: "", marker: [] },
+          infoLocationSecondary,
+        ]);
+        break;
+      case "destination":
+        setQuery({
+          ...query,
+          destination: "",
+        });
+        setInfoLocation([
+          infoLocationPrimary,
+          { ...infoLocationSecondary, info: "", marker: [] },
+        ]);
+    }
+  };
+
   useEffect(() => {
-    console.log("paso", infoLocation[0]?.info);
     setQuery({
       ...query,
       origin: infoLocation[0]?.info,
@@ -63,6 +121,8 @@ const useHeader = ({ infoLocation, setInfoLocation }: HeaderType) => {
   return {
     handleChangeOriginLocation,
     handleChangeDestinationLocation,
+    handleCleanInput,
+    handleSelectedLocation,
     query,
     searchOptions,
   };

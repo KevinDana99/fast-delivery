@@ -4,12 +4,13 @@ import {
   SearchBar,
   SearchLabel,
   Container,
-  SearchButton,
+  CancelContainerButton,
   SearchInput,
   SearchInputIcon,
   SearchInputWrapper,
   Select,
   Option,
+  IconCancel,
 } from "./styled";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
 import Image from "next/image";
@@ -21,9 +22,14 @@ const Header = ({ infoLocation, setInfoLocation }: HeaderType) => {
   const {
     handleChangeDestinationLocation,
     handleChangeOriginLocation,
+    handleCleanInput,
+    handleSelectedLocation,
     query,
     searchOptions,
-  } = useHeader({ infoLocation, setInfoLocation });
+  } = useHeader({
+    infoLocation,
+    setInfoLocation,
+  });
 
   return (
     <Container>
@@ -49,18 +55,25 @@ const Header = ({ infoLocation, setInfoLocation }: HeaderType) => {
 
             <Select
               visible={
-                searchOptions?.origin?.length !== 0 && query.origin
+                searchOptions?.origin?.length !== 0 && !infoLocation[0]?.info
                   ? true
                   : false
               }
             >
-              {searchOptions?.origin?.map(({ address }) => (
-                <Option>
-                  {address.road} {address?.house_number}
+              {searchOptions?.origin?.map((option) => (
+                <Option
+                  onClick={() => handleSelectedLocation(option, "origin")}
+                >
+                  {option.address.road} {option.address?.house_number}
                 </Option>
               ))}
             </Select>
-            <SearchButton></SearchButton>
+            <CancelContainerButton>
+              <IconCancel
+                color="inherit"
+                onClick={() => handleCleanInput("origin")}
+              />
+            </CancelContainerButton>
           </SearchInputWrapper>
         </SearchLabel>
       </SearchBar>
@@ -77,17 +90,25 @@ const Header = ({ infoLocation, setInfoLocation }: HeaderType) => {
               onChange={handleChangeDestinationLocation}
             />
 
-            <SearchButton></SearchButton>
+            <CancelContainerButton>
+              <IconCancel
+                color="inherit"
+                onClick={() => handleCleanInput("destination")}
+              />
+            </CancelContainerButton>
             <Select
               visible={
-                searchOptions?.destination?.length !== 0 && query.destination
+                searchOptions?.destination?.length !== 0 &&
+                !infoLocation[1]?.info
                   ? true
                   : false
               }
             >
-              {searchOptions?.destination?.map(({ address }) => (
-                <Option>
-                  {address.road} {address?.house_number}
+              {searchOptions?.destination?.map((option) => (
+                <Option
+                  onClick={() => handleSelectedLocation(option, "destination")}
+                >
+                  {option.address.road} {option.address?.house_number}
                 </Option>
               ))}
             </Select>

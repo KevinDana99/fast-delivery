@@ -17,7 +17,6 @@ const MapRoutingMachine = ({
   end: number[];
   onRouteFound?: ({ distance, time, instructions }: RouteInfo) => void;
 }) => {
-  console.log(start, end, "start-end");
   const map = useMap();
   const controlRef = React.useRef<null | L.Routing.Control>(null);
   const myLocation = useLocation();
@@ -44,7 +43,6 @@ const MapRoutingMachine = ({
       },
       //@ts-ignore
       createMarker: function (i: number, waypoint: L.Routing.Waypoint, _) {
-        // Usa el ícono personalizado solo en el primer waypoint
         if (i === 0) {
           return L.marker(waypoint.latLng, {
             icon: getCustomIcon({
@@ -56,7 +54,7 @@ const MapRoutingMachine = ({
             }),
           });
         }
-        // Usa el ícono por defecto para los otros waypoints
+
         return L.marker(waypoint.latLng);
       },
     })

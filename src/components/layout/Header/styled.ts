@@ -1,6 +1,6 @@
 import theme from "@/globals/theme";
 import styled from "styled-components";
-
+import CancelIcon from "@mui/icons-material/Cancel";
 export const Container = styled.div`
   width: 100%;
   display: flex;
@@ -44,8 +44,16 @@ export const SearchLabel = styled.label`
   height: 48px;
   width: 100%;
 `;
-
+export const IconCancel = styled(CancelIcon)`
+  visibility: hidden;
+  color: #afa7a7;
+`;
 export const SearchInputWrapper = styled.div`
+  &:hover {
+    ${IconCancel} {
+      visibility: visible;
+    }
+  }
   display: flex;
   width: 100%;
   flex: 1;
@@ -83,7 +91,7 @@ export const SearchInput = styled.input`
   }
 `;
 
-export const SearchButton = styled.button`
+export const CancelContainerButton = styled.button`
   display: flex;
   align-items: center;
   justify-content: center;
@@ -102,7 +110,7 @@ export const CotizationButton = styled.div`
 
 export const Select = styled.div<{ visible: boolean }>`
   width: 100%;
-height: auto;
+  height: auto;
   overflow: scroll;
   background-color: white;
   border-radius: 10px;
