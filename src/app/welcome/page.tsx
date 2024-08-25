@@ -23,7 +23,9 @@ const Welcome = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    setLoading(false);
+    const timer = setTimeout(() => setLoading(false), 1000);
+
+    return () => clearTimeout(timer);
   }, []);
   return loading ? (
     <Loading />
