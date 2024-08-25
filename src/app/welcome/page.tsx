@@ -1,10 +1,11 @@
 "use client";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { AppContainer, WrapperMap } from "./styled";
 import dynamic from "next/dynamic";
 import useWelcome from "./hooks/useWelcome";
 import Footer from "@/components/layout/Footer";
 import Header from "@/components/layout/Header";
+import Loading from "@/components/ui/Loading";
 
 const DynamicMapView = dynamic(() => import("@/components/ui/maps/MapView"), {
   ssr: false,
@@ -19,7 +20,14 @@ const Welcome = () => {
     destinationLocation,
   } = useWelcome();
 
-  return (
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    setLoading(false);
+  }, []);
+  return loading ? (
+    <Loading />
+  ) : (
     <AppContainer>
       <Header infoLocation={infoLocation} setInfoLocation={setInfoLocation} />
       <WrapperMap>
