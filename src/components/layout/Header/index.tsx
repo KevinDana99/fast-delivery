@@ -56,8 +56,9 @@ const Header = ({ infoLocation, setInfoLocation }: HeaderType) => {
                   : false
               }
             >
-              {searchOptions?.origin?.map((option) => (
+              {searchOptions?.origin?.map((option, index) => (
                 <Option
+                  key={`key-${index}`}
                   onClick={() => handleSelectedLocation(option, "origin")}
                 >
                   {option.address.road} {option.address?.house_number}
@@ -100,8 +101,9 @@ const Header = ({ infoLocation, setInfoLocation }: HeaderType) => {
                   : false
               }
             >
-              {searchOptions?.destination?.map((option) => (
+              {searchOptions?.destination?.map((option, index) => (
                 <Option
+                  key={`key-${index}`}
                   onClick={() => handleSelectedLocation(option, "destination")}
                 >
                   {option.address.road} {option.address?.house_number}
