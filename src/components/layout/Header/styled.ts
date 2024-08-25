@@ -22,7 +22,6 @@ export const Container = styled.div`
 `;
 
 export const Icon = styled.div`
-  color: #181111;
   width: 40px;
   height: 40px;
 `;
@@ -111,7 +110,6 @@ export const CotizationButton = styled.div`
 export const Select = styled.div<{ visible: boolean }>`
   width: 100%;
   height: auto;
-  overflow: scroll;
   background-color: white;
   border-radius: 10px;
   position: absolute;

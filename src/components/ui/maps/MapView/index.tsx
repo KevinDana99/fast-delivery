@@ -17,6 +17,7 @@ import AttachMoneyIcon from "@mui/icons-material/AttachMoney";
 import useMapView from "./hooks/useMapView";
 import Tag from "../../tags/Tag";
 import { LatLngExpression } from "leaflet";
+import { getRoutePrice } from "./constants/prices";
 
 const center_map: LatLngExpression = [-42.774434, -65.039204];
 
@@ -69,7 +70,7 @@ const MapView = ({
           icon={<AttachMoneyIcon />}
           title={
             routeInfo?.distance
-              ? calculatePrice(routeInfo?.distance, 550).toString()
+              ? getRoutePrice(routeInfo.distance).toString()
               : ""
           }
         />
@@ -87,19 +88,3 @@ const MapView = ({
 };
 
 export default MapView;
-
-/*
-
-        <Marker position={(locationInfo[0]?.marker as LatLngTuple) ?? [0, 0]}>
-          <Popup>
-            A pretty CSS3 popup. <br /> Easily customizable.
-          </Popup>
-        </Marker>
-
-        <Marker position={(locationInfo[1]?.marker as LatLngTuple) ?? [0, 0]}>
-          <Popup>
-            A pretty CSS3 popup. <br /> Easily customizable.
-          </Popup>
-        </Marker>
-
-        */

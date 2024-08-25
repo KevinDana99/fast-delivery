@@ -17,6 +17,7 @@ import Image from "next/image";
 import MyLocationIcon from "@mui/icons-material/MyLocation";
 import { HeaderType } from "./types";
 import useHeader from "./hooks/useHeader";
+import Logo from "@/components/ui/Logo";
 
 const Header = ({ infoLocation, setInfoLocation }: HeaderType) => {
   const {
@@ -34,12 +35,7 @@ const Header = ({ infoLocation, setInfoLocation }: HeaderType) => {
   return (
     <Container>
       <Icon>
-        <Image
-          src="/logo.png"
-          alt="logo-fast-delivery"
-          width={35}
-          height={35}
-        />
+        <Logo />
       </Icon>
       <SearchBar>
         <SearchLabel>

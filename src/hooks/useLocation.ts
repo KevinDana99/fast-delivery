@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-const STATIC_LOCATION = [-42.788721, -65.062253];
+const STATIC_LOCATION = [-42.784017, -65.052194];
 const useLocation = () => {
   const [location, setLocation] = useState<number[]>([0, 0]);
 
