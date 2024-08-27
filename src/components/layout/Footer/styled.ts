@@ -1,4 +1,5 @@
 import theme from "@/globals/theme";
+import { Button } from "@mui/material";
 import styled from "styled-components";
 
 export const Container = styled.div`
@@ -6,6 +7,7 @@ export const Container = styled.div`
   height: 50px;
   position: fixed;
   display: flex;
+  justify-content: center;
   align-items: center;
   gap: 8px;
   border-top: 1px solid #f4f0f0;
@@ -52,3 +54,5 @@ export const FooterIcon = styled.div`
   justify-content: center;
   color: white;
 `;
+
+export const MuiButton = styled(Button)``;
