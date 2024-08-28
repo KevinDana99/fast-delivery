@@ -58,7 +58,7 @@ const Details = () => {
       const base64 = dataURLToBase64(dataUrl);
       const imageUrl = await uploadImageToImgBB(base64);
 
-      window.location.href = `https://wa.me/+5492805062685?text=${imageUrl}`;
+      window.location.href = `whatsapp://send?text=53d426890fa9%20-%20view%20on%20ImgBB:%20${imageUrl}`;
     }
   };
 
