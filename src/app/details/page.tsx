@@ -30,6 +30,16 @@ const Details = () => {
   const { loading } = useLoading();
   const captureRef = useRef(null);
   const [comprobant, setComprobant] = useState(null);
+
+  const sendLinkToWhatsApp = (imageUrl) => {
+    const phoneNumber = "542805062685";
+    const text = `Comprobante de envio: ${imageUrl}`;
+    const encodedText = encodeURIComponent(text);
+    const url = `whatsapp://send?phone=${phoneNumber}&text=${encodedText}`;
+
+    window.location.href = url;
+  };
+
   const uploadImageToImgBB = async (imageFile) => {
     const formData = new FormData();
     formData.append("image", imageFile);
@@ -58,7 +68,7 @@ const Details = () => {
       const base64 = dataURLToBase64(dataUrl);
       const imageUrl = await uploadImageToImgBB(base64);
 
-      window.location.href = `whatsapp://send?text=53d426890fa9%20-%20view%20on%20ImgBB:%20${imageUrl}`;
+      sendLinkToWhatsApp(imageUrl);
     }
   };
 
