@@ -2,6 +2,7 @@ import React from "react";
 import { ButtonFooterLink, Container, FooterLink, MuiButton } from "./styled";
 
 import theme from "@/globals/theme";
+import Link from "next/link";
 
 const Footer = ({
   originLocation,
@@ -13,21 +14,14 @@ const Footer = ({
   return (
     <Container>
       {destinationLocation[0] && (
-        <MuiButton variant="contained">Solicitar Envio</MuiButton>
+        <Link href={"/details"}>
+          <MuiButton color="secondary" variant="contained">
+            Solicitar Envio
+          </MuiButton>
+        </Link>
       )}
     </Container>
   );
 };
 
 export default Footer;
-
-/*
-
-          <ButtonFooterLink
-            target="_blank"
-            href={`https://wa.me/+5492805062685?text=https://www.google.com/maps/dir/${originLocation[0]},${originLocation[1]}/${destinationLocation[0]},${destinationLocation[1]}`}
-          >
-          
-          </ButtonFooterLink>
-
-          */

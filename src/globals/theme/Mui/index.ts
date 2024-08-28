@@ -4,11 +4,12 @@ import theme from "..";
 const muiTheme = createTheme({
   palette: {
     primary: {
-      main: theme.colors.background,
-      contrastText: theme.main.color,
+      main: theme.main.color,
+      contrastText: theme.colors.background,
     },
     secondary: {
-      main: theme.colors.secondary,
+      main: theme.colors.background,
+      contrastText: theme.main.color,
     },
     background: {
       default: theme.colors.background,

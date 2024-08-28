@@ -6,11 +6,12 @@ import useWelcome from "./hooks/useWelcome";
 import Footer from "@/components/layout/Footer";
 import Header from "@/components/layout/Header";
 import Loading from "@/components/ui/Loading";
+import useLoading from "@/hooks/useLoading";
 
 const DynamicMapView = dynamic(() => import("@/components/ui/maps/MapView"), {
   ssr: false,
 });
-const Welcome = () => {
+const Home = () => {
   const {
     infoLocation,
     setInfoLocation,
@@ -19,14 +20,7 @@ const Welcome = () => {
     originLocation,
     destinationLocation,
   } = useWelcome();
-
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    const timer = setTimeout(() => setLoading(false), 1000);
-
-    return () => clearTimeout(timer);
-  }, []);
+  const { loading } = useLoading();
   return loading ? (
     <Loading />
   ) : (
@@ -48,4 +42,4 @@ const Welcome = () => {
   );
 };
 
-export default Welcome;
+export default Home;
