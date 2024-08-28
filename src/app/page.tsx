@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from "react";
 import { AppContainer, WrapperMap } from "./styled";
 import dynamic from "next/dynamic";
-import useWelcome from "./hooks/useWelcome";
+import useHome from "./hooks/useHome";
 import Footer from "@/components/layout/Footer";
 import Header from "@/components/layout/Header";
 import Loading from "@/components/ui/Loading";
@@ -19,7 +19,7 @@ const Home = () => {
     routeInfo,
     originLocation,
     destinationLocation,
-  } = useWelcome();
+  } = useHome();
   const { loading } = useLoading();
   return loading ? (
     <Loading />

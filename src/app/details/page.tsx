@@ -1,7 +1,6 @@
 "use client";
-import React, { useRef, useState } from "react";
+import React from "react";
 import {
-  CloseIcon,
   Container,
   Header,
   IconWrapper,
@@ -12,66 +11,30 @@ import {
   ItemDetails,
   ItemName,
   ItemPrice,
-  ItemQuantity,
   LabelContainer,
   LogoContainer,
-  PayButton,
   StyledInput,
   StyledSelect,
-  Title,
 } from "./styled";
 import Logo from "@/components/ui/Logo";
 import { Button } from "@mui/material";
 import useLoading from "@/hooks/useLoading";
 import Loading from "@/components/ui/Loading";
 import ShoppingBagIcon from "@mui/icons-material/ShoppingBag";
-import html2canvas from "html2canvas";
+import { getRoutePrice } from "@/components/ui/maps/MapView/constants/prices";
+import useDetails from "./hooks/useDetails";
 const Details = () => {
   const { loading } = useLoading();
-  const captureRef = useRef(null);
-
-  const sendLinkToWhatsApp = (imageUrl) => {
-    const phoneNumber = "542805062685";
-    const text = `Comprobante de envio: ${imageUrl}`;
-    const encodedText = encodeURIComponent(text);
-    const url = `whatsapp://send?phone=${phoneNumber}&text=${encodedText}`;
-
-    window.location.href = url;
-  };
-
-  const uploadImageToImgBB = async (imageFile) => {
-    const formData = new FormData();
-    formData.append("image", imageFile);
-    formData.append("key", "c73710a57090e61d34266a8d4a09c14b");
-
-    const response = await fetch("https://api.imgbb.com/1/upload", {
-      method: "POST",
-      body: formData,
-    });
-
-    const data = await response.json();
-    console.log(data, "data");
-    return data.data.url_viewer;
-  };
-
-  const handleCapture = async () => {
-    const dataURLToBase64 = (dataURL: string) => {
-      return dataURL.split(",")[1];
-    };
-    if (captureRef.current) {
-      const canvas = await html2canvas(captureRef.current, {
-        ignoreElements: (element) => {
-          return element.classList.contains("hidden-capture");
-        },
-      });
-      const dataUrl = canvas.toDataURL("image/png");
-      const base64 = dataURLToBase64(dataUrl);
-      const imageUrl = await uploadImageToImgBB(base64);
-
-      sendLinkToWhatsApp(imageUrl);
-    }
-  };
-
+  const {
+    routeInfo,
+    infoLocation,
+    transaction,
+    handleCapture,
+    handleTransactionProduct,
+    handleTransactionType,
+    getTransactionType,
+    captureRef,
+  } = useDetails();
   return loading ? (
     <Loading />
   ) : (
@@ -88,7 +51,7 @@ const Details = () => {
       <InputContainer className="hidden-capture">
         <InputWrapper>
           <InputGroup>
-            <StyledInput required={true} />
+            <StyledInput required={true} onChange={handleTransactionProduct} />
             <IconWrapper
               data-icon="User"
               data-size="24px"
@@ -107,7 +70,7 @@ const Details = () => {
       <InputContainer className="hidden-capture">
         <InputWrapper>
           <InputGroup>
-            <StyledSelect>
+            <StyledSelect onChange={handleTransactionType}>
               <option value="transfer">Transferencia</option>
               <option value="cash">Efectivo</option>
             </StyledSelect>
@@ -118,32 +81,40 @@ const Details = () => {
       <ItemContainer>
         <ItemDetails>
           <ItemName>Origen</ItemName>
-          <ItemPrice>Av. Roca</ItemPrice>
+          <ItemPrice>{infoLocation[0].info}</ItemPrice>
         </ItemDetails>
       </ItemContainer>
       <ItemContainer>
         <ItemDetails>
           <ItemName>Destino</ItemName>
-          <ItemPrice>Av. Hansen</ItemPrice>
+          <ItemPrice>{infoLocation[1].info}</ItemPrice>
+        </ItemDetails>
+      </ItemContainer>
+      <ItemContainer>
+        <ItemDetails>
+          <ItemName>Producto</ItemName>
+          <ItemPrice>{transaction?.product}</ItemPrice>
         </ItemDetails>
       </ItemContainer>
       <ItemContainer>
         <ItemDetails>
           <ItemName>Tiempo calculado</ItemName>
-          <ItemPrice>20 min</ItemPrice>
+          <ItemPrice>{routeInfo.time} min</ItemPrice>
         </ItemDetails>
       </ItemContainer>
       <ItemContainer>
         <ItemDetails>
           <ItemName>Medio de pago</ItemName>
-          <ItemPrice>Transferencia</ItemPrice>
+          <ItemPrice>
+            {getTransactionType(transaction?.type ?? "transfer")}
+          </ItemPrice>
         </ItemDetails>
       </ItemContainer>
 
       <ItemContainer>
         <ItemDetails>
           <ItemName>Total</ItemName>
-          <ItemPrice>$2500</ItemPrice>
+          <ItemPrice>{getRoutePrice(routeInfo.distance).toString()}</ItemPrice>
         </ItemDetails>
       </ItemContainer>
       <div style={{ padding: "0.75rem" }}>

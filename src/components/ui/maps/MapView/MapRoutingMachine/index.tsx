@@ -26,7 +26,7 @@ const MapRoutingMachine = ({
     const routes = e.routes;
     const summary = routes[0].summary;
     const distance = summary.totalDistance / 1000;
-    const time = summary.totalTime / 60 + 5;
+    const time = Math.round(summary.totalTime / 60 + 10);
     const instructions = routes[0].instructions;
 
     if (onRouteFound) {

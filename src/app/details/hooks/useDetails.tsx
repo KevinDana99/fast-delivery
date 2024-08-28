@@ -1,0 +1,97 @@
+import { RouteContext } from "@/contexts/routeContext";
+import html2canvas from "html2canvas";
+import { EventHandler, useContext, useRef, useState } from "react";
+
+type TransactionType = {
+  type?: "transfer" | "cash";
+  product?: string;
+};
+
+const useDetails = () => {
+  const [transaction, setTransaction] = useState<TransactionType>(null);
+  const { infoLocation, routeInfo } = useContext(RouteContext);
+  const captureRef = useRef(null);
+
+  const sendLinkToWhatsApp = (imageUrl) => {
+    const phoneNumber = "542805062685";
+    const text = `Comprobante de envio: ${imageUrl}`;
+    const encodedText = encodeURIComponent(text);
+    const url = `whatsapp://send?phone=${phoneNumber}&text=${encodedText}`;
+
+    window.location.href = url;
+  };
+
+  const uploadImageToImgBB = async (imageFile) => {
+    const formData = new FormData();
+    formData.append("image", imageFile);
+    formData.append("key", "c73710a57090e61d34266a8d4a09c14b");
+
+    const response = await fetch("https://api.imgbb.com/1/upload", {
+      method: "POST",
+      body: formData,
+    });
+
+    const data = await response.json();
+    return data.data.url_viewer;
+  };
+
+  const handleCapture = async () => {
+    const dataURLToBase64 = (dataURL: string) => {
+      return dataURL.split(",")[1];
+    };
+    if (captureRef.current) {
+      const canvas = await html2canvas(captureRef.current, {
+        ignoreElements: (element) => {
+          return element.classList.contains("hidden-capture");
+        },
+      });
+      const dataUrl = canvas.toDataURL("image/png");
+      const base64 = dataURLToBase64(dataUrl);
+      const imageUrl = await uploadImageToImgBB(base64);
+
+      sendLinkToWhatsApp(imageUrl);
+    }
+  };
+
+  const handleTransactionType = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    const transactionType = e.target.value as TransactionType["type"];
+    setTransaction({
+      ...transaction,
+      type: transactionType,
+    });
+  };
+
+  const handleTransactionProduct = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const productValue = e.target.value;
+    setTransaction({
+      ...transaction,
+      product: productValue,
+    });
+  };
+
+  const getTransactionType = (value: TransactionType["type"]) => {
+    switch (value) {
+      case "transfer":
+        return "Transferencia";
+
+      case "cash":
+        return "Efectivo";
+
+      default:
+        return "Transferencia";
+    }
+  };
+
+  return {
+    infoLocation,
+    routeInfo,
+    transaction,
+    handleCapture,
+    handleTransactionType,
+    handleTransactionProduct,
+    getTransactionType,
+    captureRef,
+  };
+};
+
+export default useDetails;

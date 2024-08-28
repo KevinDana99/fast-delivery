@@ -38,10 +38,7 @@ const MapView = ({
   setRouteInfo: React.Dispatch<React.SetStateAction<RouteInfo | null>>;
   routeInfo: RouteInfo | null;
 }) => {
-  const { handleMapClick, calculatePrice } = useMapView(
-    locationInfo,
-    setInfoLocation
-  );
+  const { handleMapClick } = useMapView(locationInfo, setInfoLocation);
 
   return (
     <Container>

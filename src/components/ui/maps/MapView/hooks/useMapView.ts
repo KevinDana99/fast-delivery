@@ -28,11 +28,6 @@ const useMapView = (
     });
   };
 
-  const calculatePrice = (dist: number, pricePerKm: number) => {
-    const distance = Math.round(Math.round(dist) * pricePerKm);
-    return distance;
-  };
-
   useEffect(() => {
     if (locationInfo.length >= 2) {
       setLocationInfo([]);
@@ -42,7 +37,6 @@ const useMapView = (
   return {
     currentLocation,
     setCurrentLocation,
-    calculatePrice,
     handleMapClick,
     getCurrentMarkerLocationInfo,
   };

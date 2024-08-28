@@ -1,9 +1,9 @@
-import React, { useState } from "react";
-import { LocationType, RouteInfo } from "../types";
+import { useContext } from "react";
+import { RouteContext } from "@/contexts/routeContext";
 
-const useWelcome = () => {
-  const [infoLocation, setInfoLocation] = useState<LocationType[]>([]);
-  const [routeInfo, setRouteInfo] = useState<RouteInfo | null>(null);
+const useHome = () => {
+  const { infoLocation, routeInfo, setInfoLocation, setRouteInfo } =
+    useContext(RouteContext);
 
   const originLocation = [
     infoLocation[0]?.marker[0],
@@ -24,4 +24,4 @@ const useWelcome = () => {
   };
 };
 
-export default useWelcome;
+export default useHome;
