@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import { MapContainer, TileLayer, useMap } from "react-leaflet";
 import L from "leaflet";
 import "leaflet-routing-machine";
-import { RouteInfo } from "@/app/welcome/types";
+import { RouteInfo } from "@/app/types";
 import useLocation from "@/hooks/useLocation";
 import getCustomIcon from "@/components/icons";
 import SportsMotorsportsIcon from "@mui/icons-material/SportsMotorsports";

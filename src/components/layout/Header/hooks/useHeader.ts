@@ -1,7 +1,7 @@
 import React, { ChangeEvent, MouseEvent, useEffect, useState } from "react";
 import { HeaderType } from "../types";
 import { SearchOption, SearchOptions } from "./types";
-import { LocationType } from "@/app/welcome/types";
+import { LocationType } from "@/app/types";
 
 const useHeader = ({ infoLocation, setInfoLocation }: HeaderType) => {
   const infoLocationPrimary: LocationType = infoLocation[0];

@@ -1,4 +1,4 @@
-import { LocationType } from "@/app/welcome/types";
+import { LocationType } from "@/app/types";
 import { useEffect, useState } from "react";
 
 const useMapView = (
