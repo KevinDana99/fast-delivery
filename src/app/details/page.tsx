@@ -29,7 +29,6 @@ import html2canvas from "html2canvas";
 const Details = () => {
   const { loading } = useLoading();
   const captureRef = useRef(null);
-  const [comprobant, setComprobant] = useState(null);
 
   const sendLinkToWhatsApp = (imageUrl) => {
     const phoneNumber = "542805062685";
@@ -51,7 +50,8 @@ const Details = () => {
     });
 
     const data = await response.json();
-    return data.data.url;
+    console.log(data, "data");
+    return data.data.url_viewer;
   };
 
   const handleCapture = async () => {
