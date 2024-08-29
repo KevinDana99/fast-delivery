@@ -28,7 +28,7 @@ const useMapView = (
       marker: [latlng.lat, latlng.lng],
     });
   };
-  /*
+
   useEffect(() => {
     if (locationInfo.length >= 2) {
       setLocationInfo([]);
@@ -36,7 +36,7 @@ const useMapView = (
 
     setLocationInfo((prev) => [...prev, currentLocation]);
   }, [currentLocation]);
-  */
+
   return {
     currentLocation,
     setCurrentLocation,
