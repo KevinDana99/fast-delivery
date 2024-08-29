@@ -34,7 +34,9 @@ const useMapView = (
       setLocationInfo([]);
     }
 
-    setLocationInfo((prev) => [...prev, currentLocation]);
+    setLocationInfo((prev) => {
+      return !prev ? [currentLocation] : [...prev, currentLocation];
+    });
   }, [currentLocation]);
 
   return {
