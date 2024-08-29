@@ -61,6 +61,19 @@ export const InputGroup = styled.div`
   align-items: stretch;
   border-radius: 0.75rem;
   background-color: #e7edf3;
+  color: black;
+`;
+
+export const InputExtra = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  border-radius: 0.75rem;
+  background-color: #e7edf3;
+  color: black;
+  padding: 0.7rem;
+  box-sizing: border-box;
 `;
 
 export const StyledSelect = styled.select`
@@ -100,7 +113,10 @@ export const StyledInput = styled.input`
     ring: 0;
   }
 `;
-
+export const StyledInputExtra = styled(StyledInput)`
+  padding: 0.3rem;
+  box-sizing: border-box;
+`;
 export const IconWrapper = styled.div`
   color: #4e7397;
   display: flex;

@@ -5,6 +5,7 @@ import { EventHandler, useContext, useRef, useState } from "react";
 type TransactionType = {
   type?: "transfer" | "cash";
   product?: string;
+  depositPrice?: string;
 };
 
 const useDetails = () => {
@@ -82,6 +83,29 @@ const useDetails = () => {
     }
   };
 
+  const handleCopyToClipboard = (e: React.MouseEvent<HTMLElement>) => {
+    const element = e.target as HTMLInputElement;
+    const text = element.value;
+    navigator.clipboard.writeText(text);
+    element.select();
+  };
+
+  const handleOnChangeExtraPrice = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const depositPrice = e.target.value;
+
+    if (depositPrice.length <= 5) {
+      setTransaction({
+        ...transaction,
+        depositPrice,
+      });
+    } else {
+      setTransaction({
+        ...transaction,
+        depositPrice: transaction.depositPrice,
+      });
+    }
+  };
+
   return {
     infoLocation,
     routeInfo,
@@ -90,6 +114,8 @@ const useDetails = () => {
     handleTransactionType,
     handleTransactionProduct,
     getTransactionType,
+    handleOnChangeExtraPrice,
+    handleCopyToClipboard,
     captureRef,
   };
 };

@@ -5,6 +5,7 @@ import {
   Header,
   IconWrapper,
   InputContainer,
+  InputExtra,
   InputGroup,
   InputWrapper,
   ItemContainer,
@@ -14,6 +15,7 @@ import {
   LabelContainer,
   LogoContainer,
   StyledInput,
+  StyledInputExtra,
   StyledSelect,
 } from "./styled";
 import Logo from "@/components/ui/Logo";
@@ -23,6 +25,7 @@ import Loading from "@/components/ui/Loading";
 import ShoppingBagIcon from "@mui/icons-material/ShoppingBag";
 import { getRoutePrice } from "@/components/ui/maps/MapView/constants/prices";
 import useDetails from "./hooks/useDetails";
+import ContentCopyIcon from "@mui/icons-material/ContentCopy";
 const Details = () => {
   const { loading } = useLoading();
   const {
@@ -33,8 +36,11 @@ const Details = () => {
     handleTransactionProduct,
     handleTransactionType,
     getTransactionType,
+    handleCopyToClipboard,
+    handleOnChangeExtraPrice,
     captureRef,
   } = useDetails();
+
   return loading ? (
     <Loading />
   ) : (
@@ -77,17 +83,65 @@ const Details = () => {
           </InputGroup>
         </InputWrapper>
       </InputContainer>
+      {transaction?.type === "cash" ? (
+        <>
+          <LabelContainer className="hidden-capture">
+            <ItemDetails>
+              <ItemName>Monto para retiro</ItemName>
+            </ItemDetails>
+          </LabelContainer>
+          <InputContainer className="hidden-capture">
+            <InputWrapper>
+              <InputExtra>
+                {transaction?.depositPrice && "$"}
+                <StyledInputExtra
+                  placeholder="Opcional"
+                  type="number"
+                  onChange={handleOnChangeExtraPrice}
+                  value={transaction?.depositPrice ?? ""}
+                />
+              </InputExtra>
+            </InputWrapper>
+          </InputContainer>
+        </>
+      ) : (
+        <>
+          <LabelContainer className="hidden-capture">
+            <ItemDetails>
+              <ItemName>Alias</ItemName>
+            </ItemDetails>
+          </LabelContainer>
+          <InputContainer className="hidden-capture">
+            <InputWrapper>
+              <InputGroup>
+                <StyledInput
+                  type="text"
+                  value={"kevindana.bru"}
+                  onClick={handleCopyToClipboard}
+                />
+                <IconWrapper
+                  data-icon="User"
+                  data-size="24px"
+                  data-weight="regular"
+                >
+                  <ContentCopyIcon />
+                </IconWrapper>
+              </InputGroup>
+            </InputWrapper>
+          </InputContainer>
+        </>
+      )}
 
       <ItemContainer>
         <ItemDetails>
           <ItemName>Origen</ItemName>
-          <ItemPrice>{infoLocation[0].info}</ItemPrice>
+          <ItemPrice>{infoLocation[0]?.info ?? ""}</ItemPrice>
         </ItemDetails>
       </ItemContainer>
       <ItemContainer>
         <ItemDetails>
           <ItemName>Destino</ItemName>
-          <ItemPrice>{infoLocation[1].info}</ItemPrice>
+          <ItemPrice>{infoLocation[1]?.info ?? ""}</ItemPrice>
         </ItemDetails>
       </ItemContainer>
       <ItemContainer>
@@ -99,7 +153,7 @@ const Details = () => {
       <ItemContainer>
         <ItemDetails>
           <ItemName>Tiempo calculado</ItemName>
-          <ItemPrice>{routeInfo.time} min</ItemPrice>
+          <ItemPrice>{routeInfo?.time ?? ""} min</ItemPrice>
         </ItemDetails>
       </ItemContainer>
       <ItemContainer>
@@ -110,11 +164,22 @@ const Details = () => {
           </ItemPrice>
         </ItemDetails>
       </ItemContainer>
-
+      {transaction?.depositPrice && (
+        <>
+          <ItemContainer>
+            <ItemDetails>
+              <ItemName>Deposito de retiro</ItemName>
+              <ItemPrice>{"$" + transaction?.depositPrice}</ItemPrice>
+            </ItemDetails>
+          </ItemContainer>
+        </>
+      )}
       <ItemContainer>
         <ItemDetails>
-          <ItemName>Total</ItemName>
-          <ItemPrice>{getRoutePrice(routeInfo.distance).toString()}</ItemPrice>
+          <ItemName>Costo de envio</ItemName>
+          <ItemPrice>
+            {"$" + getRoutePrice(routeInfo?.distance ?? 0).toString()}
+          </ItemPrice>
         </ItemDetails>
       </ItemContainer>
       <div style={{ padding: "0.75rem" }}>
