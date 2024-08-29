@@ -8,6 +8,8 @@ export const Container = styled.div`
   background-color: #f8f9fa;
   overflow-x: hidden;
   font-family: "Work Sans", "Noto Sans", sans-serif;
+  padding-bottom: 50px;
+  box-sizing: border-box;
 `;
 
 export const Header = styled.div`

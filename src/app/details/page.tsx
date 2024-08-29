@@ -26,6 +26,7 @@ import ShoppingBagIcon from "@mui/icons-material/ShoppingBag";
 import { getRoutePrice } from "@/components/ui/maps/MapView/constants/prices";
 import useDetails from "./hooks/useDetails";
 import ContentCopyIcon from "@mui/icons-material/ContentCopy";
+import theme from "@/globals/theme";
 const Details = () => {
   const { loading } = useLoading();
   const {
@@ -186,13 +187,22 @@ const Details = () => {
           </ItemPrice>
         </ItemDetails>
       </ItemContainer>
-      <div style={{ padding: "0.75rem" }}>
+      <div
+        style={{
+          width: "100%",
+          padding: "0.75rem",
+          position: "fixed",
+          bottom: "0px",
+          background: theme.colors.background,
+        }}
+      >
         <Button
           onClick={handleCapture}
           sx={{ width: "100%", height: 40 }}
           color="primary"
           variant="contained"
           className="hidden-capture"
+          disabled={!(transaction?.product.length > 0)}
         >
           Confirmar
         </Button>

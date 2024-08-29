@@ -1,7 +1,6 @@
 import React from "react";
-import { ButtonFooterLink, Container, FooterLink, MuiButton } from "./styled";
+import { Container, MuiButton } from "./styled";
 
-import theme from "@/globals/theme";
 import Link from "next/link";
 
 const Footer = ({
