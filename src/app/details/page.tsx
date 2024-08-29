@@ -57,7 +57,11 @@ const Details = () => {
       <InputContainer className="hidden-capture">
         <InputWrapper>
           <InputGroup>
-            <StyledInput required={true} onChange={handleTransactionProduct} />
+            <StyledInput
+              required={true}
+              onChange={handleTransactionProduct}
+              placeholder="Detalle del paquete"
+            />
             <IconWrapper
               data-icon="User"
               data-size="24px"
