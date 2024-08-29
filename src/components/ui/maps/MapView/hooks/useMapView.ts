@@ -23,9 +23,14 @@ const useMapView = (
   const handleMapClick = async (latlng: L.LatLng) => {
     console.log("se ejecuto");
     const infoLocation = await getCurrentMarkerLocationInfo(latlng);
-    setCurrentLocation({
-      info: infoLocation,
-      marker: [latlng.lat, latlng.lng],
+    setLocationInfo((prev) => {
+      return [
+        ...prev,
+        {
+          info: infoLocation,
+          marker: [latlng.lat, latlng.lng],
+        },
+      ];
     });
   };
 
@@ -33,11 +38,7 @@ const useMapView = (
     if (locationInfo.length >= 2) {
       setLocationInfo([]);
     }
-
-    setLocationInfo((prev) => {
-      return !prev ? [currentLocation] : [...prev, currentLocation];
-    });
-  }, [currentLocation]);
+  }, [locationInfo]);
 
   return {
     currentLocation,
