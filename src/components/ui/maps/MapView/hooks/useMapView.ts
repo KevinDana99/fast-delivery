@@ -23,22 +23,24 @@ const useMapView = (
   const handleMapClick = async (latlng: L.LatLng) => {
     console.log("se ejecuto");
     const infoLocation = await getCurrentMarkerLocationInfo(latlng);
+
     setLocationInfo((prev) => {
-      return [
-        ...prev,
-        {
-          info: infoLocation,
-          marker: [latlng.lat, latlng.lng],
-        },
-      ];
+      return prev.length >= 2
+        ? [
+            {
+              info: infoLocation,
+              marker: [latlng.lat, latlng.lng],
+            },
+          ]
+        : [
+            ...prev,
+            {
+              info: infoLocation,
+              marker: [latlng.lat, latlng.lng],
+            },
+          ];
     });
   };
-
-  useEffect(() => {
-    if (locationInfo.length >= 2) {
-      setLocationInfo([]);
-    }
-  }, [locationInfo]);
 
   return {
     currentLocation,
