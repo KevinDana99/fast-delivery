@@ -1,6 +1,6 @@
 import { RouteContext } from "@/contexts/routeContext";
 import html2canvas from "html2canvas";
-import { EventHandler, useContext, useRef, useState } from "react";
+import { EventHandler, useContext, useEffect, useRef, useState } from "react";
 
 type TransactionType = {
   type?: "transfer" | "cash";
@@ -105,6 +105,12 @@ const useDetails = () => {
       });
     }
   };
+
+  useEffect(() => {
+    if (!infoLocation[0]?.info && !infoLocation[1]?.info) {
+      window.location.href = "/";
+    }
+  }, []);
 
   return {
     infoLocation,

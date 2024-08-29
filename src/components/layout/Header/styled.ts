@@ -40,7 +40,6 @@ export const SearchBar = styled.div`
 export const SearchLabel = styled.label`
   display: flex;
   flex-direction: column;
-  min-width: 40px;
   height: 48px;
   width: 100%;
 `;
@@ -56,8 +55,6 @@ export const SearchInputWrapper = styled.div`
   }
   display: flex;
   width: 100%;
-  flex: 1;
-  align-items: stretch;
   border-radius: 16px;
   height: 100%;
   background-color: #f4f0f0;
@@ -79,7 +76,7 @@ export const SearchChangeIcon = styled(SearchInputIcon)`
 `;
 
 export const SearchInput = styled.input`
-  flex: 1;
+  width: 100%;
   border: none;
   background-color: #f4f0f0;
   outline: none;

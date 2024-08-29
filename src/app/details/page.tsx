@@ -27,6 +27,9 @@ import { getRoutePrice } from "@/components/ui/maps/MapView/constants/prices";
 import useDetails from "./hooks/useDetails";
 import ContentCopyIcon from "@mui/icons-material/ContentCopy";
 import theme from "@/globals/theme";
+import KeyboardBackspaceIcon from "@mui/icons-material/KeyboardBackspace";
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
+import Link from "next/link";
 const Details = () => {
   const { loading } = useLoading();
   const {
@@ -46,7 +49,11 @@ const Details = () => {
     <Loading />
   ) : (
     <Container ref={captureRef}>
-      <Header></Header>
+      <Header>
+        <Link href={"/"}>
+          <ArrowBackIcon color="primary" />
+        </Link>
+      </Header>
       <LogoContainer>
         <Logo size={200} />
       </LogoContainer>
@@ -79,14 +86,10 @@ const Details = () => {
         </ItemDetails>
       </LabelContainer>
       <InputContainer className="hidden-capture">
-        <InputWrapper>
-          <InputGroup>
-            <StyledSelect onChange={handleTransactionType}>
-              <option value="transfer">Transferencia</option>
-              <option value="cash">Efectivo</option>
-            </StyledSelect>
-          </InputGroup>
-        </InputWrapper>
+        <StyledSelect onChange={handleTransactionType}>
+          <option value="transfer">Transferencia</option>
+          <option value="cash">Efectivo</option>
+        </StyledSelect>
       </InputContainer>
       {transaction?.type === "cash" ? (
         <>
@@ -202,7 +205,7 @@ const Details = () => {
           color="primary"
           variant="contained"
           className="hidden-capture"
-          disabled={!(transaction?.product.length > 0)}
+          disabled={!(transaction?.product?.length > 0) ?? true}
         >
           Confirmar
         </Button>

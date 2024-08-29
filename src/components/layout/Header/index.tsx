@@ -63,7 +63,7 @@ const Header = ({ infoLocation, setInfoLocation }: HeaderType) => {
                   key={`key-${index}`}
                   onClick={() => handleSelectedLocation(option, "origin")}
                 >
-                  {option.address.road} {option.address?.house_number}
+                  {option.address?.road} {option.address?.house_number}
                 </Option>
               ))}
             </Select>
@@ -108,7 +108,7 @@ const Header = ({ infoLocation, setInfoLocation }: HeaderType) => {
                   key={`key-${index}`}
                   onClick={() => handleSelectedLocation(option, "destination")}
                 >
-                  {option.address.road} {option.address?.house_number}
+                  {option.address?.road} {option.address?.house_number}
                 </Option>
               ))}
             </Select>

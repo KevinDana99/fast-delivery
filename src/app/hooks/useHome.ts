@@ -5,6 +5,7 @@ const useHome = () => {
   const { infoLocation, routeInfo, setInfoLocation, setRouteInfo } =
     useContext(RouteContext);
 
+  console.log(infoLocation);
   const originLocation = [
     infoLocation[0]?.marker[0],
     infoLocation[0]?.marker[1],

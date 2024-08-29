@@ -79,15 +79,17 @@ export const InputExtra = styled.div`
 `;
 
 export const StyledSelect = styled.select`
-  flex: 1;
+  width: 100%;
   border-radius: 0.75rem;
   color: #0e141b;
   background-color: #e7edf3;
   border: none;
   padding: 1rem;
+  padding-right: 10px;
   font-size: 1rem;
   font-weight: normal;
   line-height: normal;
+  box-sizing: border-box;
   placeholder {
     color: #4e7397;
   }

@@ -8,7 +8,7 @@ const useMapView = (
   const [currentLocation, setCurrentLocation] = useState<{
     info: string;
     marker: number[];
-  }>({ info: "", marker: [] });
+  }>(null);
   const getCurrentMarkerLocationInfo = async (latlng: L.LatLng) => {
     const API_URL = `https://nominatim.openstreetmap.org/reverse?lat=${latlng.lat}&lon=${latlng.lng}&format=json&addressdetails=1`;
     const response = await fetch(API_URL);
@@ -21,6 +21,7 @@ const useMapView = (
   };
 
   const handleMapClick = async (latlng: L.LatLng) => {
+    console.log("se ejecuto");
     const infoLocation = await getCurrentMarkerLocationInfo(latlng);
     setCurrentLocation({
       info: infoLocation,
@@ -32,7 +33,8 @@ const useMapView = (
     if (locationInfo.length >= 2) {
       setLocationInfo([]);
     }
-    setLocationInfo((prevLocation) => [...prevLocation, currentLocation]);
+
+    setLocationInfo((prev) => [...prev, currentLocation]);
   }, [currentLocation]);
   return {
     currentLocation,
