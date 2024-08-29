@@ -13,7 +13,7 @@ const Footer = ({
 }) => {
   return (
     <Container>
-      {destinationLocation[0] && (
+      {destinationLocation[0] && originLocation[0] && (
         <Link href={"/details"}>
           <MuiButton color="secondary" variant="contained">
             Solicitar Envio

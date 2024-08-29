@@ -11,6 +11,7 @@ import {
   Select,
   Option,
   IconCancel,
+  MuiButton,
 } from "./styled";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
 import Image from "next/image";
@@ -18,6 +19,7 @@ import MyLocationIcon from "@mui/icons-material/MyLocation";
 import { HeaderType } from "./types";
 import useHeader from "./hooks/useHeader";
 import Logo from "@/components/ui/Logo";
+import Link from "next/link";
 
 const Header = ({ infoLocation, setInfoLocation }: HeaderType) => {
   const {
@@ -113,6 +115,14 @@ const Header = ({ infoLocation, setInfoLocation }: HeaderType) => {
           </SearchInputWrapper>
         </SearchLabel>
       </SearchBar>
+
+      {infoLocation[1]?.info && infoLocation[0]?.info && (
+        <Link href={"/details"}>
+          <MuiButton color="secondary" variant="outlined">
+            Solicitar Envio
+          </MuiButton>
+        </Link>
+      )}
     </Container>
   );
 };

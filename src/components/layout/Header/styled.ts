@@ -1,6 +1,7 @@
 import theme from "@/globals/theme";
 import styled from "styled-components";
 import CancelIcon from "@mui/icons-material/Cancel";
+import { Button } from "@mui/material";
 export const Container = styled.div`
   width: 100%;
   display: flex;
@@ -128,4 +129,10 @@ export const Option = styled.div`
   border-bottom: solid 1px lightgray;
   width: 100%;
   height: 40px;
+`;
+export const MuiButton = styled(Button)`
+  @media (min-width: 0px) and (max-width: 700px) {
+    display: none !important;
+    background-color: red;
+  }
 `;
