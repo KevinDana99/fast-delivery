@@ -29,16 +29,16 @@ L.Icon.Default.mergeOptions({
 
 const MapView = ({
   setInfoLocation,
-  locationInfo,
+  infoLocation,
   setRouteInfo,
   routeInfo,
 }: {
-  locationInfo: LocationType[];
+  infoLocation: LocationType[];
   setInfoLocation: React.Dispatch<React.SetStateAction<LocationType[]>>;
   setRouteInfo: React.Dispatch<React.SetStateAction<RouteInfo | null>>;
   routeInfo: RouteInfo | null;
 }) => {
-  const { handleMapClick } = useMapView(locationInfo, setInfoLocation);
+  const { handleMapClick } = useMapView(infoLocation, setInfoLocation);
 
   return (
     <Container>
@@ -55,11 +55,13 @@ const MapView = ({
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         />
-        <MapRoutingMachine
-          start={locationInfo[0]?.marker}
-          end={locationInfo[1]?.marker}
-          onRouteFound={(info) => setRouteInfo(info)}
-        />
+        {infoLocation && (
+          <MapRoutingMachine
+            start={infoLocation[0]?.marker}
+            end={infoLocation[1]?.marker}
+            onRouteFound={(info) => setRouteInfo(info)}
+          />
+        )}
         <MapClickHandler onMapClick={handleMapClick} />
       </MapContainer>
       <Metrics>

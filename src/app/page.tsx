@@ -29,7 +29,7 @@ const Home = () => {
       <WrapperMap>
         <DynamicMapView
           setInfoLocation={setInfoLocation}
-          locationInfo={infoLocation}
+          infoLocation={infoLocation}
           setRouteInfo={setRouteInfo}
           routeInfo={routeInfo}
         />
