@@ -12,6 +12,7 @@ const useDetails = () => {
   const [transaction, setTransaction] = useState<TransactionType>(null);
   const { infoLocation, routeInfo } = useContext(RouteContext);
   const captureRef = useRef(null);
+  const [loading, setLoading] = useState(false);
 
   const sendLinkToWhatsApp = (imageUrl) => {
     const phoneNumber = "542805062685";
@@ -40,17 +41,24 @@ const useDetails = () => {
     const dataURLToBase64 = (dataURL: string) => {
       return dataURL.split(",")[1];
     };
-    if (captureRef.current) {
-      const canvas = await html2canvas(captureRef.current, {
-        ignoreElements: (element) => {
-          return element.classList.contains("hidden-capture");
-        },
-      });
-      const dataUrl = canvas.toDataURL("image/png");
-      const base64 = dataURLToBase64(dataUrl);
-      const imageUrl = await uploadImageToImgBB(base64);
+    try {
+      setLoading(true);
+      if (captureRef.current) {
+        const canvas = await html2canvas(captureRef.current, {
+          ignoreElements: (element) => {
+            return element.classList.contains("hidden-capture");
+          },
+        });
+        const dataUrl = canvas.toDataURL("image/png");
+        const base64 = dataURLToBase64(dataUrl);
+        const imageUrl = await uploadImageToImgBB(base64);
 
-      sendLinkToWhatsApp(imageUrl);
+        sendLinkToWhatsApp(imageUrl);
+      }
+    } catch (err) {
+      console.error(err);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -116,6 +124,7 @@ const useDetails = () => {
     infoLocation,
     routeInfo,
     transaction,
+    loading,
     handleCapture,
     handleTransactionType,
     handleTransactionProduct,

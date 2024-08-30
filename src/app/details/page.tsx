@@ -14,6 +14,7 @@ import {
   ItemPrice,
   LabelContainer,
   LogoContainer,
+  StyledButton,
   StyledInput,
   StyledInputExtra,
   StyledSelect,
@@ -36,6 +37,7 @@ const Details = () => {
     routeInfo,
     infoLocation,
     transaction,
+    loading: loadingButton,
     handleCapture,
     handleTransactionProduct,
     handleTransactionType,
@@ -199,16 +201,16 @@ const Details = () => {
           background: theme.colors.background,
         }}
       >
-        <Button
+        <StyledButton
           onClick={handleCapture}
           sx={{ width: "100%", height: 40 }}
-          color="primary"
+          color={loadingButton ? "info" : "primary"}
           variant="contained"
           className="hidden-capture"
           disabled={!(transaction?.product?.length > 0) ?? true}
         >
-          Confirmar
-        </Button>
+          {!loadingButton ? "Confirmar" : "Procesando.."}
+        </StyledButton>
       </div>
       <div style={{ height: "1.25rem", backgroundColor: "#f8f9fa" }}></div>
     </Container>

@@ -3,8 +3,10 @@ const theme = {
     color: "#ff7b00ff",
   },
   colors: {
-    primary: "#3498db",
+    primary: "#4e7397",
+    primary_a: "#3498db",
     secondary: "#ff7300",
+    tertiary: "#896161",
     background: "#ffffff",
     text: "#dadada",
   },

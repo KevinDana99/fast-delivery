@@ -10,6 +10,8 @@ export const metadata: Metadata = {
 };
 
 import MainLayout from "./MainLayout";
+import Head from "next/head";
+import ServiceWorkerRegister from "./sw";
 
 export default function RootLayout({
   children,
@@ -17,9 +19,20 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="es">
+    <html lang="en">
+      <Head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta name="theme-color" content="#000000" />
+        <link rel="manifest" href="/manifest.json" />
+        <link rel="icon" href="/icons/icon-192x192.png" />
+        <link rel="apple-touch-icon" href="/icons/icon-192x192.png" />
+        <title>My Next.js PWA</title>
+      </Head>
       <body>
-        <MainLayout>{children}</MainLayout>
+        <MainLayout>
+          <ServiceWorkerRegister />
+          {children}
+        </MainLayout>
       </body>
     </html>
   );

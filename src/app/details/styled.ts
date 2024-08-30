@@ -1,3 +1,5 @@
+import theme from "@/globals/theme";
+import { Button } from "@mui/material";
 import styled from "styled-components";
 
 export const Container = styled.div`
@@ -209,3 +211,5 @@ export const LogoContainer = styled.div`
   display: flex;
   justify-content: center;
 `;
+
+export const StyledButton = styled(Button)``;

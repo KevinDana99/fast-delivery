@@ -66,7 +66,7 @@ export const SearchInputIcon = styled.div`
   align-items: center;
   justify-content: center;
   padding-left: 16px;
-  color: #896161;
+  color: #4e7397;
 `;
 
 export const SearchChangeIcon = styled(SearchInputIcon)`

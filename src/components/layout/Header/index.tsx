@@ -14,7 +14,6 @@ import {
   MuiButton,
 } from "./styled";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
-import Image from "next/image";
 import MyLocationIcon from "@mui/icons-material/MyLocation";
 import { HeaderType } from "./types";
 import useHeader from "./hooks/useHeader";

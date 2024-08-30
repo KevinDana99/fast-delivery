@@ -7,6 +7,8 @@ import { RouteInfo } from "@/app/types";
 import useLocation from "@/hooks/useLocation";
 import getCustomIcon from "@/components/icons";
 import SportsMotorsportsIcon from "@mui/icons-material/SportsMotorsports";
+import LocationOnIcon from "@mui/icons-material/LocationOn";
+import MyLocationIcon from "@mui/icons-material/MyLocation";
 import theme from "@/globals/theme";
 const initValue = [0, 0];
 const MapRoutingMachine = ({
@@ -49,7 +51,7 @@ const MapRoutingMachine = ({
       showAlternatives: false,
       addWaypoints: false,
       lineOptions: {
-        styles: [{ color: theme.colors.secondary, weight: 6 }],
+        styles: [{ color: theme.main.color, weight: 6 }],
         extendToWaypoints: true,
         missingRouteTolerance: 10,
       },
@@ -60,7 +62,29 @@ const MapRoutingMachine = ({
             icon: getCustomIcon({
               icon: (
                 <SportsMotorsportsIcon
-                  style={{ color: theme.colors.primary, fontSize: "38" }}
+                  style={{ color: theme.colors.primary_a, fontSize: "38" }}
+                />
+              ),
+            }),
+          });
+        }
+        if (i === 1) {
+          return L.marker(waypoint.latLng, {
+            icon: getCustomIcon({
+              icon: (
+                <MyLocationIcon
+                  style={{ color: theme.colors.primary_a, fontSize: "34" }}
+                />
+              ),
+            }),
+          });
+        }
+        if (i === 2) {
+          return L.marker(waypoint.latLng, {
+            icon: getCustomIcon({
+              icon: (
+                <LocationOnIcon
+                  style={{ color: theme.colors.primary_a, fontSize: "38" }}
                 />
               ),
             }),
