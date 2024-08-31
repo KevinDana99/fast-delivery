@@ -5,6 +5,7 @@ import { useEffect } from "react";
 export default function ServiceWorkerRegister() {
   useEffect(() => {
     if ("serviceWorker" in navigator) {
+      console.log("service worker only");
       window.addEventListener("load", () => {
         navigator.serviceWorker
           .register("/sw.js")

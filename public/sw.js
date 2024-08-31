@@ -1,19 +1,27 @@
 self.addEventListener("install", (event) => {
-  event.waitUntil(
-    caches.open("next-pwa-cache-v1").then((cache) => {
-      return cache.addAll([
-        "/",
-        "/icons/icon-192x192.png",
-        "/icons/icon-512x512.png",
-      ]);
-    })
-  );
+  try {
+    event.waitUntil(
+      caches.open("next-pwa-cache-v1").then((cache) => {
+        return cache.addAll([
+          "/",
+          "/icons/logo-192x192.png",
+          "/icons/logo-512x512.png",
+        ]);
+      })
+    );
+  } catch (err) {
+    console.log(err);
+  }
 });
 
 self.addEventListener("fetch", (event) => {
-  event.respondWith(
-    caches.match(event.request).then((response) => {
-      return response || fetch(event.request);
-    })
-  );
+  try {
+    event.respondWith(
+      caches.match(event.request).then((response) => {
+        return response || fetch(event.request);
+      })
+    );
+  } catch (err) {
+    console.error(err);
+  }
 });
