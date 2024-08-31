@@ -11,6 +11,7 @@ export const metadata: Metadata = {
 
 import MainLayout from "./MainLayout";
 import ServiceWorkerRegister from "./sw";
+import PwaInstall from "./sw/PwaInstall";
 
 export default function RootLayout({
   children,
@@ -29,6 +30,7 @@ export default function RootLayout({
       <body>
         <MainLayout>
           <ServiceWorkerRegister />
+          <PwaInstall />
           {children}
         </MainLayout>
       </body>
