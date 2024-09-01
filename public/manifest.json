@@ -4,8 +4,8 @@
     "description": "A Progressive Web App built with Next.js",
     "start_url": "/",
     "display": "standalone",
-    "background_color": "#ff7b00ff",
-    "theme_color": "#ff7b00ff",
+    "background_color": "#ff7300",
+    "theme_color": "#ff7300",
     "icons": [
       {
         "src": "/icons/logo-192x192.png",

@@ -73,7 +73,7 @@ const MapRoutingMachine = ({
             icon: getCustomIcon({
               icon: (
                 <MyLocationIcon
-                  style={{ color: theme.colors.primary_a, fontSize: "34" }}
+                  style={{ color: theme.colors.primary, fontSize: "34" }}
                 />
               ),
             }),
@@ -84,7 +84,7 @@ const MapRoutingMachine = ({
             icon: getCustomIcon({
               icon: (
                 <LocationOnIcon
-                  style={{ color: theme.colors.primary_a, fontSize: "38" }}
+                  style={{ color: theme.colors.primary, fontSize: "38" }}
                 />
               ),
             }),
