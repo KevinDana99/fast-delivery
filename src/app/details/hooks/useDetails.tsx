@@ -18,7 +18,7 @@ const useDetails = () => {
     const phoneNumber = "542805062685";
     const text = `Comprobante de envio: ${imageUrl}`;
     const encodedText = encodeURIComponent(text);
-    const url = `whatsapp://send?phone=${phoneNumber}&text=${encodedText}`;
+    const url = `https://api.whatsapp.com/send?phone=${phoneNumber}&text=${encodedText}`;
 
     window.location.href = url;
   };
