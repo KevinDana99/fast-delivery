@@ -32,7 +32,6 @@ import KeyboardBackspaceIcon from "@mui/icons-material/KeyboardBackspace";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import Link from "next/link";
 const Details = () => {
-  const { loading } = useLoading();
   const {
     routeInfo,
     infoLocation,
@@ -47,9 +46,7 @@ const Details = () => {
     captureRef,
   } = useDetails();
 
-  return loading ? (
-    <Loading />
-  ) : (
+  return (
     <Container ref={captureRef}>
       <Header>
         <Link href={"/"}>
