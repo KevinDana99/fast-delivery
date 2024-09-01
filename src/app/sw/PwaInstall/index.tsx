@@ -1,5 +1,6 @@
 "use client";
 
+import PwaModal from "@/components/ui/modals/PwaModal";
 import { useEffect, useState } from "react";
 
 export default function PwaInstall() {
@@ -37,12 +38,14 @@ export default function PwaInstall() {
       });
     }
   };
+  const handleRejectClick = () => {};
 
   if (!showPrompt) return null;
 
   return (
-    <div>
-      <button onClick={handleInstallClick}>Install App</button>
-    </div>
+    <PwaModal
+      handleReject={handleRejectClick}
+      handleInstall={handleInstallClick}
+    />
   );
 }

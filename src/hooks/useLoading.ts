@@ -1,12 +1,16 @@
 import React, { useEffect, useState } from "react";
 
-const useLoading = () => {
+const useLoading = (delay?: boolean) => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const timer = setTimeout(() => setLoading(false), 1000);
+    if (delay) {
+      const timer = setTimeout(() => setLoading(false), 1000);
 
-    return () => clearTimeout(timer);
+      return () => clearTimeout(timer);
+    } else {
+      setLoading(false);
+    }
   }, []);
   return { loading };
 };

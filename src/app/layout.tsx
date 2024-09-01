@@ -30,8 +30,9 @@ export default function RootLayout({
       <body>
         <MainLayout>
           <ServiceWorkerRegister />
-          <PwaInstall />
+
           {children}
+          <PwaInstall />
         </MainLayout>
       </body>
     </html>

@@ -62,7 +62,7 @@ const MapRoutingMachine = ({
             icon: getCustomIcon({
               icon: (
                 <SportsMotorsportsIcon
-                  style={{ color: theme.colors.primary_a, fontSize: "38" }}
+                  style={{ color: theme.colors.primary, fontSize: "38" }}
                 />
               ),
             }),
