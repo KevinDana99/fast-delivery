@@ -14,14 +14,16 @@ const Footer = ({
 
   return (
     <Container>
-      <MuiButton
-        sx={{ background: !enableButton ? "#c6c6c6 !important" : null }}
-        color="secondary"
-        variant="contained"
-        disabled={!enableButton}
-      >
-        <Link href={"/details"}>Solicitar Envio</Link>
-      </MuiButton>
+      <Link href={"/details"}>
+        <MuiButton
+          sx={{ background: !enableButton ? "#c6c6c6 !important" : null }}
+          color="secondary"
+          variant="contained"
+          disabled={!enableButton}
+        >
+          Solicitar Envio
+        </MuiButton>
+      </Link>
     </Container>
   );
 };
