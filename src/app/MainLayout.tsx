@@ -5,7 +5,14 @@ import theme from "@/globals/theme";
 import { ThemeProvider as MuiThemeProvider } from "@mui/material/styles";
 import muiTheme from "@/globals/theme/Mui";
 import { RouteProvider } from "@/contexts/routeContext";
+import useLoading from "@/hooks/useLoading";
+import Loading from "@/components/ui/Loading";
 const MainLayout = ({ children }: { children: ReactNode }) => {
+  const { loading } = useLoading();
+
+  if (loading) {
+    return <Loading />;
+  }
   return (
     <RouteProvider>
       <StyledThemeProvider theme={theme}>

@@ -12,18 +12,9 @@ import {
 import React, { useEffect, useState } from "react";
 import SmartphoneIcon from "@mui/icons-material/Smartphone";
 import CloseIcon from "@mui/icons-material/Close";
-const PwaModal = ({
-  handleInstall,
-  handleReject,
-}: {
-  handleInstall: () => void;
-  handleReject: () => void;
-}) => {
+const PwaModal = ({ handleInstall }: { handleInstall: () => void }) => {
   const [visible, setVisible] = useState(true);
 
-  const handleOpenModal = () => {
-    setVisible(true);
-  };
   const handleCloseModal = () => {
     setVisible(false);
   };
@@ -70,7 +61,7 @@ const PwaModal = ({
             <Box sx={{ display: "flex" }}>
               <SmartphoneIcon fontSize={"medium"}></SmartphoneIcon>
               <Typography fontSize={15} sx={{ fontWeight: "bold" }}>
-                Esta app es compatible.
+                Esta app es compatible
               </Typography>
             </Box>
             <Typography variant="body2" color={"#181111"}>

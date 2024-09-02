@@ -25,3 +25,30 @@ self.addEventListener("fetch", (event) => {
     console.error(err);
   }
 });
+
+// Evento de activación del service worker
+self.addEventListener("activate", (event) => {
+  console.log("Service Worker activado");
+});
+
+// Manejo de notificaciones push
+self.addEventListener("push", (event) => {
+  const data = event.data ? event.data.json() : {};
+  const options = {
+    body: data.body || "¡Tienes una nueva notificación!",
+    icon: data.icon || "/images/icon.png",
+    badge: data.badge || "/images/badge.png",
+  };
+
+  event.waitUntil(
+    self.registration.showNotification(data.title || "Notificación", options)
+  );
+});
+
+// Manejo del clic en la notificación
+self.addEventListener("notificationclick", (event) => {
+  event.notification.close();
+  event.waitUntil(
+    clients.openWindow("/") // Aquí puedes abrir una URL específica si lo deseas
+  );
+});

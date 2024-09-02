@@ -20,10 +20,8 @@ const Home = () => {
     originLocation,
     destinationLocation,
   } = useHome();
-  const { loading } = useLoading();
-  return loading ? (
-    <Loading />
-  ) : (
+
+  return (
     <AppContainer>
       <Header infoLocation={infoLocation} setInfoLocation={setInfoLocation} />
       <WrapperMap>

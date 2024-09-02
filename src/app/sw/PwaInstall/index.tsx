@@ -38,14 +38,8 @@ export default function PwaInstall() {
       });
     }
   };
-  const handleRejectClick = () => {};
 
   if (!showPrompt) return null;
 
-  return (
-    <PwaModal
-      handleReject={handleRejectClick}
-      handleInstall={handleInstallClick}
-    />
-  );
+  return <PwaModal handleInstall={handleInstallClick} />;
 }
