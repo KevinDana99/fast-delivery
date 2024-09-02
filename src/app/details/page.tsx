@@ -1,7 +1,9 @@
 "use client";
 import React from "react";
 import {
+  BoxContainer,
   Container,
+  ContainerButton,
   Header,
   IconWrapper,
   InputContainer,
@@ -49,160 +51,158 @@ const Details = () => {
   return loading ? (
     <Loading />
   ) : (
-    <Container ref={captureRef}>
+    <Container>
       <Header>
         <Link href={"/"}>
-          <ArrowBackIcon color="primary" />
+          <ArrowBackIcon color="primary" className="hidden-capture" />
         </Link>
       </Header>
-      <LogoContainer>
-        <Logo size={200} />
-      </LogoContainer>
-      <LabelContainer className="hidden-capture">
-        <ItemDetails>
-          <ItemName>¿Que vas a enviar?</ItemName>
-        </ItemDetails>
-      </LabelContainer>
-      <InputContainer className="hidden-capture">
-        <InputWrapper>
-          <InputGroup>
-            <StyledInput
-              required={true}
-              onChange={handleTransactionProduct}
-              placeholder="Detalle del paquete"
-            />
-            <IconWrapper
-              data-icon="User"
-              data-size="24px"
-              data-weight="regular"
-            >
-              <ShoppingBagIcon />
-            </IconWrapper>
-          </InputGroup>
-        </InputWrapper>
-      </InputContainer>
-      <LabelContainer className="hidden-capture">
-        <ItemDetails>
-          <ItemName>Medio de pago</ItemName>
-        </ItemDetails>
-      </LabelContainer>
-      <InputContainer className="hidden-capture">
-        <StyledSelect onChange={handleTransactionType}>
-          <option value="transfer">Transferencia</option>
-          <option value="cash">Efectivo</option>
-        </StyledSelect>
-      </InputContainer>
-      {transaction?.type === "cash" ? (
-        <>
-          <LabelContainer className="hidden-capture">
-            <ItemDetails>
-              <ItemName>Monto para retiro</ItemName>
-            </ItemDetails>
-          </LabelContainer>
-          <InputContainer className="hidden-capture">
-            <InputWrapper>
-              <InputExtra>
-                {transaction?.depositPrice && "$"}
-                <StyledInputExtra
-                  placeholder="Opcional"
-                  type="number"
-                  onChange={handleOnChangeExtraPrice}
-                  value={transaction?.depositPrice ?? ""}
-                />
-              </InputExtra>
-            </InputWrapper>
-          </InputContainer>
-        </>
-      ) : (
-        <>
-          <LabelContainer className="hidden-capture">
-            <ItemDetails>
-              <ItemName>Alias</ItemName>
-            </ItemDetails>
-          </LabelContainer>
-          <InputContainer className="hidden-capture">
-            <InputWrapper>
-              <InputGroup>
-                <StyledInput
-                  type="text"
-                  value={"kevindana.bru"}
-                  onClick={handleCopyToClipboard}
-                />
-                <IconWrapper
-                  data-icon="User"
-                  data-size="24px"
-                  data-weight="regular"
-                >
-                  <ContentCopyIcon />
-                </IconWrapper>
-              </InputGroup>
-            </InputWrapper>
-          </InputContainer>
-        </>
-      )}
+      <BoxContainer ref={captureRef}>
+        <LogoContainer>
+          <Logo size={200} />
+        </LogoContainer>
+        <LabelContainer className="hidden-capture">
+          <ItemDetails>
+            <ItemName>¿Que vas a enviar?</ItemName>
+          </ItemDetails>
+        </LabelContainer>
+        <InputContainer className="hidden-capture">
+          <InputWrapper>
+            <InputGroup>
+              <StyledInput
+                required={true}
+                onChange={handleTransactionProduct}
+                placeholder="Detalle del paquete"
+              />
+              <IconWrapper
+                data-icon="User"
+                data-size="24px"
+                data-weight="regular"
+              >
+                <ShoppingBagIcon />
+              </IconWrapper>
+            </InputGroup>
+          </InputWrapper>
+        </InputContainer>
+        <LabelContainer className="hidden-capture">
+          <ItemDetails>
+            <ItemName>Medio de pago</ItemName>
+          </ItemDetails>
+        </LabelContainer>
+        <InputContainer className="hidden-capture">
+          <StyledSelect onChange={handleTransactionType}>
+            <option value="transfer">Transferencia</option>
+            <option value="cash">Efectivo</option>
+          </StyledSelect>
+        </InputContainer>
+        {transaction?.type === "cash" ? (
+          <>
+            <LabelContainer className="hidden-capture">
+              <ItemDetails>
+                <ItemName>Monto para retiro</ItemName>
+              </ItemDetails>
+            </LabelContainer>
+            <InputContainer className="hidden-capture">
+              <InputWrapper>
+                <InputExtra>
+                  {transaction?.depositPrice && "$"}
+                  <StyledInputExtra
+                    placeholder="Opcional"
+                    type="number"
+                    onChange={handleOnChangeExtraPrice}
+                    value={transaction?.depositPrice ?? ""}
+                  />
+                </InputExtra>
+              </InputWrapper>
+            </InputContainer>
+          </>
+        ) : (
+          <>
+            <LabelContainer className="hidden-capture">
+              <ItemDetails>
+                <ItemName>Alias</ItemName>
+              </ItemDetails>
+            </LabelContainer>
+            <InputContainer className="hidden-capture">
+              <InputWrapper>
+                <InputGroup>
+                  <StyledInput
+                    type="text"
+                    value={"kevindana.bru"}
+                    onClick={handleCopyToClipboard}
+                  />
+                  <IconWrapper
+                    data-icon="User"
+                    data-size="24px"
+                    data-weight="regular"
+                  >
+                    <ContentCopyIcon />
+                  </IconWrapper>
+                </InputGroup>
+              </InputWrapper>
+            </InputContainer>
+          </>
+        )}
 
-      <ItemContainer>
-        <ItemDetails>
-          <ItemName>Origen</ItemName>
-          <ItemPrice>{infoLocation[0]?.info ?? ""}</ItemPrice>
-        </ItemDetails>
-      </ItemContainer>
-      <ItemContainer>
-        <ItemDetails>
-          <ItemName>Destino</ItemName>
-          <ItemPrice>{infoLocation[1]?.info ?? ""}</ItemPrice>
-        </ItemDetails>
-      </ItemContainer>
-      <ItemContainer>
-        <ItemDetails>
-          <ItemName>Producto</ItemName>
-          <ItemPrice>{transaction?.product}</ItemPrice>
-        </ItemDetails>
-      </ItemContainer>
-      <ItemContainer>
-        <ItemDetails>
-          <ItemName>Tiempo calculado</ItemName>
-          <ItemPrice>{routeInfo?.time ?? ""} min</ItemPrice>
-        </ItemDetails>
-      </ItemContainer>
-      <ItemContainer>
-        <ItemDetails>
-          <ItemName>Medio de pago</ItemName>
-          <ItemPrice>
-            {getTransactionType(transaction?.type ?? "transfer")}
-          </ItemPrice>
-        </ItemDetails>
-      </ItemContainer>
-      {transaction?.depositPrice && (
-        <>
-          <ItemContainer>
-            <ItemDetails>
-              <ItemName>Deposito de retiro</ItemName>
-              <ItemPrice>{"$" + transaction?.depositPrice}</ItemPrice>
-            </ItemDetails>
-          </ItemContainer>
-        </>
-      )}
-      <ItemContainer>
-        <ItemDetails>
-          <ItemName>Costo de envio</ItemName>
-          <ItemPrice>
-            {"$" + getRoutePrice(routeInfo?.distance ?? 0).toString()}
-          </ItemPrice>
-        </ItemDetails>
-      </ItemContainer>
-      <div
-        style={{
-          width: "100%",
-          padding: "0.75rem",
-          position: "fixed",
-          bottom: "0px",
-          background: theme.colors.background,
-        }}
-      >
+        <ItemContainer>
+          <ItemDetails>
+            <ItemName>Origen</ItemName>
+            <ItemPrice>{infoLocation[0]?.info ?? ""}</ItemPrice>
+          </ItemDetails>
+        </ItemContainer>
+        <ItemContainer>
+          <ItemDetails>
+            <ItemName>Destino</ItemName>
+            <ItemPrice>{infoLocation[1]?.info ?? ""}</ItemPrice>
+          </ItemDetails>
+        </ItemContainer>
+        <ItemContainer>
+          <ItemDetails>
+            <ItemName>Producto</ItemName>
+            <ItemPrice>{transaction?.product}</ItemPrice>
+          </ItemDetails>
+        </ItemContainer>
+        <ItemContainer>
+          <ItemDetails>
+            <ItemName>Tiempo calculado</ItemName>
+            <ItemPrice>{routeInfo?.time ?? ""} min</ItemPrice>
+          </ItemDetails>
+        </ItemContainer>
+        <ItemContainer>
+          <ItemDetails>
+            <ItemName>Medio de pago</ItemName>
+            <ItemPrice>
+              {getTransactionType(transaction?.type ?? "transfer")}
+            </ItemPrice>
+          </ItemDetails>
+        </ItemContainer>
+        {transaction?.depositPrice && (
+          <>
+            <ItemContainer>
+              <ItemDetails>
+                <ItemName>Deposito de retiro</ItemName>
+                <ItemPrice>{"$" + transaction?.depositPrice}</ItemPrice>
+              </ItemDetails>
+            </ItemContainer>
+          </>
+        )}
+        <ItemContainer>
+          <ItemDetails>
+            <ItemName>Costo de envio</ItemName>
+            <ItemPrice>
+              {"$" + getRoutePrice(routeInfo?.distance ?? 0).toString()}
+            </ItemPrice>
+          </ItemDetails>
+        </ItemContainer>
+      </BoxContainer>
+      <ContainerButton>
         <StyledButton
+          sx={{
+            width: "100%",
+            height: 40,
+            pointerEvents: loadingButton ? "none" : "default",
+          }}
           onClick={handleCapture}
-          sx={{ width: "100%", height: 40 }}
           color={loadingButton ? "info" : "primary"}
           variant="contained"
           className="hidden-capture"
@@ -210,8 +210,7 @@ const Details = () => {
         >
           {!loadingButton ? "Confirmar" : "Procesando.."}
         </StyledButton>
-      </div>
-      <div style={{ height: "1.25rem", backgroundColor: "#f8f9fa" }}></div>
+      </ContainerButton>
     </Container>
   );
 };

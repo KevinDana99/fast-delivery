@@ -1,6 +1,8 @@
 "use client";
 import urlBase64ToUint8Array from "@/utils/urlBase64ToUint8Array";
 import { useEffect, useState } from "react";
+import { Box, Button, Dialog, Typography } from "@mui/material";
+import PushNotificationModal from "@/components/ui/modals/PushNotificationModal";
 
 const PushNotification = () => {
   const [notificationPermission, setNotificationPermission] = useState(false);
@@ -10,9 +12,11 @@ const PushNotification = () => {
     if ("Notification" in window) {
       Notification.requestPermission().then(function (permission) {
         if (permission === "granted") {
-          setNotificationPermission(false);
-        } else {
+          console.log("granted");
           setNotificationPermission(true);
+        } else {
+          console.log("not granted");
+          setNotificationPermission(false);
         }
       });
     }
@@ -38,12 +42,20 @@ const PushNotification = () => {
   };
   useEffect(() => {
     handleRequestNotificationPermission();
-
-    if (notificationPermission) {
-      handleSubscribeUserToPush();
-    }
   }, []);
-  return null;
+
+  useEffect(() => {
+    if (notificationPermission) {
+      console.log("subscribiendo user");
+      //handleSubscribeUserToPush();
+    }
+  }, [notificationPermission]);
+  return (
+    <PushNotificationModal
+      visible={!notificationPermission}
+      handleAceptNotifications={handleRequestNotificationPermission}
+    />
+  );
 };
 
 export default PushNotification;

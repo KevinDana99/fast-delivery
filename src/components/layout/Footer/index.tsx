@@ -10,15 +10,18 @@ const Footer = ({
   originLocation: number[];
   destinationLocation: number[];
 }) => {
+  const enableButton = destinationLocation[0] && originLocation[0];
+
   return (
     <Container>
-      {destinationLocation[0] && originLocation[0] && (
-        <Link href={"/details"}>
-          <MuiButton color="secondary" variant="contained">
-            Solicitar Envio
-          </MuiButton>
-        </Link>
-      )}
+      <MuiButton
+        sx={{ background: !enableButton ? "#c6c6c6 !important" : null }}
+        color="secondary"
+        variant="contained"
+        disabled={!enableButton}
+      >
+        <Link href={"/details"}>Solicitar Envio</Link>
+      </MuiButton>
     </Container>
   );
 };

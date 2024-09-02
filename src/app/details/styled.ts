@@ -1,7 +1,7 @@
 import theme from "@/globals/theme";
 import { Button } from "@mui/material";
 import styled from "styled-components";
-
+const maxWidthFormInDesktop = 500;
 export const Container = styled.div`
   position: relative;
   display: flex;
@@ -22,6 +22,15 @@ export const Header = styled.div`
   justify-content: space-between;
 `;
 
+export const BoxContainer = styled.div`
+  width: 100%;
+
+  max-width: ${maxWidthFormInDesktop}px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-self: center;
+`;
 export const CloseIcon = styled.div`
   color: #0e141b;
   display: flex;
@@ -43,15 +52,16 @@ export const Title = styled.h2`
 `;
 
 export const InputContainer = styled.div`
+  width: 100%;
   display: flex;
-  max-width: 480px;
-  flex-wrap: wrap;
+  flex-direction: column;
   align-items: flex-end;
   gap: 1rem;
   padding: 0.75rem;
 `;
 
 export const InputWrapper = styled.label`
+  width: 100%;
   display: flex;
   flex-direction: column;
   min-width: 10rem;
@@ -212,4 +222,19 @@ export const LogoContainer = styled.div`
   justify-content: center;
 `;
 
-export const StyledButton = styled(Button)``;
+export const ContainerButton = styled.div`
+  width: 100%;
+  padding: 0.75rem;
+  position: fixed;
+  bottom: 0px;
+  background: ${theme.colors.background};
+  display: flex;
+  justify-content: center;
+`;
+
+export const StyledButton = styled(Button)`
+  @media (min-width: 700px) {
+    max-width: ${maxWidthFormInDesktop}px;
+    margin: 0 auto;
+  }
+`;

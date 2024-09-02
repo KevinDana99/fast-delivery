@@ -11,6 +11,10 @@ const muiTheme = createTheme({
       main: theme.colors.background,
       contrastText: theme.main.color,
     },
+    info: {
+      main: theme.colors.primary,
+      contrastText: theme.colors.background,
+    },
     background: {
       default: theme.colors.background,
     },

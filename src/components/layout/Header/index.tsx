@@ -32,7 +32,7 @@ const Header = ({ infoLocation, setInfoLocation }: HeaderType) => {
     infoLocation,
     setInfoLocation,
   });
-
+  const enableButton = infoLocation[1]?.info && infoLocation[0]?.info;
   return (
     <Container>
       <Icon>
@@ -115,13 +115,16 @@ const Header = ({ infoLocation, setInfoLocation }: HeaderType) => {
         </SearchLabel>
       </SearchBar>
 
-      {infoLocation[1]?.info && infoLocation[0]?.info && (
-        <Link href={"/details"}>
-          <MuiButton color="secondary" variant="outlined">
-            Solicitar Envio
-          </MuiButton>
-        </Link>
-      )}
+      <Link href={"/details"}>
+        <MuiButton
+          color="secondary"
+          sx={{ background: !enableButton ? "#c6c6c6 !important" : null }}
+          variant="contained"
+          disabled={!enableButton}
+        >
+          Solicitar Envio
+        </MuiButton>
+      </Link>
     </Container>
   );
 };
