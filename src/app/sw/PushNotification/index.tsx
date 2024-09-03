@@ -1,15 +1,13 @@
 "use client";
 import urlBase64ToUint8Array from "@/utils/urlBase64ToUint8Array";
 import { useEffect, useState } from "react";
-import { Box, Button, Dialog, Typography } from "@mui/material";
 import PushNotificationModal from "@/components/ui/modals/PushNotificationModal";
-import Cookie from "js-cookie";
 
-const PushNotification = () => {
+const PushNotification = ({ visible }: { visible: boolean }) => {
   const [notificationPermission, setNotificationPermission] = useState(false);
   const [subscription, setSubscription] = useState(null);
   const visibleModal = notificationPermission ? false : true;
-  const tourCompleted = localStorage.getItem("tour-home");
+
   const handleRequestNotificationPermission = () => {
     if ("Notification" in window) {
       Notification.requestPermission();
@@ -48,11 +46,11 @@ const PushNotification = () => {
 
   console.log({ notificationPermission });
   console.log({ visibleModal });
-  console.log({ tourCompleted });
+
   return (
     <PushNotificationModal
       notificationPermission={notificationPermission}
-      visible={visibleModal && tourCompleted === "true"}
+      visible={visibleModal && visible}
       handleAceptNotifications={handleRequestNotificationPermission}
     />
   );

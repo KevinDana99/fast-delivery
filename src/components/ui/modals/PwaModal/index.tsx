@@ -12,18 +12,24 @@ import {
 import React, { useEffect, useState } from "react";
 import SmartphoneIcon from "@mui/icons-material/Smartphone";
 import CloseIcon from "@mui/icons-material/Close";
-const PwaModal = ({ handleInstall }: { handleInstall: () => void }) => {
+const PwaModal = ({
+  handleInstall,
+  visible: visibleProp,
+}: {
+  visible: boolean;
+  handleInstall: () => void;
+}) => {
   const [visible, setVisible] = useState(true);
 
   const handleCloseModal = () => {
     setVisible(false);
   };
+  useEffect(() => {
+    setVisible(visibleProp);
+  }, [visibleProp]);
   const tourCompleted = localStorage.getItem("tour-home");
   return (
-    <Dialog
-      open={visible && tourCompleted === "true"}
-      onClose={handleCloseModal}
-    >
+    <Dialog open={visible} onClose={handleCloseModal}>
       <Paper
         role="dialog"
         aria-modal="false"

@@ -15,13 +15,14 @@ const Home = () => {
     infoLocation,
     setInfoLocation,
     setRouteInfo,
+    handleFinishTutorial,
     routeInfo,
     originLocation,
     destinationLocation,
   } = useHome();
 
   const tourRef = useRef(false);
-  useTutorial("home", tourRef);
+  useTutorial("home", tourRef, handleFinishTutorial);
   return (
     <AppContainer>
       <Header infoLocation={infoLocation} setInfoLocation={setInfoLocation} />

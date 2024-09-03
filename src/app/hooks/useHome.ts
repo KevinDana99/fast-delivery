@@ -2,8 +2,13 @@ import { useContext } from "react";
 import { RouteContext } from "@/contexts/routeContext";
 
 const useHome = () => {
-  const { infoLocation, routeInfo, setInfoLocation, setRouteInfo } =
-    useContext(RouteContext);
+  const {
+    infoLocation,
+    routeInfo,
+    setInfoLocation,
+    setRouteInfo,
+    handleFinishTutorial,
+  } = useContext(RouteContext);
 
   console.log(infoLocation);
   const originLocation = [
@@ -19,6 +24,7 @@ const useHome = () => {
     infoLocation,
     setInfoLocation,
     setRouteInfo,
+    handleFinishTutorial,
     routeInfo,
     originLocation,
     destinationLocation,

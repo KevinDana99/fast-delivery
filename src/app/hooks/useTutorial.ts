@@ -13,7 +13,8 @@ declare module "shepherd.js" {
 }
 const useTutorial = (
   tutorial: "home" | "details",
-  tourRef: React.MutableRefObject<boolean>
+  tourRef: React.MutableRefObject<boolean>,
+  onCompleteTutorial?: () => void
 ) => {
   const [showTutorial, setShowTutorial] = useState(false);
   const [steps, setSteps] = useState([]);
@@ -51,6 +52,7 @@ const useTutorial = (
 
     tour.on("complete", () => {
       localStorage.setItem(`${currentTourName}`, "true");
+      onCompleteTutorial && onCompleteTutorial();
     });
     tourRef.current = true;
   }, []);
