@@ -31,7 +31,7 @@ export default function RootLayout({
       <body>
         <MainLayout>
           <ServiceWorkerRegister />
-
+          <PushNotification />
           {children}
           <PwaInstall />
         </MainLayout>
@@ -39,4 +39,3 @@ export default function RootLayout({
     </html>
   );
 }
-//<PushNotification />

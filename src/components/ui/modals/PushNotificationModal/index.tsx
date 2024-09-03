@@ -15,17 +15,22 @@ import CloseIcon from "@mui/icons-material/Close";
 import NotificationsActiveIcon from "@mui/icons-material/NotificationsActive";
 const PushNotificationModal = ({
   handleAceptNotifications,
-  visible: visibleModal,
+  visible: visibleModalProp,
+  notificationPermission,
 }: {
   handleAceptNotifications: () => void;
   visible: boolean;
+  notificationPermission: boolean;
 }) => {
-  const [visible, setVisible] = useState(visibleModal);
+  const [visible, setVisible] = useState(visibleModalProp);
   console.log(visible, "noti");
   const handleCloseModal = () => {
     setVisible(false);
   };
 
+  useEffect(() => {
+    setVisible(visibleModalProp);
+  }, [visibleModalProp]);
   return (
     <Dialog open={visible} onClose={handleCloseModal}>
       <Paper
@@ -74,7 +79,9 @@ const PushNotificationModal = ({
               </Typography>
             </Box>
             <Typography variant="body2" color={"#181111"}>
-              Queremos que estes al tanto de todo lo que ocurre con tu pedido
+              {notificationPermission === null
+                ? "Queremos que estes al tanto de todo lo que ocurre con tu pedido"
+                : "Detectamos que no has activado las notificaciones, para hacerlo dirigete a Configuracion, busca la pestaña de Notificaciones y activa la campanita"}
             </Typography>
           </Box>
 
@@ -93,7 +100,9 @@ const PushNotificationModal = ({
                 handleCloseModal();
               }}
             >
-              Activar notificaciones
+              {notificationPermission === null
+                ? "Activar notificaciones"
+                : "Aceptar"}
             </Button>
           </Stack>
         </Stack>
