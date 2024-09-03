@@ -18,9 +18,12 @@ const PwaModal = ({ handleInstall }: { handleInstall: () => void }) => {
   const handleCloseModal = () => {
     setVisible(false);
   };
-
+  const tourCompleted = localStorage.getItem("tour-home");
   return (
-    <Dialog open={visible} onClose={handleCloseModal}>
+    <Dialog
+      open={visible && tourCompleted === "true"}
+      onClose={handleCloseModal}
+    >
       <Paper
         role="dialog"
         aria-modal="false"

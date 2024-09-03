@@ -9,7 +9,7 @@ const PushNotification = () => {
   const [notificationPermission, setNotificationPermission] = useState(false);
   const [subscription, setSubscription] = useState(null);
   const visibleModal = notificationPermission ? false : true;
-
+  const tourCompleted = localStorage.getItem("tour-home");
   const handleRequestNotificationPermission = () => {
     if ("Notification" in window) {
       Notification.requestPermission();
@@ -48,10 +48,11 @@ const PushNotification = () => {
 
   console.log({ notificationPermission });
   console.log({ visibleModal });
+  console.log({ tourCompleted });
   return (
     <PushNotificationModal
       notificationPermission={notificationPermission}
-      visible={visibleModal}
+      visible={visibleModal && tourCompleted === "true"}
       handleAceptNotifications={handleRequestNotificationPermission}
     />
   );
