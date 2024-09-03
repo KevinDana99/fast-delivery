@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { AppContainer, WrapperMap } from "./styled";
 import dynamic from "next/dynamic";
 import useHome from "./hooks/useHome";
@@ -19,7 +19,9 @@ const Home = () => {
     originLocation,
     destinationLocation,
   } = useHome();
-  useTutorial("home");
+
+  const tourRef = useRef(false);
+  useTutorial("home", tourRef);
   return (
     <AppContainer>
       <Header infoLocation={infoLocation} setInfoLocation={setInfoLocation} />

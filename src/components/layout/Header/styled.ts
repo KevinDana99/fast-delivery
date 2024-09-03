@@ -2,6 +2,7 @@ import theme from "@/globals/theme";
 import styled from "styled-components";
 import CancelIcon from "@mui/icons-material/Cancel";
 import { Button } from "@mui/material";
+import Link from "next/link";
 export const Container = styled.div`
   width: 100%;
   display: flex;
@@ -132,4 +133,12 @@ export const MuiButton = styled(Button)`
     display: none !important;
     background-color: red;
   }
+`;
+
+export const ButtonLink = styled(Link)`
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `;

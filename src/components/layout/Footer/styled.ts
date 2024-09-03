@@ -1,5 +1,6 @@
 import theme from "@/globals/theme";
 import { Button } from "@mui/material";
+import Link from "next/link";
 import styled from "styled-components";
 
 export const Container = styled.div`
@@ -56,3 +57,11 @@ export const FooterIcon = styled.div`
 `;
 
 export const MuiButton = styled(Button)``;
+
+export const ButtonLink = styled(Link)`
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;

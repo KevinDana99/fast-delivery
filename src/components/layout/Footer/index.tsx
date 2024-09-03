@@ -1,7 +1,8 @@
 import React from "react";
-import { Container, MuiButton } from "./styled";
+import { ButtonLink, Container, MuiButton } from "./styled";
 
 import Link from "next/link";
+import theme from "@/globals/theme";
 
 const Footer = ({
   originLocation,
@@ -14,16 +15,27 @@ const Footer = ({
 
   return (
     <Container>
-      <Link href={"/details"}>
-        <MuiButton
-          sx={{ background: !enableButton ? "#c6c6c6 !important" : null }}
-          color="secondary"
-          variant="contained"
-          disabled={!enableButton}
-        >
+      <MuiButton
+        sx={{
+          width: 150,
+          height: 40,
+          background: !enableButton ? "#c6c6c6 !important" : null,
+          padding: 0,
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          "&:hover": {
+            backgroundColor: theme.colors.background,
+          },
+        }}
+        color="secondary"
+        variant="contained"
+        disabled={!enableButton}
+      >
+        <ButtonLink href={"/details"} id="mobile-step4-home">
           Solicitar Envio
-        </MuiButton>
-      </Link>
+        </ButtonLink>
+      </MuiButton>
     </Container>
   );
 };

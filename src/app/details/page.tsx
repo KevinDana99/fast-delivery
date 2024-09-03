@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useRef } from "react";
 import {
   BoxContainer,
   Container,
@@ -32,6 +32,7 @@ import ContentCopyIcon from "@mui/icons-material/ContentCopy";
 import theme from "@/globals/theme";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import Link from "next/link";
+import useTutorial from "../hooks/useTutorial";
 const Details = () => {
   const { loading } = useLoading();
   const {
@@ -47,7 +48,8 @@ const Details = () => {
     handleOnChangeExtraPrice,
     captureRef,
   } = useDetails();
-
+  const tourRef = useRef(false);
+  useTutorial("details", tourRef);
   return loading ? (
     <Loading />
   ) : (
@@ -73,6 +75,7 @@ const Details = () => {
                 required={true}
                 onChange={handleTransactionProduct}
                 placeholder="Detalle del paquete"
+                id="step1-details"
               />
               <IconWrapper
                 data-icon="User"
@@ -90,33 +93,13 @@ const Details = () => {
           </ItemDetails>
         </LabelContainer>
         <InputContainer className="hidden-capture">
-          <StyledSelect onChange={handleTransactionType}>
+          <StyledSelect onChange={handleTransactionType} id="step2-details">
             <option value="transfer">Transferencia</option>
             <option value="cash">Efectivo</option>
           </StyledSelect>
         </InputContainer>
-        {transaction?.type === "cash" ? (
-          <>
-            <LabelContainer className="hidden-capture">
-              <ItemDetails>
-                <ItemName>Monto para retiro</ItemName>
-              </ItemDetails>
-            </LabelContainer>
-            <InputContainer className="hidden-capture">
-              <InputWrapper>
-                <InputExtra>
-                  {transaction?.depositPrice && "$"}
-                  <StyledInputExtra
-                    placeholder="Opcional"
-                    type="number"
-                    onChange={handleOnChangeExtraPrice}
-                    value={transaction?.depositPrice ?? ""}
-                  />
-                </InputExtra>
-              </InputWrapper>
-            </InputContainer>
-          </>
-        ) : (
+
+        {transaction?.type !== "cash" && (
           <>
             <LabelContainer className="hidden-capture">
               <ItemDetails>
@@ -144,6 +127,24 @@ const Details = () => {
           </>
         )}
 
+        <LabelContainer className="hidden-capture">
+          <ItemDetails>
+            <ItemName>Monto para retiro</ItemName>
+          </ItemDetails>
+        </LabelContainer>
+        <InputContainer className="hidden-capture">
+          <InputWrapper id="step3-details">
+            <InputExtra>
+              {transaction?.depositPrice && "$"}
+              <StyledInputExtra
+                placeholder="Opcional"
+                type="number"
+                onChange={handleOnChangeExtraPrice}
+                value={transaction?.depositPrice ?? ""}
+              />
+            </InputExtra>
+          </InputWrapper>
+        </InputContainer>
         <ItemContainer>
           <ItemDetails>
             <ItemName>Origen</ItemName>
@@ -197,6 +198,7 @@ const Details = () => {
       </BoxContainer>
       <ContainerButton>
         <StyledButton
+          id="step4-details"
           sx={{
             width: "100%",
             height: 40,

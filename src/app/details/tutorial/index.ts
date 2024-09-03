@@ -3,22 +3,15 @@ import { Tour, StepOptions } from "shepherd.js";
 // Define the valid values for 'on'
 type AttachToPlacement = "top" | "bottom" | "left" | "right";
 
-export const handleHomeTutorial = (tour: Tour): StepOptions[] => {
-  function getButtonSelector() {
-    if (window.innerWidth <= 700) {
-      return "#mobile-step4-home";
-    } else {
-      return "#desktop-step4-home";
-    }
-  }
+export const handleDetailsTutorial = (tour: Tour): StepOptions[] => {
   const steps: StepOptions[] = [
     {
       classes:
         "shepherd-element-focused MuiTypography-root MuiTypography-body2 css-lgcz90-MuiTypography-root",
-      title: "Lugar de Origen del envio",
-      text: "Aqui debes colocar el la ubicacion desde donde sale el paquete a enviar",
+      title: "Nombre o descripcion del paquete",
+      text: "Aqui debes colocar el nombre del paquete a enviar o una descripcion para que sepamos que estas enviando. Recuerda que cualquier paquete que no coincida con la descripcion se rechazara por considerarse no etico",
       attachTo: {
-        element: "#step1-home",
+        element: "#step1-details",
         on: "top" as AttachToPlacement,
       },
       buttons: [
@@ -34,10 +27,10 @@ export const handleHomeTutorial = (tour: Tour): StepOptions[] => {
     },
 
     {
-      title: "Lugar de destino del envio",
-      text: "Aqui debes colocar el lugar de destino a donde vas a enviar el paquete",
+      title: "Selecciona tu medio de pago preferido",
+      text: "Puedes seleccionar como medios de pago efectivo o transferencia al alias que te damos",
       attachTo: {
-        element: "#step2-home",
+        element: "#step2-details",
         on: "top" as AttachToPlacement,
       },
       classes:
@@ -65,10 +58,10 @@ export const handleHomeTutorial = (tour: Tour): StepOptions[] => {
     {
       classes:
         "shepherd-element-focused MuiTypography-root MuiTypography-body2 css-lgcz90-MuiTypography-root",
-      title: "Selecciona la ubicacion de origen y destino en el mapa",
-      text: "Tambien podes seleccionar la ubicacion desde el mapa, hace click en el mapa para marcar un punto de origen y destino.",
+      title: "Monto a pagar para retirar el producto",
+      text: "En este campo deberas especificar el monto a pagar para retirar el producto, si no se debe abonar puedes omitir este campo",
       attachTo: {
-        element: "#step3-home",
+        element: "#step3-details",
         on: "bottom" as AttachToPlacement,
       },
       buttons: [
@@ -88,14 +81,13 @@ export const handleHomeTutorial = (tour: Tour): StepOptions[] => {
         },
       ],
     },
-
     {
       classes:
         "shepherd-element-focused MuiTypography-root MuiTypography-body2 css-lgcz90-MuiTypography-root",
-      title: "Solicita tu envio!",
-      text: "Una vez seleccionada la ubicacion, hace click en el boton solicitar envio para continuar",
+      title: "Confirma tu pedido",
+      text: "Hace click en confirmar y aguarda hasta que generemos el comprobante de tu pedido. ¡DEBERAS ENVIARLO PARA QUE ESTE SE TOME COMO VALIDO!",
       attachTo: {
-        element: getButtonSelector(),
+        element: "#step4-details",
         on: "bottom" as AttachToPlacement,
       },
       buttons: [

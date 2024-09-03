@@ -12,6 +12,7 @@ import {
   Option,
   IconCancel,
   MuiButton,
+  ButtonLink,
 } from "./styled";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
 import MyLocationIcon from "@mui/icons-material/MyLocation";
@@ -19,6 +20,7 @@ import { HeaderType } from "./types";
 import useHeader from "./hooks/useHeader";
 import Logo from "@/components/ui/Logo";
 import Link from "next/link";
+import theme from "@/globals/theme";
 
 const Header = ({ infoLocation, setInfoLocation }: HeaderType) => {
   const {
@@ -47,7 +49,7 @@ const Header = ({ infoLocation, setInfoLocation }: HeaderType) => {
               <MyLocationIcon />
             </SearchInputIcon>
             <SearchInput
-              id="step1"
+              id="step1-home"
               placeholder="Origen"
               value={query.origin}
               onChange={handleChangeOriginLocation}
@@ -86,7 +88,7 @@ const Header = ({ infoLocation, setInfoLocation }: HeaderType) => {
             </SearchInputIcon>
 
             <SearchInput
-              id="step2"
+              id="step2-home"
               placeholder="Destino"
               value={query.destination}
               onChange={handleChangeDestinationLocation}
@@ -118,16 +120,28 @@ const Header = ({ infoLocation, setInfoLocation }: HeaderType) => {
           </SearchInputWrapper>
         </SearchLabel>
       </SearchBar>
-      <Link href={"/details"}>
-        <MuiButton
-          color="secondary"
-          sx={{ background: !enableButton ? "#c6c6c6 !important" : null }}
-          variant="contained"
-          disabled={!enableButton}
-        >
+
+      <MuiButton
+        color="secondary"
+        sx={{
+          width: 150,
+          height: 40,
+          background: !enableButton ? "#c6c6c6 !important" : null,
+          padding: 0,
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          "&:hover": {
+            backgroundColor: theme.colors.background,
+          },
+        }}
+        variant="contained"
+        disabled={!enableButton}
+      >
+        <ButtonLink href={"/details"} id="desktop-step4-home">
           Solicitar Envio
-        </MuiButton>
-      </Link>
+        </ButtonLink>
+      </MuiButton>
     </Container>
   );
 };
