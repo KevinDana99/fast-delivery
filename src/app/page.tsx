@@ -5,8 +5,7 @@ import dynamic from "next/dynamic";
 import useHome from "./hooks/useHome";
 import Footer from "@/components/layout/Footer";
 import Header from "@/components/layout/Header";
-import Loading from "@/components/ui/Loading";
-import useLoading from "@/hooks/useLoading";
+import useTutorial from "./hooks/useTutorial";
 
 const DynamicMapView = dynamic(() => import("@/components/ui/maps/MapView"), {
   ssr: false,
@@ -20,7 +19,7 @@ const Home = () => {
     originLocation,
     destinationLocation,
   } = useHome();
-
+  useTutorial("home");
   return (
     <AppContainer>
       <Header infoLocation={infoLocation} setInfoLocation={setInfoLocation} />

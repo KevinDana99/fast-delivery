@@ -117,3 +117,23 @@ input[type="number"] {
 input[type="number"] {
     appearance: textfield;
 }
+
+
+.shepherd-has-title .shepherd-content .shepherd-header {
+  background-color: white !important  ;
+}
+
+.shepherd-title{
+  font-size: 15px !important;
+  color: #ff7b00ff !important
+}
+.shepherd-text{
+  font-size: 14px !important;
+}
+.shepherd-button{
+ background-color: #ff7b00ff !important
+}
+
+.shepherd-button{
+  margin-left: 7px !important;
+}

@@ -41,7 +41,7 @@ const MapView = ({
   const { handleMapClick } = useMapView(infoLocation, setInfoLocation);
 
   return (
-    <Container>
+    <Container id="step3">
       <MapContainer
         center={center_map}
         zoom={13}

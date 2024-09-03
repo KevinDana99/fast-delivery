@@ -12,13 +12,7 @@ const PushNotification = () => {
 
   const handleRequestNotificationPermission = () => {
     if ("Notification" in window) {
-      Notification.requestPermission().then(function (permission) {
-        if (permission === "granted") {
-          console.log("granted");
-        } else {
-          console.log("not granted");
-        }
-      });
+      Notification.requestPermission();
     }
   };
 
@@ -42,9 +36,9 @@ const PushNotification = () => {
   };
 
   useEffect(() => {
-    window.location.href = "chrome://settings/content/notifications";
     if (Notification.permission === "granted") {
       setNotificationPermission(true);
+      //handleSubscribeUserToPush();
     } else if (Notification.permission === "default") {
       setNotificationPermission(null);
     } else {
@@ -53,7 +47,6 @@ const PushNotification = () => {
   }, []);
 
   console.log({ notificationPermission });
-
   console.log({ visibleModal });
   return (
     <PushNotificationModal

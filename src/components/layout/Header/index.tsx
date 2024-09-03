@@ -33,11 +33,13 @@ const Header = ({ infoLocation, setInfoLocation }: HeaderType) => {
     setInfoLocation,
   });
   const enableButton = infoLocation[1]?.info && infoLocation[0]?.info;
+
   return (
     <Container>
       <Icon>
         <Logo />
       </Icon>
+
       <SearchBar>
         <SearchLabel>
           <SearchInputWrapper>
@@ -45,6 +47,7 @@ const Header = ({ infoLocation, setInfoLocation }: HeaderType) => {
               <MyLocationIcon />
             </SearchInputIcon>
             <SearchInput
+              id="step1"
               placeholder="Origen"
               value={query.origin}
               onChange={handleChangeOriginLocation}
@@ -83,6 +86,7 @@ const Header = ({ infoLocation, setInfoLocation }: HeaderType) => {
             </SearchInputIcon>
 
             <SearchInput
+              id="step2"
               placeholder="Destino"
               value={query.destination}
               onChange={handleChangeDestinationLocation}
@@ -114,7 +118,6 @@ const Header = ({ infoLocation, setInfoLocation }: HeaderType) => {
           </SearchInputWrapper>
         </SearchLabel>
       </SearchBar>
-
       <Link href={"/details"}>
         <MuiButton
           color="secondary"
