@@ -4,7 +4,6 @@ import PwaModal from "@/components/ui/modals/PwaModal";
 import { useEffect, useState } from "react";
 
 export default function PwaInstall({ visible }: { visible: boolean }) {
-  console.log("pwa install montado");
   const [deferredPrompt, setDeferredPrompt] = useState<any>(null);
   const [showPrompt, setShowPrompt] = useState<boolean>(false);
 

@@ -22,19 +22,14 @@ import {
   StyledSelect,
 } from "./styled";
 import Logo from "@/components/ui/Logo";
-import { Button } from "@mui/material";
-import useLoading from "@/hooks/useLoading";
-import Loading from "@/components/ui/Loading";
 import ShoppingBagIcon from "@mui/icons-material/ShoppingBag";
 import { getRoutePrice } from "@/components/ui/maps/MapView/constants/prices";
 import useDetails from "./hooks/useDetails";
 import ContentCopyIcon from "@mui/icons-material/ContentCopy";
-import theme from "@/globals/theme";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import Link from "next/link";
-import useTutorial from "../hooks/useTutorial";
+
 const Details = () => {
-  const { loading } = useLoading();
   const {
     routeInfo,
     infoLocation,
@@ -48,11 +43,8 @@ const Details = () => {
     handleOnChangeExtraPrice,
     captureRef,
   } = useDetails();
-  const tourRef = useRef(false);
-  useTutorial("details", tourRef);
-  return loading ? (
-    <Loading />
-  ) : (
+
+  return (
     <Container>
       <Header>
         <Link href={"/"}>

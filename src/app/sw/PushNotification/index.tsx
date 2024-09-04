@@ -44,9 +44,6 @@ const PushNotification = ({ visible }: { visible: boolean }) => {
     }
   }, []);
 
-  console.log({ notificationPermission });
-  console.log({ visibleModal });
-
   return (
     <PushNotificationModal
       notificationPermission={notificationPermission}

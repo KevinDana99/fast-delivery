@@ -21,7 +21,6 @@ const useMapView = (
   };
 
   const handleMapClick = async (latlng: L.LatLng) => {
-    console.log("se ejecuto");
     const infoLocation = await getCurrentMarkerLocationInfo(latlng);
 
     setLocationInfo((prev) => {

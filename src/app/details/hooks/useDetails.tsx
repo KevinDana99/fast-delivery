@@ -1,3 +1,4 @@
+import useTutorial from "@/app/hooks/useTutorial";
 import { RouteContext } from "@/contexts/routeContext";
 import html2canvas from "html2canvas";
 import { EventHandler, useContext, useEffect, useRef, useState } from "react";
@@ -13,6 +14,8 @@ const useDetails = () => {
   const { infoLocation, routeInfo } = useContext(RouteContext);
   const captureRef = useRef(null);
   const [loading, setLoading] = useState(false);
+  const tourRef = useRef(false);
+  useTutorial("details", tourRef);
 
   const sendLinkToWhatsApp = (imageUrl) => {
     const phoneNumber = "542805062685";
@@ -115,7 +118,6 @@ const useDetails = () => {
   };
 
   useEffect(() => {
-    console.log(infoLocation, "infoLocaTION");
     if (!infoLocation[0]?.info && !infoLocation[1]?.info) {
       window.location.href = "/";
     }

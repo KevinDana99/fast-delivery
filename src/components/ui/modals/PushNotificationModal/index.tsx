@@ -23,7 +23,7 @@ const PushNotificationModal = ({
   notificationPermission: boolean;
 }) => {
   const [visible, setVisible] = useState(visibleModalProp);
-  console.log(visible, "noti");
+
   const handleCloseModal = () => {
     setVisible(false);
   };

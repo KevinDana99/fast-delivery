@@ -1,5 +1,6 @@
-import { useContext } from "react";
+import { useContext, useRef } from "react";
 import { RouteContext } from "@/contexts/routeContext";
+import useTutorial from "./useTutorial";
 
 const useHome = () => {
   const {
@@ -10,7 +11,9 @@ const useHome = () => {
     handleFinishTutorial,
   } = useContext(RouteContext);
 
-  console.log(infoLocation);
+  const tourRef = useRef(false);
+  useTutorial("home", tourRef, handleFinishTutorial);
+
   const originLocation = [
     infoLocation[0]?.marker[0],
     infoLocation[0]?.marker[1],
@@ -24,7 +27,6 @@ const useHome = () => {
     infoLocation,
     setInfoLocation,
     setRouteInfo,
-    handleFinishTutorial,
     routeInfo,
     originLocation,
     destinationLocation,
