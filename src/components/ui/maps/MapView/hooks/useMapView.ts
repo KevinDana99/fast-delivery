@@ -9,6 +9,7 @@ const useMapView = (
     info: string;
     marker: number[];
   }>(null);
+
   const getCurrentMarkerLocationInfo = async (latlng: L.LatLng) => {
     const API_URL = `https://nominatim.openstreetmap.org/reverse?lat=${latlng.lat}&lon=${latlng.lng}&format=json&addressdetails=1`;
     const response = await fetch(API_URL);

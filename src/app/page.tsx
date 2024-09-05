@@ -22,7 +22,7 @@ const Home = () => {
 
   return (
     <AppContainer>
-      <Header infoLocation={infoLocation} setInfoLocation={setInfoLocation} />
+      <Header />
       <WrapperMap>
         <DynamicMapView
           setInfoLocation={setInfoLocation}

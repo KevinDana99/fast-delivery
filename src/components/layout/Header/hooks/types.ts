@@ -6,6 +6,15 @@ export type SearchOption = {
     city: string;
     state_district: string;
     house_number?: string;
+    neighbourhood?: string;
+    suburb?: string;
+    amenity?: string;
+    shop?: string;
+    building?: string;
+    cemetery?: string;
+    park?: string;
+    water?: string;
+    leisure?: string;
   };
   addresstype: string;
   boundingbox: [string, string, string, string];

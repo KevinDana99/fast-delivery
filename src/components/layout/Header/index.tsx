@@ -16,25 +16,25 @@ import {
 } from "./styled";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
 import MyLocationIcon from "@mui/icons-material/MyLocation";
-import { HeaderType } from "./types";
 import useHeader from "./hooks/useHeader";
 import Logo from "@/components/ui/Logo";
-import Link from "next/link";
 import theme from "@/globals/theme";
 
-const Header = ({ infoLocation, setInfoLocation }: HeaderType) => {
+const Header = () => {
   const {
     handleChangeDestinationLocation,
     handleChangeOriginLocation,
     handleCleanInput,
-    handleSelectedLocation,
+    handleSelectedDestinationLocation,
+    handleSelectedOriginLocation,
+    handleOnKeyDownInputDestination,
+    handleOnKeyDownInputOrigin,
+    getDisplayNameLocation,
+    infoLocation,
     query,
     searchOptions,
-  } = useHeader({
-    infoLocation,
-    setInfoLocation,
-  });
-  const enableButton = infoLocation[1]?.info && infoLocation[0]?.info;
+    enableHeaderButton,
+  } = useHeader();
 
   return (
     <Container>
@@ -53,6 +53,7 @@ const Header = ({ infoLocation, setInfoLocation }: HeaderType) => {
               placeholder="Origen"
               value={query.origin}
               onChange={handleChangeOriginLocation}
+              onKeyDown={handleOnKeyDownInputOrigin}
             />
 
             <Select
@@ -65,9 +66,9 @@ const Header = ({ infoLocation, setInfoLocation }: HeaderType) => {
               {searchOptions?.origin?.map((option, index) => (
                 <Option
                   key={`key-${index}`}
-                  onClick={() => handleSelectedLocation(option, "origin")}
+                  onClick={() => handleSelectedOriginLocation(option)}
                 >
-                  {option.address?.road} {option.address?.house_number}
+                  {getDisplayNameLocation(option)}
                 </Option>
               ))}
             </Select>
@@ -92,6 +93,7 @@ const Header = ({ infoLocation, setInfoLocation }: HeaderType) => {
               placeholder="Destino"
               value={query.destination}
               onChange={handleChangeDestinationLocation}
+              onKeyDown={handleOnKeyDownInputDestination}
             />
 
             <CancelContainerButton>
@@ -111,9 +113,9 @@ const Header = ({ infoLocation, setInfoLocation }: HeaderType) => {
               {searchOptions?.destination?.map((option, index) => (
                 <Option
                   key={`key-${index}`}
-                  onClick={() => handleSelectedLocation(option, "destination")}
+                  onClick={() => handleSelectedDestinationLocation(option)}
                 >
-                  {option.address?.road} {option.address?.house_number}
+                  {getDisplayNameLocation(option)}
                 </Option>
               ))}
             </Select>
@@ -126,7 +128,7 @@ const Header = ({ infoLocation, setInfoLocation }: HeaderType) => {
         sx={{
           width: 150,
           height: 40,
-          background: !enableButton ? "#c6c6c6 !important" : null,
+          background: !enableHeaderButton ? "#c6c6c6 !important" : null,
           padding: 0,
           display: "flex",
           justifyContent: "center",
@@ -136,7 +138,7 @@ const Header = ({ infoLocation, setInfoLocation }: HeaderType) => {
           },
         }}
         variant="contained"
-        disabled={!enableButton}
+        disabled={!enableHeaderButton}
       >
         <ButtonLink href={"/details"} id="desktop-step4-home">
           Solicitar Envio

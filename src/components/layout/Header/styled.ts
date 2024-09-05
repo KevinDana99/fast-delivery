@@ -127,6 +127,9 @@ export const Option = styled.div`
   border-bottom: solid 1px lightgray;
   width: 100%;
   height: 40px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: clip;
 `;
 export const MuiButton = styled(Button)`
   @media (min-width: 0px) and (max-width: 700px) {
