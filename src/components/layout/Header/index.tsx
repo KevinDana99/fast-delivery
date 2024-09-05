@@ -36,6 +36,8 @@ const Header = () => {
     enableHeaderButton,
   } = useHeader();
 
+  console.log(query);
+
   return (
     <Container>
       <Icon>
@@ -74,6 +76,11 @@ const Header = () => {
             </Select>
             <CancelContainerButton>
               <IconCancel
+                visible={
+                  query?.origin?.length !== 0 || infoLocation[0]?.info
+                    ? true
+                    : false
+                }
                 color="inherit"
                 onClick={() => handleCleanInput("origin")}
               />
@@ -98,6 +105,11 @@ const Header = () => {
 
             <CancelContainerButton>
               <IconCancel
+                visible={
+                  query?.destination?.length !== 0 || infoLocation[0]?.info
+                    ? true
+                    : false
+                }
                 color="inherit"
                 onClick={() => handleCleanInput("destination")}
               />

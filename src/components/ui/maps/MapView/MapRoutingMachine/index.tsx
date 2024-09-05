@@ -10,7 +10,7 @@ import SportsMotorsportsIcon from "@mui/icons-material/SportsMotorsports";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
 import MyLocationIcon from "@mui/icons-material/MyLocation";
 import theme from "@/globals/theme";
-const initValue = [0, 0];
+const initValue = null;
 const MapRoutingMachine = ({
   start = initValue,
   end = initValue,
@@ -23,6 +23,15 @@ const MapRoutingMachine = ({
   const map = useMap();
   const controlRef = React.useRef<null | L.Routing.Control>(null);
   const myLocation = useLocation();
+  const startInitialValue = start && L.latLng(start[0], start[1]);
+  const endInitialValue = end && L.latLng(end[0], end[1]);
+  const myLocationInitialValue =
+    myLocation && L.latLng(myLocation[0], myLocation[1]);
+  const waypoints: L.LatLng[] = [
+    myLocationInitialValue,
+    startInitialValue,
+    endInitialValue,
+  ];
 
   const handleRouteFound = (e: any) => {
     const routes = e.routes;
@@ -35,17 +44,14 @@ const MapRoutingMachine = ({
       onRouteFound({ distance, time, instructions });
     }
   };
+
   useEffect(() => {
     if (controlRef.current) {
       map.removeControl(controlRef.current);
     }
 
     controlRef.current = L.Routing.control({
-      waypoints: [
-        L.latLng(myLocation[0], myLocation[1]),
-        L.latLng(start[0], start[1]),
-        L.latLng(end[0], end[1]),
-      ],
+      waypoints,
       show: false,
       fitSelectedRoutes: false,
       showAlternatives: false,

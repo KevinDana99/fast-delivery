@@ -44,7 +44,7 @@ export const SearchLabel = styled.label`
   height: 48px;
   width: 100%;
 `;
-export const IconCancel = styled(CancelIcon)`
+export const IconCancel = styled(CancelIcon)<{ visible: boolean }>`
   visibility: hidden;
   color: #afa7a7;
 `;
@@ -89,7 +89,7 @@ export const SearchInput = styled.input`
   }
 `;
 
-export const CancelContainerButton = styled.button`
+export const CancelContainerButton = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
@@ -98,6 +98,7 @@ export const CancelContainerButton = styled.button`
   color: #181111;
   padding-right: 16px;
   cursor: pointer;
+  outline: none;
 `;
 export const CotizationButton = styled.div`
   color: black;

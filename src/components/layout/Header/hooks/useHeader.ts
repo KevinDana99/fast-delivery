@@ -10,20 +10,17 @@ import { RouteContext } from "@/contexts/routeContext";
 
 const LOCATION_CITY = "Puerto Madryn";
 const useHeader = () => {
-  //controla el estado general
   const { infoLocation, setInfoLocation } = useContext(RouteContext);
   const infoLocationPrimary: LocationType = infoLocation[0];
   const infoLocationSecondary: LocationType = infoLocation[1];
-  //boolean si se cumple
+
   const enableHeaderButton = infoLocation[1]?.info && infoLocation[0]?.info;
 
-  //estado del buscador de origen y destino
   const [query, setQuery] = useState({
     origin: infoLocation[0]?.info ?? "",
     destination: infoLocation[1]?.info ?? "",
   });
 
-  //estado que maneja las opciones encontradas en las busquedas
   const [searchOptions, setSearchOptions] = useState<{
     origin: SearchOptions | null;
     destination: SearchOptions | null;
@@ -32,7 +29,6 @@ const useHeader = () => {
     destination: null,
   });
 
-  // request a la API de geolocalizacion
   const handleSearchLocation = async (locationName: string) => {
     const LOCATION_COUNTRY = "Argentina";
     const API_URL = `https://nominatim.openstreetmap.org/search?q=${encodeURIComponent(
@@ -44,7 +40,6 @@ const useHeader = () => {
     try {
       const req = await fetch(API_URL);
       const res = await req.json();
-      console.log(res);
       return res;
     } catch (err) {
       throw err;
@@ -222,10 +217,6 @@ const useHeader = () => {
     const timer = setTimeout(() => request(), 300);
     return () => clearTimeout(timer);
   }, [query.destination]);
-
-  useEffect(() => {
-    console.log(searchOptions);
-  }, [searchOptions]);
 
   return {
     handleChangeOriginLocation,
