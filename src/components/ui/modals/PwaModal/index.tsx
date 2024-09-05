@@ -12,6 +12,7 @@ import {
 import React, { useEffect, useState } from "react";
 import SmartphoneIcon from "@mui/icons-material/Smartphone";
 import CloseIcon from "@mui/icons-material/Close";
+import { IconClose } from "./styled";
 const PwaModal = ({
   handleInstall,
   visible: visibleProp,
@@ -52,8 +53,8 @@ const PwaModal = ({
           justifyContent: "space-between ",
         }}
       >
-        <CloseIcon
-          sx={{ alignSelf: "flex-start", cursor: "pointer" }}
+        <IconClose
+          sx={{ alignSelf: "flex-start" }}
           onClick={handleCloseModal}
         />
 

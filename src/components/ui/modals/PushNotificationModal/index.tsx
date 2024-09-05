@@ -10,9 +10,8 @@ import {
   Typography,
 } from "@mui/material";
 import React, { useEffect, useState } from "react";
-import SmartphoneIcon from "@mui/icons-material/Smartphone";
-import CloseIcon from "@mui/icons-material/Close";
 import NotificationsActiveIcon from "@mui/icons-material/NotificationsActive";
+import { IconClose } from "./styled";
 const PushNotificationModal = ({
   handleAceptNotifications,
   visible: visibleModalProp,
@@ -55,8 +54,8 @@ const PushNotificationModal = ({
           justifyContent: "space-between ",
         }}
       >
-        <CloseIcon
-          sx={{ alignSelf: "flex-start", cursor: "pointer" }}
+        <IconClose
+          sx={{ alignSelf: "flex-start" }}
           onClick={handleCloseModal}
         />
 

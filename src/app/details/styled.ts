@@ -1,5 +1,6 @@
 import theme from "@/globals/theme";
 import { Button } from "@mui/material";
+import Link from "next/link";
 import styled from "styled-components";
 const maxWidthFormInDesktop = 500;
 export const Container = styled.div`
@@ -200,7 +201,9 @@ export const PayButton = styled.button`
   display: flex;
   min-width: 84px;
   max-width: 480px;
-  cursor: pointer;
+  @media (max-width: 700px) {
+    cursor: default;
+  }
   align-items: center;
   justify-content: center;
   overflow: hidden;
@@ -236,5 +239,11 @@ export const StyledButton = styled(Button)`
   @media (min-width: 700px) {
     max-width: ${maxWidthFormInDesktop}px;
     margin: 0 auto;
+  }
+`;
+
+export const ButtonLink = styled(Link)`
+  @media (max-width: 700px) {
+    cursor: default;
   }
 `;

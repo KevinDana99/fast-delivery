@@ -45,16 +45,21 @@ export const SearchLabel = styled.label`
   width: 100%;
 `;
 export const IconCancel = styled(CancelIcon)<{ visible: boolean }>`
-  visibility: hidden;
+  display: none !important;
   color: #afa7a7;
+  @media (max-width: 700px) {
+    cursor: default;
+  }
+  cursor: pointer;
 `;
 export const SearchInputWrapper = styled.div`
   &:hover {
     ${IconCancel} {
-      visibility: visible;
+      display: block !important;
     }
   }
   display: flex;
+  min-width: 290px;
   width: 100%;
   border-radius: 16px;
   height: 100%;
@@ -77,6 +82,10 @@ export const SearchChangeIcon = styled(SearchInputIcon)`
 `;
 
 export const SearchInput = styled.input`
+  flex: 1;
+  white-space: nowrap;
+  overflow: hidden !important;
+  text-overflow: ellipsis;
   width: 100%;
   border: none;
   background-color: #f4f0f0;
@@ -87,6 +96,9 @@ export const SearchInput = styled.input`
   &::placeholder {
     color: #896161;
   }
+  white-space: nowrap;
+  overflow: hidden !important;
+  text-overflow: ellipsis;
 `;
 
 export const CancelContainerButton = styled.div`
@@ -97,8 +109,6 @@ export const CancelContainerButton = styled.div`
   border: none;
   color: #181111;
   padding-right: 16px;
-  cursor: pointer;
-  outline: none;
 `;
 export const CotizationButton = styled.div`
   color: black;

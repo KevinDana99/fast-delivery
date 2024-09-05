@@ -2,6 +2,7 @@
 import React, { useRef } from "react";
 import {
   BoxContainer,
+  ButtonLink,
   Container,
   ContainerButton,
   Header,
@@ -27,7 +28,6 @@ import { getRoutePrice } from "@/components/ui/maps/MapView/constants/prices";
 import useDetails from "./hooks/useDetails";
 import ContentCopyIcon from "@mui/icons-material/ContentCopy";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
-import Link from "next/link";
 
 const Details = () => {
   const {
@@ -47,9 +47,9 @@ const Details = () => {
   return (
     <Container>
       <Header>
-        <Link href={"/"}>
+        <ButtonLink href={"/"}>
           <ArrowBackIcon color="primary" className="hidden-capture" />
-        </Link>
+        </ButtonLink>
       </Header>
       <BoxContainer ref={captureRef}>
         <LogoContainer>
