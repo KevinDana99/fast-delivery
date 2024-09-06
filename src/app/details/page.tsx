@@ -61,13 +61,12 @@ const Details = () => {
           </ItemDetails>
         </LabelContainer>
         <InputContainer className="hidden-capture">
-          <InputWrapper>
+          <InputWrapper id="step1-details">
             <InputGroup>
               <StyledInput
                 required={true}
                 onChange={handleTransactionProduct}
                 placeholder="Detalle del paquete"
-                id="step1-details"
               />
               <IconWrapper
                 data-icon="User"
