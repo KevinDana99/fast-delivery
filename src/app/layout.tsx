@@ -13,6 +13,7 @@ import MainLayout from "./MainLayout";
 import ServiceWorkerRegister from "./sw";
 import PwaInstall from "./sw/PwaInstall";
 import PushNotification from "./sw/PushNotification";
+import GoogleAnalitycs from "@/components/ui/GoogleAnalitycs";
 
 export default function RootLayout({
   children,
@@ -27,6 +28,12 @@ export default function RootLayout({
         <meta name="theme-color" content="#ff7b00ff" />
         <link rel="icon" href="/icons/logo-192x192.png" />
         <link rel="apple-touch-icon" href="/icons/logo-192x192.png" />
+
+        <script
+          async
+          src="https://www.googletagmanager.com/gtag/js?id=G-0G4ZD773X2"
+        ></script>
+        <GoogleAnalitycs />
       </head>
       <body>
         <MainLayout>
