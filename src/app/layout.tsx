@@ -14,12 +14,14 @@ import ServiceWorkerRegister from "./sw";
 import PwaInstall from "./sw/PwaInstall";
 import PushNotification from "./sw/PushNotification";
 import GoogleAnalitycs from "@/components/ui/GoogleAnalitycs";
+import Script from "next/script";
 
 export default function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const gooogleAnalitycsId = "G-0G4ZD773X2";
   return (
     <html lang="es">
       <head>
@@ -29,11 +31,21 @@ export default function RootLayout({
         <link rel="icon" href="/icons/logo-192x192.png" />
         <link rel="apple-touch-icon" href="/icons/logo-192x192.png" />
 
-        <script
+        <Script
           async
-          src="https://www.googletagmanager.com/gtag/js?id=G-0G4ZD773X2"
-        ></script>
-        <GoogleAnalitycs />
+          src={`https://www.googletagmanager.com/gtag/js?id=${gooogleAnalitycsId}`}
+        />
+        <Script
+          id="google-analytics"
+          dangerouslySetInnerHTML={{
+            __html: `
+              window.dataLayer = window.dataLayer || [];
+              function gtag() { dataLayer.push(arguments); }
+              gtag('js', new Date());
+              gtag('config', ${gooogleAnalitycsId});
+            `,
+          }}
+        />
       </head>
       <body>
         <MainLayout>
