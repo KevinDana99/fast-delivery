@@ -1,7 +1,7 @@
 {
-    "name": "My Next.js PWA",
-    "short_name": "NextPWA",
-    "description": "A Progressive Web App built with Next.js",
+    "name": "Fast",
+    "short_name": "Fast Delivery",
+    "description": "Cotiza, pedi y mantenete al tanto de tu pedido",
     "start_url": "/",
     "display": "standalone",
     "background_color": "#ff7300",
