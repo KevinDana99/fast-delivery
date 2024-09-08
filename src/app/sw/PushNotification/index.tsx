@@ -34,13 +34,15 @@ const PushNotification = ({ visible }: { visible: boolean }) => {
   };
 
   useEffect(() => {
-    if (Notification.permission === "granted") {
-      setNotificationPermission(true);
-      //handleSubscribeUserToPush();
-    } else if (Notification.permission === "default") {
-      setNotificationPermission(null);
-    } else {
-      setNotificationPermission(false);
+    if (window.Notification) {
+      if (Notification.permission === "granted") {
+        setNotificationPermission(true);
+        //handleSubscribeUserToPush();
+      } else if (Notification.permission === "default") {
+        setNotificationPermission(null);
+      } else {
+        setNotificationPermission(false);
+      }
     }
   }, []);
 
