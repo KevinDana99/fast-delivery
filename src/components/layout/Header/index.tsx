@@ -19,6 +19,7 @@ import MyLocationIcon from "@mui/icons-material/MyLocation";
 import useHeader from "./hooks/useHeader";
 import Logo from "@/components/ui/Logo";
 import theme from "@/globals/theme";
+import Link from "next/link";
 
 const Header = () => {
   const {
@@ -152,9 +153,9 @@ const Header = () => {
         variant="contained"
         disabled={!enableHeaderButton}
       >
-        <ButtonLink href={"/details"} id="desktop-step4-home">
+        <Link href={"/details"} id="desktop-step4-home">
           Solicitar Envio
-        </ButtonLink>
+        </Link>
       </MuiButton>
     </Container>
   );
