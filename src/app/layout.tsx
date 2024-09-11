@@ -11,9 +11,6 @@ export const metadata: Metadata = {
 
 import MainLayout from "./MainLayout";
 import ServiceWorkerRegister from "./sw";
-import PwaInstall from "./sw/PwaInstall";
-import PushNotification from "./sw/PushNotification";
-import GoogleAnalitycs from "@/components/ui/GoogleAnalitycs";
 import Script from "next/script";
 
 export default function RootLayout({
