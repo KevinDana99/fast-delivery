@@ -117,12 +117,6 @@ const useDetails = () => {
     }
   };
 
-  useEffect(() => {
-    if (!infoLocation[0]?.info && !infoLocation[1]?.info) {
-      window.location.href = "/";
-    }
-  }, []);
-
   return {
     infoLocation,
     routeInfo,
