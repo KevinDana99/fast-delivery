@@ -5,8 +5,7 @@ import dynamic from "next/dynamic";
 import useHome from "./hooks/useHome";
 import Footer from "@/components/layout/Footer";
 import Header from "@/components/layout/Header";
-import useTutorial from "./hooks/useTutorial";
-
+import { useRouter } from "next/navigation";
 const DynamicMapView = dynamic(() => import("@/components/ui/maps/MapView"), {
   ssr: false,
 });

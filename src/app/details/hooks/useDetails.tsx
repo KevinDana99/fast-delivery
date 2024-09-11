@@ -1,6 +1,7 @@
 import useTutorial from "@/app/hooks/useTutorial";
 import { RouteContext } from "@/contexts/routeContext";
 import html2canvas from "html2canvas";
+import { useRouter } from "next/router";
 import { EventHandler, useContext, useEffect, useRef, useState } from "react";
 
 type TransactionType = {
@@ -116,13 +117,13 @@ const useDetails = () => {
       });
     }
   };
-  /*
+
   useEffect(() => {
     if (!infoLocation[0]?.info && !infoLocation[1]?.info) {
       window.location.href = "/";
     }
   }, []);
-*/
+
   return {
     infoLocation,
     routeInfo,

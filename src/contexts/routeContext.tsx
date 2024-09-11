@@ -1,4 +1,5 @@
 import { LocationType, RouteInfo } from "@/app/types";
+import { useRouter } from "next/navigation";
 import React, { ReactNode, createContext, useState } from "react";
 
 export const RouteContext = createContext<{
@@ -7,6 +8,7 @@ export const RouteContext = createContext<{
   setInfoLocation: React.Dispatch<React.SetStateAction<LocationType[]>>;
   setRouteInfo: React.Dispatch<React.SetStateAction<RouteInfo>>;
   handleFinishTutorial: () => void;
+  handleChangePage: (route: string) => void;
 }>(null);
 
 export const RouteProvider = ({
@@ -18,7 +20,10 @@ export const RouteProvider = ({
 }) => {
   const [infoLocation, setInfoLocation] = useState<LocationType[]>([]);
   const [routeInfo, setRouteInfo] = useState<RouteInfo | null>(null);
-
+  const router = useRouter();
+  const handleChangePage = (route: string) => {
+    router.push(route);
+  };
   return (
     <RouteContext.Provider
       value={{
@@ -27,6 +32,7 @@ export const RouteProvider = ({
         setInfoLocation,
         setRouteInfo,
         handleFinishTutorial,
+        handleChangePage,
       }}
     >
       {children}

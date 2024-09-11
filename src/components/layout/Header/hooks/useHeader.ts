@@ -10,7 +10,8 @@ import { RouteContext } from "@/contexts/routeContext";
 
 const LOCATION_CITY = "Puerto Madryn";
 const useHeader = () => {
-  const { infoLocation, setInfoLocation } = useContext(RouteContext);
+  const { infoLocation, setInfoLocation, handleChangePage } =
+    useContext(RouteContext);
   const infoLocationPrimary: LocationType = infoLocation[0];
   const infoLocationSecondary: LocationType = infoLocation[1];
 
@@ -227,6 +228,7 @@ const useHeader = () => {
     handleOnKeyDownInputDestination,
     handleOnKeyDownInputOrigin,
     getDisplayNameLocation,
+    handleChangePage,
     infoLocation,
     query,
     searchOptions,

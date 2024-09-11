@@ -30,6 +30,7 @@ const Header = () => {
     handleOnKeyDownInputDestination,
     handleOnKeyDownInputOrigin,
     getDisplayNameLocation,
+    handleChangePage,
     infoLocation,
     query,
     searchOptions,
@@ -136,6 +137,8 @@ const Header = () => {
       </SearchBar>
 
       <MuiButton
+        onClick={() => handleChangePage("/details")}
+        id="desktop-step4-home"
         color="secondary"
         sx={{
           width: 150,
@@ -152,9 +155,7 @@ const Header = () => {
         variant="contained"
         disabled={!enableHeaderButton}
       >
-        <ButtonLink href={"/details"} id="desktop-step4-home">
-          Solicitar Envio
-        </ButtonLink>
+        Solicitar Envio
       </MuiButton>
     </Container>
   );
