@@ -18,7 +18,7 @@ const useDetails = () => {
   useTutorial("details", tourRef);
 
   const sendLinkToWhatsApp = (imageUrl) => {
-    const phoneNumber = "542805062685";
+    const phoneNumber = "542804670313";
     const text = `Comprobante de envio: ${imageUrl}`;
     const encodedText = encodeURIComponent(text);
     const url = `https://api.whatsapp.com/send?phone=${phoneNumber}&text=${encodedText}`;
