@@ -34,7 +34,7 @@ const MapRoutingMachine = ({
     startInitialValue,
     endInitialValue,
   ];
-
+  const [calculateRoute, setCalculateRoute] = useState(true);
   const handleRouteFound = (e: any) => {
     const routes = e.routes;
     const summary = routes[0].summary;
@@ -54,10 +54,13 @@ const MapRoutingMachine = ({
     }
 
     // Verifica si el control ya está inicializado y en el mapa
-    if (controlRef.current) {
+    if (controlRef.current && !calculateRoute) {
       try {
         // Asegúrate de que los waypoints sean válidos
-        controlRef.current.setWaypoints(waypoints.filter(Boolean));
+        waypoints[0] &&
+          waypoints[1] &&
+          waypoints[2] &&
+          controlRef.current.setWaypoints(waypoints);
       } catch (error) {
         console.error("Error al actualizar los waypoints:", error);
       }
@@ -115,6 +118,7 @@ const MapRoutingMachine = ({
       })
         .on("routesfound", handleRouteFound)
         .addTo(map);
+      setCalculateRoute(false);
     }
 
     // Limpieza
@@ -129,7 +133,7 @@ const MapRoutingMachine = ({
         }
       }
     };
-  }, [map, start, end]);
+  }, [map, start, end, theme.main.color, myLocation]);
   return null;
 };
 
