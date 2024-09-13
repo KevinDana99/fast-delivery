@@ -42,18 +42,18 @@ const useLocation = () => {
       "TaSlrQ.SLHZEw:GLIHt9L_yd9skDWBbKyb29ttDMJFgNt3R6Og6gFvyBo"
     );
     const channel = ably.channels.get("get-started");
-    setChannelState(channel);
-    handleWatchLocation();
     channel.subscribe("first", (message) => {
       console.log(`${JSON.stringify(message.data)}`);
     });
+    setChannelState(channel);
+    if (USER === "000Admin") {
+      handleWatchLocation();
+    }
   }, []);
 
   useEffect(() => {
-    if (USER === "000Admin") {
-      if (location) {
-        handleSendLocation();
-      }
+    if (location) {
+      handleSendLocation();
     }
   }, [location]);
 
