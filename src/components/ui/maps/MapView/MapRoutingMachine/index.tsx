@@ -1,5 +1,5 @@
 "use client";
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import { MapContainer, TileLayer, useMap } from "react-leaflet";
 import L from "leaflet";
 import "leaflet-routing-machine";
@@ -29,12 +29,13 @@ const MapRoutingMachine = ({
   const endInitialValue = end && L.latLng(end[0], end[1]);
   const myLocationInitialValue =
     myLocation && L.latLng(myLocation[0], myLocation[1]);
+
   const waypoints: L.LatLng[] = [
     myLocationInitialValue,
     startInitialValue,
     endInitialValue,
   ];
-  const [calculateRoute, setCalculateRoute] = useState(true);
+  const locationMarkerRef = useRef(null);
   const handleRouteFound = (e: any) => {
     const routes = e.routes;
     const summary = routes[0].summary;
@@ -53,87 +54,88 @@ const MapRoutingMachine = ({
       return;
     }
 
-    // Verifica si el control ya está inicializado y en el mapa
-    if (controlRef.current && !calculateRoute) {
-      try {
-        // Asegúrate de que los waypoints sean válidos
-        waypoints[0] &&
-          waypoints[1] &&
-          waypoints[2] &&
-          controlRef.current.setWaypoints(waypoints);
-      } catch (error) {
-        console.error("Error al actualizar los waypoints:", error);
-      }
-    } else {
-      // Solo inicializa el control si no existe aún
-      controlRef.current = L.Routing.control({
-        waypoints: waypoints,
-        show: true,
-        fitSelectedRoutes: false,
-        showAlternatives: false,
-        addWaypoints: false,
-        lineOptions: {
-          styles: [{ color: theme.main.color, weight: 6 }],
-          extendToWaypoints: true,
-          missingRouteTolerance: 2,
-        },
-        //@ts-ignore
-        createMarker: function (i: number, waypoint: L.Routing.Waypoint, _) {
-          if (i === 0) {
-            return L.marker(waypoint.latLng, {
-              icon: getCustomIcon({
-                icon: (
-                  <SportsMotorsportsIcon
-                    style={{ color: theme.colors.primary, fontSize: "38" }}
-                  />
-                ),
-              }),
-            });
-          }
-          if (i === 1) {
-            return L.marker(waypoint.latLng, {
-              icon: getCustomIcon({
-                icon: (
-                  <MyLocationIcon
-                    style={{ color: theme.colors.primary, fontSize: "34" }}
-                  />
-                ),
-              }),
-            });
-          }
-          if (i === 2) {
-            return L.marker(waypoint.latLng, {
-              icon: getCustomIcon({
-                icon: (
-                  <LocationOnIcon
-                    style={{ color: theme.colors.primary, fontSize: "38" }}
-                  />
-                ),
-              }),
-            });
-          }
+    controlRef.current = L.Routing.control({
+      waypoints: waypoints,
+      show: true,
+      fitSelectedRoutes: false,
+      showAlternatives: false,
+      addWaypoints: false,
+      lineOptions: {
+        styles: [{ color: theme.main.color, weight: 6 }],
+        extendToWaypoints: true,
+        missingRouteTolerance: 2,
+      },
+      //@ts-ignore
+      createMarker: function (i: number, waypoint: L.Routing.Waypoint, _) {
+        if (i === 0) {
+          return L.marker(waypoint.latLng, {
+            icon: getCustomIcon({
+              icon: <></>,
+            }),
+          });
+        }
+        if (i === 1) {
+          return L.marker(waypoint.latLng, {
+            icon: getCustomIcon({
+              icon: (
+                <MyLocationIcon
+                  style={{ color: theme.colors.primary, fontSize: "34" }}
+                />
+              ),
+            }),
+          });
+        }
+        if (i === 2) {
+          return L.marker(waypoint.latLng, {
+            icon: getCustomIcon({
+              icon: (
+                <LocationOnIcon
+                  style={{ color: theme.colors.primary, fontSize: "38" }}
+                />
+              ),
+            }),
+          });
+        }
 
-          return L.marker(waypoint.latLng);
-        },
-      })
-        .on("routesfound", handleRouteFound)
-        .addTo(map);
-      setCalculateRoute(false);
-    }
+        return L.marker(waypoint.latLng);
+      },
+    })
+      .on("routesfound", handleRouteFound)
+      .addTo(map);
 
-    // Limpieza
     return () => {
       if (controlRef.current) {
         try {
-          // Verifica si controlRef.current es válido antes de intentar eliminarlo
           map.removeControl(controlRef.current);
-          controlRef.current = null; // Asegúrate de limpiar la referencia
+          controlRef.current = null;
         } catch (error) {
           console.error("Error al remover el control del mapa:", error);
         }
       }
     };
-  }, [map, start, end, theme.main.color, myLocation]);
+  }, [map, start, end, theme.main.color]);
+
+  useEffect(() => {
+    if (myLocation == waypoints[0]) {
+      waypoints.splice(0, 1, myLocationInitialValue);
+    }
+    if (myLocation == waypoints[1]) {
+      waypoints.pop();
+    }
+
+    if (myLocationInitialValue) {
+      locationMarkerRef.current = L.marker(myLocationInitialValue, {
+        icon: getCustomIcon({
+          icon: (
+            <SportsMotorsportsIcon
+              style={{ color: theme.colors.primary, fontSize: "34" }}
+            />
+          ),
+        }),
+      }).addTo(map);
+    }
+  }, [myLocation]);
+
   return null;
 };
 
