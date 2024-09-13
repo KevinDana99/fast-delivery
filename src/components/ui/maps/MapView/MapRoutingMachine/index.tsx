@@ -64,8 +64,8 @@ const MapRoutingMachine = ({
     } else {
       // Solo inicializa el control si no existe aún
       controlRef.current = L.Routing.control({
-        waypoints: waypoints.filter(Boolean),
-        show: false,
+        waypoints: waypoints,
+        show: true,
         fitSelectedRoutes: false,
         showAlternatives: false,
         addWaypoints: false,
@@ -129,7 +129,7 @@ const MapRoutingMachine = ({
         }
       }
     };
-  }, [map, myLocation, start, end]);
+  }, [map, start, end]);
   return null;
 };
 
