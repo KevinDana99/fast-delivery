@@ -157,8 +157,6 @@ const Header = () => {
           Solicitar Envio
         </ButtonLink>
       </MuiButton>
-
-      {myLocation ? `lat: ${myLocation[0]} lng: ${myLocation[1]} ` : null}
     </Container>
   );
 };

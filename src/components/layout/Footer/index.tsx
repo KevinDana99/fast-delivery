@@ -1,8 +1,9 @@
-import React from "react";
+import React, { useContext } from "react";
 import { ButtonLink, Container, MuiButton } from "./styled";
 
 import Link from "next/link";
 import theme from "@/globals/theme";
+import { RouteContext } from "@/contexts/routeContext";
 
 const Footer = ({
   originLocation,
@@ -12,7 +13,7 @@ const Footer = ({
   destinationLocation: number[];
 }) => {
   const enableButton = destinationLocation[0] && originLocation[0];
-
+  const { myLocation } = useContext(RouteContext);
   return (
     <Container>
       <MuiButton
@@ -36,6 +37,8 @@ const Footer = ({
           Solicitar Envio
         </ButtonLink>
       </MuiButton>
+
+      {myLocation ? `lat: ${myLocation[0]} lng: ${myLocation[1]} ` : null}
     </Container>
   );
 };
