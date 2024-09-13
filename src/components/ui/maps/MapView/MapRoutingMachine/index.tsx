@@ -48,11 +48,23 @@ const MapRoutingMachine = ({
   };
 
   useEffect(() => {
+    if (!map) {
+      console.warn("El mapa aún no está listo.");
+      return;
+    }
+
+    // Verifica si el control ya está inicializado y en el mapa
     if (controlRef.current) {
-      controlRef.current.setWaypoints(waypoints);
+      try {
+        // Asegúrate de que los waypoints sean válidos
+        controlRef.current.setWaypoints(waypoints.filter(Boolean));
+      } catch (error) {
+        console.error("Error al actualizar los waypoints:", error);
+      }
     } else {
+      // Solo inicializa el control si no existe aún
       controlRef.current = L.Routing.control({
-        waypoints,
+        waypoints: waypoints.filter(Boolean),
         show: false,
         fitSelectedRoutes: false,
         showAlternatives: false,
@@ -60,7 +72,7 @@ const MapRoutingMachine = ({
         lineOptions: {
           styles: [{ color: theme.main.color, weight: 6 }],
           extendToWaypoints: true,
-          missingRouteTolerance: 10,
+          missingRouteTolerance: 2,
         },
         //@ts-ignore
         createMarker: function (i: number, waypoint: L.Routing.Waypoint, _) {
@@ -102,17 +114,22 @@ const MapRoutingMachine = ({
         },
       })
         .on("routesfound", handleRouteFound)
-
         .addTo(map);
     }
 
+    // Limpieza
     return () => {
       if (controlRef.current) {
-        map.removeControl(controlRef.current);
+        try {
+          // Verifica si controlRef.current es válido antes de intentar eliminarlo
+          map.removeControl(controlRef.current);
+          controlRef.current = null; // Asegúrate de limpiar la referencia
+        } catch (error) {
+          console.error("Error al remover el control del mapa:", error);
+        }
       }
     };
-  }, [map, start, end, waypoints]);
-
+  }, [map, myLocation, start, end]);
   return null;
 };
 

@@ -12,7 +12,7 @@ const useLocation = () => {
   };
   const handleWatchLocation = () => {
     try {
-      navigator?.geolocation.getCurrentPosition(
+      navigator?.geolocation.watchPosition(
         (position) => {
           const lat = position.coords.latitude;
           const lng = position.coords.longitude;
@@ -35,11 +35,7 @@ const useLocation = () => {
 
   useEffect(() => {
     if (USER === "000Admin") {
-      // Llama a getLocation cada 10 segundos (10000 ms)
-      const intervalId = setInterval(handleWatchLocation, 2000);
-
-      // Limpia el intervalo cuando el componente se desmonta
-      return () => clearInterval(intervalId);
+      handleWatchLocation();
     }
   }, []);
 
