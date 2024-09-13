@@ -49,69 +49,69 @@ const MapRoutingMachine = ({
 
   useEffect(() => {
     if (controlRef.current) {
-      map.removeControl(controlRef.current);
+      controlRef.current.setWaypoints(waypoints);
+    } else {
+      controlRef.current = L.Routing.control({
+        waypoints,
+        show: false,
+        fitSelectedRoutes: false,
+        showAlternatives: false,
+        addWaypoints: false,
+        lineOptions: {
+          styles: [{ color: theme.main.color, weight: 6 }],
+          extendToWaypoints: true,
+          missingRouteTolerance: 10,
+        },
+        //@ts-ignore
+        createMarker: function (i: number, waypoint: L.Routing.Waypoint, _) {
+          if (i === 0) {
+            return L.marker(waypoint.latLng, {
+              icon: getCustomIcon({
+                icon: (
+                  <SportsMotorsportsIcon
+                    style={{ color: theme.colors.primary, fontSize: "38" }}
+                  />
+                ),
+              }),
+            });
+          }
+          if (i === 1) {
+            return L.marker(waypoint.latLng, {
+              icon: getCustomIcon({
+                icon: (
+                  <MyLocationIcon
+                    style={{ color: theme.colors.primary, fontSize: "34" }}
+                  />
+                ),
+              }),
+            });
+          }
+          if (i === 2) {
+            return L.marker(waypoint.latLng, {
+              icon: getCustomIcon({
+                icon: (
+                  <LocationOnIcon
+                    style={{ color: theme.colors.primary, fontSize: "38" }}
+                  />
+                ),
+              }),
+            });
+          }
+
+          return L.marker(waypoint.latLng);
+        },
+      })
+        .on("routesfound", handleRouteFound)
+
+        .addTo(map);
     }
-
-    controlRef.current = L.Routing.control({
-      waypoints,
-      show: false,
-      fitSelectedRoutes: false,
-      showAlternatives: false,
-      addWaypoints: false,
-      lineOptions: {
-        styles: [{ color: theme.main.color, weight: 6 }],
-        extendToWaypoints: true,
-        missingRouteTolerance: 10,
-      },
-      //@ts-ignore
-      createMarker: function (i: number, waypoint: L.Routing.Waypoint, _) {
-        if (i === 0) {
-          return L.marker(waypoint.latLng, {
-            icon: getCustomIcon({
-              icon: (
-                <SportsMotorsportsIcon
-                  style={{ color: theme.colors.primary, fontSize: "38" }}
-                />
-              ),
-            }),
-          });
-        }
-        if (i === 1) {
-          return L.marker(waypoint.latLng, {
-            icon: getCustomIcon({
-              icon: (
-                <MyLocationIcon
-                  style={{ color: theme.colors.primary, fontSize: "34" }}
-                />
-              ),
-            }),
-          });
-        }
-        if (i === 2) {
-          return L.marker(waypoint.latLng, {
-            icon: getCustomIcon({
-              icon: (
-                <LocationOnIcon
-                  style={{ color: theme.colors.primary, fontSize: "38" }}
-                />
-              ),
-            }),
-          });
-        }
-
-        return L.marker(waypoint.latLng);
-      },
-    })
-      .on("routesfound", handleRouteFound)
-
-      .addTo(map);
 
     return () => {
       if (controlRef.current) {
         map.removeControl(controlRef.current);
       }
     };
-  }, [map, start, end]);
+  }, [map, start, end, waypoints]);
 
   return null;
 };
