@@ -34,6 +34,7 @@ const Header = () => {
     query,
     searchOptions,
     enableHeaderButton,
+    myLocation,
   } = useHeader();
 
   console.log(query);
@@ -156,6 +157,8 @@ const Header = () => {
           Solicitar Envio
         </ButtonLink>
       </MuiButton>
+
+      {myLocation ? `lat: ${myLocation[0]} lng: ${myLocation[1]} ` : null}
     </Container>
   );
 };
