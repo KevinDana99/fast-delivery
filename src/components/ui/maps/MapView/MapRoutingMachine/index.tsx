@@ -116,10 +116,10 @@ const MapRoutingMachine = ({
   }, [map, start, end, theme.main.color]);
 
   useEffect(() => {
-    if (myLocation == waypoints[0]) {
+    if (myLocationInitialValue == waypoints[0]) {
       waypoints.splice(0, 1, myLocationInitialValue);
     }
-    if (myLocation == waypoints[1]) {
+    if (myLocationInitialValue == waypoints[1]) {
       waypoints.pop();
     }
 
