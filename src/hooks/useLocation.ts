@@ -1,20 +1,15 @@
 import { SERVER_WS_URI } from "@/constants";
 import { useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
-import Ably from "ably";
+
 const useLocation = () => {
   const searchParams = useSearchParams();
   const USER = searchParams.get("user");
-  const [location, setLocation] = useState<number[]>(null);
-  const [channelState, setChannelState] = useState<Ably.RealtimeChannel>(null);
-  const handleSendLocation = () => {
-    channelState.publish("first", {
-      type: "location",
-      lat: location[0],
-      lng: location[1],
-    });
-  };
 
+  const [location, setLocation] = useState<number[]>(null);
+  const handleSendLocation = () => {
+    console.log(location);
+  };
   const handleWatchLocation = () => {
     try {
       navigator?.geolocation.watchPosition(
@@ -22,6 +17,7 @@ const useLocation = () => {
           const lat = position.coords.latitude;
           const lng = position.coords.longitude;
           setLocation([lat, lng]);
+          console.log(lat, lng);
         },
         (error) => {
           console.error("Error al obtener la ubicación:", error);
@@ -38,14 +34,6 @@ const useLocation = () => {
   };
 
   useEffect(() => {
-    const ably = new Ably.Realtime(
-      "TaSlrQ.SLHZEw:GLIHt9L_yd9skDWBbKyb29ttDMJFgNt3R6Og6gFvyBo"
-    );
-    const channel = ably.channels.get("get-started");
-    channel.subscribe("first", (message) => {
-      console.log(`${JSON.stringify(message.data)}`);
-    });
-    setChannelState(channel);
     if (USER === "000Admin") {
       handleWatchLocation();
     }

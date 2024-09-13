@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { MapContainer, TileLayer, useMap } from "react-leaflet";
 import L from "leaflet";
 import "leaflet-routing-machine";
@@ -10,7 +10,8 @@ import SportsMotorsportsIcon from "@mui/icons-material/SportsMotorsports";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
 import MyLocationIcon from "@mui/icons-material/MyLocation";
 import theme from "@/globals/theme";
-import { useRouter, useParams, useSearchParams } from "next/navigation";
+import { RouteContext } from "@/contexts/routeContext";
+
 const initValue = null;
 const MapRoutingMachine = ({
   start = initValue,
@@ -21,9 +22,9 @@ const MapRoutingMachine = ({
   end: number[];
   onRouteFound?: ({ distance, time, instructions }: RouteInfo) => void;
 }) => {
+  const { myLocation } = useContext(RouteContext);
   const map = useMap();
   const controlRef = React.useRef<null | L.Routing.Control>(null);
-  const myLocation = useLocation();
   const startInitialValue = start && L.latLng(start[0], start[1]);
   const endInitialValue = end && L.latLng(end[0], end[1]);
   const myLocationInitialValue =
