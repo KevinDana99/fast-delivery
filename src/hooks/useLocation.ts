@@ -19,9 +19,9 @@ const useLocation = () => {
           console.error("Error al obtener la ubicación:", error);
         },
         {
-          enableHighAccuracy: true, // Intentar usar GPS si está disponible
-          timeout: 5000, // Tiempo máximo de espera para obtener la ubicación
-          maximumAge: 0, // No usar ubicación en caché
+          enableHighAccuracy: true,
+          timeout: 5000,
+          maximumAge: 0,
         }
       );
     } catch (err) {
