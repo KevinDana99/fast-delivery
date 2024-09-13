@@ -12,12 +12,12 @@ const useLocation = () => {
   };
   const handleWatchLocation = () => {
     try {
-      navigator?.geolocation.watchPosition(
+      navigator?.geolocation.getCurrentPosition(
         (position) => {
           const lat = position.coords.latitude;
           const lng = position.coords.longitude;
           setLocation([lat, lng]);
-          console.log(lat, lng);
+          console.log("Ubicación actual:", lat, lng);
         },
         (error) => {
           console.error("Error al obtener la ubicación:", error);
@@ -29,13 +29,17 @@ const useLocation = () => {
         }
       );
     } catch (err) {
-      console.error(err);
+      console.error("Error al intentar obtener la ubicación:", err);
     }
   };
 
   useEffect(() => {
     if (USER === "000Admin") {
-      handleWatchLocation();
+      // Llama a getLocation cada 10 segundos (10000 ms)
+      const intervalId = setInterval(handleWatchLocation, 2000);
+
+      // Limpia el intervalo cuando el componente se desmonta
+      return () => clearInterval(intervalId);
     }
   }, []);
 
