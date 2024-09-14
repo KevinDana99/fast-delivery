@@ -1,18 +1,23 @@
 import { SERVER_WS_URI } from "@/constants";
 import { useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
-
+import Ably from "ably";
 const useLocation = () => {
   const searchParams = useSearchParams();
   const USER = searchParams.get("user");
-
   const [location, setLocation] = useState<number[]>(null);
-  const handleSendLocation = () => {
-    console.log(location);
+  const [channelState, setChannelState] = useState(null);
+  const handleSendLocation = async () => {
+    const currentLocation = [location[0], location[1]];
+    channelState &&
+      (await channelState?.publish("location", {
+        type: "location",
+        currentLocation,
+      }));
   };
   const handleWatchLocation = () => {
     try {
-      navigator?.geolocation.getCurrentPosition(
+      navigator?.geolocation.watchPosition(
         (position) => {
           const lat = position.coords.latitude;
           const lng = position.coords.longitude;
@@ -34,12 +39,20 @@ const useLocation = () => {
   };
 
   useEffect(() => {
-    if (USER === "000Admin") {
-      // Llama a getLocation cada 10 segundos (10000 ms)
-      const intervalId = setInterval(handleWatchLocation, 2000);
+    const initializateClient = async () => {
+      const ably = new Ably.Realtime(
+        "eyJ0eXAiOiJKV1QiLCJ2ZXJzaW9uIjoxLCJhbGciOiJIUzI1NiJ9.eyJqdGkiOiJmNmVjMGYzZC0xM2U5LTQ1YjQtOTViOS1kMDI5YmJlMmFiMmMiLCJpc3MiOiJhYmx5LmNvbSIsImlhdCI6MTcyNjI3MTU1MCwic3ViIjo1OTk2N30.yR-U6mZcvUOVKzv4NmAGl4qfYK1YvNAMy9x0zJKLjE4"
+      );
+      const channel = ably.channels.get("geolocation");
+      setChannelState(channel);
 
-      // Limpia el intervalo cuando el componente se desmonta
-      return () => clearInterval(intervalId);
+      await channel.subscribe("location", ({ data }) => {
+        setLocation(data.currentLocation);
+      });
+    };
+
+    if (USER === "000Admin") {
+      handleWatchLocation();
     }
   }, []);
 
