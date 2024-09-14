@@ -7,13 +7,13 @@ const useLocation = () => {
   const USER = searchParams.get("user");
   const [location, setLocation] = useState<number[]>(null);
   const [channelState, setChannelState] = useState(null);
-  const handleSendLocation = async () => {
+  const handleSendLocation = () => {
+    console.log("send");
     const currentLocation = [location[0], location[1]];
-    channelState &&
-      (await channelState?.publish("location", {
-        type: "location",
-        currentLocation,
-      }));
+    channelState.publish("location", {
+      type: "location",
+      currentLocation,
+    });
   };
   const handleWatchLocation = () => {
     try {
@@ -39,19 +39,14 @@ const useLocation = () => {
   };
 
   useEffect(() => {
-    const initializateClient = async () => {
-      const ably = new Ably.Realtime(
-        "eyJ0eXAiOiJKV1QiLCJ2ZXJzaW9uIjoxLCJhbGciOiJIUzI1NiJ9.eyJqdGkiOiJmNmVjMGYzZC0xM2U5LTQ1YjQtOTViOS1kMDI5YmJlMmFiMmMiLCJpc3MiOiJhYmx5LmNvbSIsImlhdCI6MTcyNjI3MTU1MCwic3ViIjo1OTk2N30.yR-U6mZcvUOVKzv4NmAGl4qfYK1YvNAMy9x0zJKLjE4"
-      );
-      const channel = ably.channels.get("geolocation");
-      setChannelState(channel);
-
-      await channel.subscribe("location", ({ data }) => {
-        setLocation(data.currentLocation);
-      });
-    };
-
-    initializateClient();
+    const ably = new Ably.Realtime(
+      "TaSlrQ.SLHZEw:GLIHt9L_yd9skDWBbKyb29ttDMJFgNt3R6Og6gFvyBo"
+    );
+    const channel = ably.channels.get("geolocation");
+    setChannelState(channel);
+    channel.subscribe("location", ({ data }) => {
+      setLocation(data.currentLocation);
+    });
 
     if (USER === "000Admin") {
       handleWatchLocation();
@@ -59,9 +54,8 @@ const useLocation = () => {
   }, []);
 
   useEffect(() => {
-    if (location) {
-      handleSendLocation();
-    }
+    console.log("se ejecuto");
+    // handleSendLocation();
   }, [location]);
 
   return location;
