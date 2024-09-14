@@ -51,6 +51,8 @@ const useLocation = () => {
       });
     };
 
+    initializateClient();
+
     if (USER === "000Admin") {
       handleWatchLocation();
     }
