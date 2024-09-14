@@ -6,14 +6,14 @@ const useLocation = () => {
   const searchParams = useSearchParams();
   const USER = searchParams.get("user");
   const [location, setLocation] = useState<number[]>(null);
-  const [channelState, setChannelState] = useState(null);
+  const [channelState, setChannelState] = useState<Ably.RealtimeChannel>(null);
+  const [locationRealTime, setLocationRealTime] = useState<number[]>(null);
   const handleSendLocation = () => {
-    console.log("send");
-    const currentLocation = [location[0], location[1]];
-    channelState.publish("location", {
-      type: "location",
-      currentLocation,
-    });
+    channelState &&
+      channelState.publish("location", {
+        type: "location",
+        location,
+      });
   };
   const handleWatchLocation = () => {
     try {
@@ -45,7 +45,7 @@ const useLocation = () => {
     const channel = ably.channels.get("geolocation");
     setChannelState(channel);
     channel.subscribe("location", ({ data }) => {
-      setLocation(data.currentLocation);
+      setLocationRealTime([data.location]);
     });
 
     if (USER === "000Admin") {
@@ -55,10 +55,10 @@ const useLocation = () => {
 
   useEffect(() => {
     console.log("se ejecuto");
-    // handleSendLocation();
+    handleSendLocation();
   }, [location]);
 
-  return location;
+  return locationRealTime;
 };
 
 export default useLocation;
