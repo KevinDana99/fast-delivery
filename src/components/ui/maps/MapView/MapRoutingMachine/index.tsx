@@ -131,6 +131,12 @@ const MapRoutingMachine = ({
         }),
       }).addTo(map);
     }
+
+    return () => {
+      if (locationMarkerRef.current) {
+        map.removeLayer(locationMarkerRef.current);
+      }
+    };
   }, [myLocation]);
 
   return null;
