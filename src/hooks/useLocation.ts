@@ -8,7 +8,8 @@ const useLocation = () => {
   const USER = searchParams.get("user");
   const [location, setLocation] = useState<number[]>(INITIAL_LOCATION);
   const [channelState, setChannelState] = useState<Ably.RealtimeChannel>(null);
-  const [locationRealTime, setLocationRealTime] = useState<number[]>(null);
+  const [locationRealTime, setLocationRealTime] =
+    useState<number[]>(INITIAL_LOCATION);
   const handleSendLocation = () => {
     channelState &&
       channelState.publish("location", {
