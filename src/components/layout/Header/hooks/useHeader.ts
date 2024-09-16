@@ -232,7 +232,6 @@ const useHeader = () => {
     query,
     searchOptions,
     enableHeaderButton,
-    myLocation,
   };
 };
 

@@ -34,10 +34,7 @@ const Header = () => {
     query,
     searchOptions,
     enableHeaderButton,
-    myLocation,
   } = useHeader();
-
-  console.log(query);
 
   return (
     <Container>
