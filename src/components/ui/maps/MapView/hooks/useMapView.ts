@@ -1,7 +1,10 @@
 import { LocationType } from "@/app/types";
 
 import { useEffect, useState } from "react";
-
+type LatLngType = {
+  lat: number;
+  lng: number;
+};
 const useMapView = (
   locationInfo: LocationType[],
   setLocationInfo: React.Dispatch<React.SetStateAction<LocationType[]>>
@@ -19,8 +22,8 @@ const useMapView = (
       : "Dirección no disponible";
   };
 
-  const handleInfoLocation = async (latlng: L.LatLng) => {
-    const infoLocation = await getCurrentMarkerLocationInfo(latlng);
+  const handleInfoLocation = async (latlng: L.LatLng | LatLngType) => {
+    const infoLocation = await getCurrentMarkerLocationInfo(latlng as L.LatLng);
     setLocationInfo((prev) => {
       return prev.map((loc) =>
         loc.marker[0] === latlng.lat && loc.marker[1] === latlng.lng
@@ -50,10 +53,26 @@ const useMapView = (
   };
 
   const handleMapClick = async (latlng: L.LatLng) => {
-    handleInfoLocation(latlng);
     handleSetMarkerPoints(latlng);
   };
 
+  useEffect(() => {
+    if (locationInfo[0]?.marker) {
+      handleInfoLocation({
+        lat: locationInfo[0].marker[0],
+        lng: locationInfo[0].marker[1],
+      });
+    }
+  }, [locationInfo[0]]);
+
+  useEffect(() => {
+    if (locationInfo[1]?.marker) {
+      handleInfoLocation({
+        lat: locationInfo[1].marker[0],
+        lng: locationInfo[1].marker[1],
+      });
+    }
+  }, [locationInfo[1]]);
   return {
     currentLocation,
     setCurrentLocation,
