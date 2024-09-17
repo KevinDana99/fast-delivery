@@ -6,6 +6,8 @@ const useHome = () => {
   const {
     infoLocation,
     routeInfo,
+    originLocation,
+    destinationLocation,
     setInfoLocation,
     setRouteInfo,
     handleFinishTutorial,
@@ -13,15 +15,6 @@ const useHome = () => {
 
   const tourRef = useRef(false);
   useTutorial("home", tourRef, handleFinishTutorial);
-
-  const originLocation = [
-    infoLocation[0]?.marker[0],
-    infoLocation[0]?.marker[1],
-  ];
-  const destinationLocation = [
-    infoLocation[1]?.marker[0],
-    infoLocation[1]?.marker[1],
-  ];
 
   return {
     infoLocation,

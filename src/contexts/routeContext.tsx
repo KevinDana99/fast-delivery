@@ -1,11 +1,14 @@
 import { LocationType, RouteInfo } from "@/app/types";
 import useLocation from "@/hooks/useLocation";
+import { useSearchParams } from "next/navigation";
 import React, { ReactNode, createContext, useState } from "react";
 
 export const RouteContext = createContext<{
   infoLocation: LocationType[];
   routeInfo: RouteInfo;
   myLocation: number[];
+  originLocation: number[];
+  destinationLocation: number[];
   setInfoLocation: React.Dispatch<React.SetStateAction<LocationType[]>>;
   setRouteInfo: React.Dispatch<React.SetStateAction<RouteInfo>>;
   handleFinishTutorial: () => void;
@@ -18,7 +21,23 @@ export const RouteProvider = ({
   children: ReactNode;
   handleFinishTutorial: () => void;
 }) => {
-  const [infoLocation, setInfoLocation] = useState<LocationType[]>([]);
+  const searchParams = useSearchParams();
+  const coordsParam = atob(searchParams.get("coords")).split(",");
+  const COORDS = coordsParam.map((coord) => parseFloat(coord));
+
+  const [infoLocation, setInfoLocation] = useState<LocationType[]>([
+    { info: "", marker: [COORDS[0], COORDS[1]] },
+    { info: "", marker: [COORDS[2], COORDS[3]] },
+  ]);
+  const originLocation = [
+    infoLocation[0]?.marker[0],
+    infoLocation[0]?.marker[1],
+  ];
+  const destinationLocation = [
+    infoLocation[1]?.marker[0],
+    infoLocation[1]?.marker[1],
+  ];
+
   const [routeInfo, setRouteInfo] = useState<RouteInfo | null>(null);
   const myLocation = useLocation();
   return (
@@ -27,6 +46,8 @@ export const RouteProvider = ({
         infoLocation,
         routeInfo,
         myLocation,
+        originLocation,
+        destinationLocation,
         setInfoLocation,
         setRouteInfo,
         handleFinishTutorial,

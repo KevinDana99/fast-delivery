@@ -1,7 +1,8 @@
 import useTutorial from "@/app/hooks/useTutorial";
 import { RouteContext } from "@/contexts/routeContext";
 import html2canvas from "html2canvas";
-import { EventHandler, useContext, useEffect, useRef, useState } from "react";
+import { useContext, useRef, useState } from "react";
+import { v4 as uuidv4 } from "uuid";
 
 type TransactionType = {
   type?: "transfer" | "cash";
@@ -11,15 +12,20 @@ type TransactionType = {
 
 const useDetails = () => {
   const [transaction, setTransaction] = useState<TransactionType>(null);
-  const { infoLocation, routeInfo } = useContext(RouteContext);
+  const { infoLocation, routeInfo, originLocation, destinationLocation } =
+    useContext(RouteContext);
   const captureRef = useRef(null);
   const [loading, setLoading] = useState(false);
   const tourRef = useRef(false);
   useTutorial("details", tourRef);
-
-  const sendLinkToWhatsApp = (imageUrl) => {
+  const originParam = originLocation.toString();
+  const destinationParam = destinationLocation.toString();
+  const sendLinkToWhatsApp = (id: number, imageUrl: string) => {
     const phoneNumber = "542804670313";
-    const text = `Comprobante de envio: ${imageUrl}`;
+    const text = `Comprobante de envio: ${imageUrl}. Podes seguir tu envio desde ${window.location.href.replace(
+      "/details",
+      "/"
+    )}?shipment=${id}&coords=${originParam + "," + destinationParam}`;
     const encodedText = encodeURIComponent(text);
     const url = `https://api.whatsapp.com/send?phone=${phoneNumber}&text=${encodedText}`;
 
@@ -40,7 +46,7 @@ const useDetails = () => {
     return data.data.url_viewer;
   };
 
-  const handleCapture = async () => {
+  const handleCapture = async (id: number) => {
     const dataURLToBase64 = (dataURL: string) => {
       return dataURL.split(",")[1];
     };
@@ -56,7 +62,7 @@ const useDetails = () => {
         const base64 = dataURLToBase64(dataUrl);
         const imageUrl = await uploadImageToImgBB(base64);
 
-        sendLinkToWhatsApp(imageUrl);
+        sendLinkToWhatsApp(id, imageUrl);
       }
     } catch (err) {
       console.error(err);
@@ -117,6 +123,10 @@ const useDetails = () => {
     }
   };
 
+  const handleCreateTransaction = () => {
+    const clientId = uuidv4();
+    handleCapture(clientId);
+  };
   return {
     infoLocation,
     routeInfo,
@@ -128,6 +138,7 @@ const useDetails = () => {
     getTransactionType,
     handleOnChangeExtraPrice,
     handleCopyToClipboard,
+    handleCreateTransaction,
     captureRef,
   };
 };

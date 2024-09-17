@@ -35,12 +35,12 @@ const Details = () => {
     infoLocation,
     transaction,
     loading: loadingButton,
-    handleCapture,
     handleTransactionProduct,
     handleTransactionType,
     getTransactionType,
     handleCopyToClipboard,
     handleOnChangeExtraPrice,
+    handleCreateTransaction,
     captureRef,
   } = useDetails();
 
@@ -195,7 +195,7 @@ const Details = () => {
             height: 40,
             pointerEvents: loadingButton ? "none" : "default",
           }}
-          onClick={handleCapture}
+          onClick={handleCreateTransaction}
           color={loadingButton ? "info" : "primary"}
           variant="contained"
           className="hidden-capture"
