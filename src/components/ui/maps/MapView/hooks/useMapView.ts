@@ -1,14 +1,12 @@
 import { LocationType } from "@/app/types";
+
 import { useEffect, useState } from "react";
 
 const useMapView = (
   locationInfo: LocationType[],
   setLocationInfo: React.Dispatch<React.SetStateAction<LocationType[]>>
 ) => {
-  const [currentLocation, setCurrentLocation] = useState<{
-    info: string;
-    marker: number[];
-  }>(null);
+  const [currentLocation, setCurrentLocation] = useState<L.LatLng>(null);
 
   const getCurrentMarkerLocationInfo = async (latlng: L.LatLng) => {
     const API_URL = `https://nominatim.openstreetmap.org/reverse?lat=${latlng.lat}&lon=${latlng.lng}&format=json&addressdetails=1`;
@@ -21,25 +19,39 @@ const useMapView = (
       : "Dirección no disponible";
   };
 
-  const handleMapClick = async (latlng: L.LatLng) => {
+  const handleInfoLocation = async (latlng: L.LatLng) => {
     const infoLocation = await getCurrentMarkerLocationInfo(latlng);
+    setLocationInfo((prev) => {
+      return prev.map((loc) =>
+        loc.marker[0] === latlng.lat && loc.marker[1] === latlng.lng
+          ? { ...loc, info: infoLocation }
+          : loc
+      );
+    });
+  };
 
+  const handleSetMarkerPoints = (latlng: L.LatLng) => {
     setLocationInfo((prev) => {
       return prev.length >= 2
         ? [
             {
-              info: infoLocation,
+              info: "",
               marker: [latlng.lat, latlng.lng],
             },
           ]
         : [
             ...prev,
             {
-              info: infoLocation,
+              info: "",
               marker: [latlng.lat, latlng.lng],
             },
           ];
     });
+  };
+
+  const handleMapClick = async (latlng: L.LatLng) => {
+    handleInfoLocation(latlng);
+    handleSetMarkerPoints(latlng);
   };
 
   return {
