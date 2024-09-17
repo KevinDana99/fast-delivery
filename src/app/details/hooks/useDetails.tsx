@@ -25,7 +25,7 @@ const useDetails = () => {
     const text = `Comprobante de envio: ${imageUrl}. Podes seguir tu envio desde ${window.location.href.replace(
       "/details",
       "/"
-    )}?shipment=${id}&coords=${originParam + "," + destinationParam}`;
+    )}?shipment=${id}&coords=${btoa(originParam + "," + destinationParam)}`;
     const encodedText = encodeURIComponent(text);
     const url = `https://api.whatsapp.com/send?phone=${phoneNumber}&text=${encodedText}`;
 
