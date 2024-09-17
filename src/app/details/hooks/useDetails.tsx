@@ -29,7 +29,7 @@ const useDetails = () => {
     const encodedText = encodeURIComponent(text);
     const url = `https://api.whatsapp.com/send?phone=${phoneNumber}&text=${encodedText}`;
 
-    window.location.href = url;
+    window.open(url, "_blank");
   };
 
   const uploadImageToImgBB = async (imageFile) => {
@@ -123,9 +123,17 @@ const useDetails = () => {
     }
   };
 
-  const handleCreateTransaction = () => {
+  const handleCreateTransaction = async () => {
     const clientId = uuidv4();
-    handleCapture(clientId);
+    await handleCapture(clientId);
+
+    const redirectUri = ` ${window.location.href.replace(
+      "/details",
+      "/"
+    )}?shipment=${clientId}&coords=${btoa(
+      originParam + "," + destinationParam
+    )}`;
+    window.location.href = redirectUri;
   };
   return {
     infoLocation,

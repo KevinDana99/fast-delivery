@@ -9,6 +9,7 @@ export const RouteContext = createContext<{
   myLocation: number[];
   originLocation: number[];
   destinationLocation: number[];
+  shipmentId: string;
   setInfoLocation: React.Dispatch<React.SetStateAction<LocationType[]>>;
   setRouteInfo: React.Dispatch<React.SetStateAction<RouteInfo>>;
   handleFinishTutorial: () => void;
@@ -23,12 +24,17 @@ export const RouteProvider = ({
 }) => {
   const searchParams = useSearchParams();
   const coordsParam = atob(searchParams.get("coords")).split(",");
+  const shipmentId = searchParams.get("shipment") ?? "";
   const COORDS = coordsParam.map((coord) => parseFloat(coord));
-
-  const [infoLocation, setInfoLocation] = useState<LocationType[]>([
-    { info: "", marker: [COORDS[0], COORDS[1]] },
-    { info: "", marker: [COORDS[2], COORDS[3]] },
-  ]);
+  const VERIFY_COORDS = COORDS.length > 1;
+  const [infoLocation, setInfoLocation] = useState<LocationType[]>(
+    VERIFY_COORDS
+      ? [
+          { info: "", marker: [COORDS[0], COORDS[1]] },
+          { info: "", marker: [COORDS[2], COORDS[3]] },
+        ]
+      : []
+  );
   const originLocation = [
     infoLocation[0]?.marker[0],
     infoLocation[0]?.marker[1],
@@ -48,6 +54,7 @@ export const RouteProvider = ({
         myLocation,
         originLocation,
         destinationLocation,
+        shipmentId,
         setInfoLocation,
         setRouteInfo,
         handleFinishTutorial,

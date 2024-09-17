@@ -1,13 +1,13 @@
 import { useSearchParams } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import Ably from "ably";
-import { validateHeaderName } from "http";
+
 const INITIAL_LOCATION = [-42.7846027, -65.0511623];
 
 const useLocation = () => {
   const searchParams = useSearchParams();
   const USER = searchParams.get("user");
-  const CLIENT_ID = searchParams.get("shipment");
+  const shipmentId = searchParams.get("shipment");
   const [location, setLocation] = useState<number[]>(INITIAL_LOCATION);
   const [channelState, setChannelState] = useState<Ably.RealtimeChannel>(null);
   const [locationRealTime, setLocationRealTime] =
@@ -42,7 +42,7 @@ const useLocation = () => {
   };
 
   useEffect(() => {
-    if (CLIENT_ID || USER === "000Admin") {
+    if (shipmentId || USER === "000Admin") {
       const ably = new Ably.Realtime({
         key: "TaSlrQ.SLHZEw:GLIHt9L_yd9skDWBbKyb29ttDMJFgNt3R6Og6gFvyBo",
       });

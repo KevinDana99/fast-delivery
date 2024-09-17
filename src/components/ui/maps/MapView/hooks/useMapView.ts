@@ -53,6 +53,7 @@ const useMapView = (
   };
 
   const handleMapClick = async (latlng: L.LatLng) => {
+    handleInfoLocation(latlng);
     handleSetMarkerPoints(latlng);
   };
 
@@ -63,16 +64,14 @@ const useMapView = (
         lng: locationInfo[0].marker[1],
       });
     }
-  }, [locationInfo[0]]);
-
-  useEffect(() => {
     if (locationInfo[1]?.marker) {
       handleInfoLocation({
         lat: locationInfo[1].marker[0],
         lng: locationInfo[1].marker[1],
       });
     }
-  }, [locationInfo[1]]);
+  }, []);
+
   return {
     currentLocation,
     setCurrentLocation,
