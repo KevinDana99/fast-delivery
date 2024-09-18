@@ -10,21 +10,12 @@ export const RouteContext = createContext<{
   originLocation: number[];
   destinationLocation: number[];
   shipmentId: string;
-  showPwaModals: boolean;
+
   setInfoLocation: React.Dispatch<React.SetStateAction<LocationType[]>>;
   setRouteInfo: React.Dispatch<React.SetStateAction<RouteInfo>>;
-  handleFinishTutorial: () => void;
 }>(null);
 
-export const RouteProvider = ({
-  children,
-  handleFinishTutorial,
-  showPwaModals,
-}: {
-  children: ReactNode;
-  handleFinishTutorial: () => void;
-  showPwaModals: boolean;
-}) => {
+export const RouteProvider = ({ children }: { children: ReactNode }) => {
   const searchParams = useSearchParams();
   const coordsParam = atob(searchParams.get("coords")).split(",");
   const shipmentId = searchParams.get("shipment");
@@ -58,10 +49,8 @@ export const RouteProvider = ({
         originLocation,
         destinationLocation,
         shipmentId,
-        showPwaModals,
         setInfoLocation,
         setRouteInfo,
-        handleFinishTutorial,
       }}
     >
       {children}

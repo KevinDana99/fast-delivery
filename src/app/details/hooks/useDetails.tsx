@@ -1,4 +1,5 @@
 import useTutorial from "@/app/hooks/useTutorial";
+import { ModalContext } from "@/contexts/modalContext";
 import { RouteContext } from "@/contexts/routeContext";
 import html2canvas from "html2canvas";
 import { useContext, useRef, useState } from "react";
@@ -14,10 +15,19 @@ const useDetails = () => {
   const [transaction, setTransaction] = useState<TransactionType>(null);
   const { infoLocation, routeInfo, originLocation, destinationLocation } =
     useContext(RouteContext);
+  const { showTutorial, handleFinishTutorial, handleShowTutorial } =
+    useContext(ModalContext);
   const captureRef = useRef(null);
   const [loading, setLoading] = useState(false);
   const tourRef = useRef(false);
-  useTutorial("details", tourRef);
+
+  useTutorial(
+    "details",
+    tourRef,
+    showTutorial,
+    handleFinishTutorial,
+    handleShowTutorial
+  );
   const originParam = originLocation.toString();
   const destinationParam = destinationLocation.toString();
   const sendLinkToWhatsApp = (id: number, imageUrl: string) => {

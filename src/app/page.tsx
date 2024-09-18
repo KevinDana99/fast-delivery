@@ -5,9 +5,7 @@ import dynamic from "next/dynamic";
 import useHome from "./hooks/useHome";
 import Footer from "@/components/layout/Footer";
 import Header from "@/components/layout/Header";
-import useTutorial from "./hooks/useTutorial";
-import PwaInstall from "./sw/PwaInstall";
-import PushNotification from "./sw/PushNotification";
+import StatusBar from "@/components/ui/bars/StatusBar";
 
 const DynamicMapView = dynamic(() => import("@/components/ui/maps/MapView"), {
   ssr: false,
@@ -21,14 +19,12 @@ const Home = () => {
     originLocation,
     destinationLocation,
     shipmentId,
-    showPwaModals,
   } = useHome();
 
   return (
     <AppContainer>
-      <PwaInstall visible={showPwaModals && !shipmentId} />
-      <PushNotification visible={showPwaModals && !shipmentId} />
-      <Header />
+      {shipmentId && <StatusBar />}
+      <Header statusBar={!!shipmentId} />
       <WrapperMap>
         <DynamicMapView
           setInfoLocation={setInfoLocation}

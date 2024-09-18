@@ -18,9 +18,9 @@ import LocationOnIcon from "@mui/icons-material/LocationOn";
 import MyLocationIcon from "@mui/icons-material/MyLocation";
 import useHeader from "./hooks/useHeader";
 import Logo from "@/components/ui/Logo";
-import theme from "@/globals/theme";
+import theme from "@/globals/theme/";
 
-const Header = () => {
+const Header = ({ statusBar }: { statusBar: boolean }) => {
   const {
     handleChangeDestinationLocation,
     handleChangeOriginLocation,
@@ -37,9 +37,9 @@ const Header = () => {
   } = useHeader();
 
   return (
-    <Container>
+    <Container statusBar={statusBar}>
       <Icon>
-        <Logo />
+        <Logo fill={theme.main.color} color="white" />
       </Icon>
 
       <SearchBar>

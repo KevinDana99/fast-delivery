@@ -3,7 +3,7 @@ import styled from "styled-components";
 import CancelIcon from "@mui/icons-material/Cancel";
 import { Button } from "@mui/material";
 import Link from "next/link";
-export const Container = styled.div`
+export const Container = styled.div<{ statusBar: boolean }>`
   width: 100%;
   display: flex;
   justify-content: flex-start;
@@ -12,8 +12,8 @@ export const Container = styled.div`
   padding-bottom: 8px;
   background: ${theme.main.color};
   flex-direction: row;
-
   position: fixed;
+  top: ${({ statusBar }) => statusBar && (statusBar ? 50 : 0)}px;
   z-index: 100;
 
   @media (min-width: 0px) and (max-width: 700px) {

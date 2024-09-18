@@ -7,33 +7,24 @@ import muiTheme from "@/globals/theme/Mui";
 import { RouteProvider } from "@/contexts/routeContext";
 import useLoading from "@/hooks/useLoading";
 import Loading from "@/components/ui/Loading";
+import PwaInstall from "./sw/PwaInstall";
+import PushNotification from "./sw/PushNotification";
+import TutorialModal from "@/components/ui/modals/TutorialModal";
+import { ModalProvider } from "@/contexts/modalContext";
 
 const MainLayout = ({ children }: { children: ReactNode }) => {
   const { loading } = useLoading();
-  const [showPwaModals, setShowPwaModals] = useState(false);
-
-  const handleFinishTutorial = () => {
-    setShowPwaModals(true);
-  };
-
-  useEffect(() => {
-    const tourCompleted = localStorage?.getItem("tour-home") ?? "false";
-    if (tourCompleted === "true") {
-      setShowPwaModals(true);
-    }
-  }, []);
 
   if (loading) {
     return <Loading />;
   }
 
   return (
-    <RouteProvider
-      handleFinishTutorial={handleFinishTutorial}
-      showPwaModals={showPwaModals}
-    >
+    <RouteProvider>
       <StyledThemeProvider theme={theme}>
-        <MuiThemeProvider theme={muiTheme}>{children}</MuiThemeProvider>
+        <MuiThemeProvider theme={muiTheme}>
+          <ModalProvider>{children}</ModalProvider>
+        </MuiThemeProvider>
       </StyledThemeProvider>
     </RouteProvider>
   );

@@ -14,14 +14,17 @@ declare module "shepherd.js" {
 const useTutorial = (
   tutorial: "home" | "details",
   tourRef: React.MutableRefObject<boolean>,
-  onCompleteTutorial?: () => void
+  showTutorialProp?: boolean,
+  handleFinishTutorial?: () => void,
+  handleShowTutorial?: (value: boolean) => void
 ) => {
-  const [showTutorial, setShowTutorial] = useState(false);
   const [steps, setSteps] = useState([]);
   const currentTourName = `tour-${tutorial}`;
   const tourCompleted = localStorage.getItem(currentTourName);
-  useEffect(() => {
-    if (tourRef.current) return;
+  const [showTutorial, setShowTutorial] = useState(false);
+
+  const handleStartTutorial = () => {
+    console.log("ejecuto");
     let steps;
     const tour = new Shepherd.Tour({
       defaultStepOptions: {
@@ -29,8 +32,8 @@ const useTutorial = (
         classes: "shepherd-theme-dark",
       },
       useModalOverlay: true,
-      onShow: () => setShowTutorial(true),
-      onHide: () => setShowTutorial(false),
+      onShow: () => handleShowTutorial(true),
+      onHide: () => handleShowTutorial(false),
     });
     switch (tutorial) {
       case "home":
@@ -49,13 +52,17 @@ const useTutorial = (
     } else {
       tour.start();
     }
-
     tour.on("complete", () => {
       localStorage.setItem(`${currentTourName}`, "true");
-      onCompleteTutorial && onCompleteTutorial();
+      handleFinishTutorial && handleFinishTutorial();
     });
-    tourRef.current = true;
-  }, []);
+  };
+
+  useEffect(() => {
+    if (tourRef.current) return;
+    showTutorialProp && handleStartTutorial();
+    showTutorialProp && (tourRef.current = true);
+  }, [showTutorialProp]);
 
   return {
     showTutorial,
