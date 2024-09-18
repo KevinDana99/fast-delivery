@@ -7,22 +7,19 @@ import muiTheme from "@/globals/theme/Mui";
 import { RouteProvider } from "@/contexts/routeContext";
 import useLoading from "@/hooks/useLoading";
 import Loading from "@/components/ui/Loading";
-import PwaInstall from "./sw/PwaInstall";
-import PushNotification from "./sw/PushNotification";
-import { useSearchParams } from "next/navigation";
+
 const MainLayout = ({ children }: { children: ReactNode }) => {
   const { loading } = useLoading();
-  const [showModal, setShowModal] = useState(false);
-  const searchParams = useSearchParams();
-  const shipmentId = searchParams.get("shipment");
+  const [showPwaModals, setShowPwaModals] = useState(false);
+
   const handleFinishTutorial = () => {
-    setShowModal(true);
+    setShowPwaModals(true);
   };
 
   useEffect(() => {
     const tourCompleted = localStorage?.getItem("tour-home") ?? "false";
     if (tourCompleted === "true") {
-      setShowModal(true);
+      setShowPwaModals(true);
     }
   }, []);
 
@@ -31,17 +28,12 @@ const MainLayout = ({ children }: { children: ReactNode }) => {
   }
 
   return (
-    <RouteProvider handleFinishTutorial={handleFinishTutorial}>
+    <RouteProvider
+      handleFinishTutorial={handleFinishTutorial}
+      showPwaModals={showPwaModals}
+    >
       <StyledThemeProvider theme={theme}>
-        <MuiThemeProvider theme={muiTheme}>
-          {children}
-          {!shipmentId && (
-            <>
-              <PwaInstall visible={showModal} />
-              <PushNotification visible={showModal} />
-            </>
-          )}
-        </MuiThemeProvider>
+        <MuiThemeProvider theme={muiTheme}>{children}</MuiThemeProvider>
       </StyledThemeProvider>
     </RouteProvider>
   );
