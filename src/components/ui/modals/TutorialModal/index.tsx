@@ -89,6 +89,7 @@ const TutorialModal = ({ visible: visibleProp }: { visible: boolean }) => {
             }}
           >
             <Button
+              style={{ marginRight: 5 }}
               size="small"
               variant="outlined"
               onClick={() => {

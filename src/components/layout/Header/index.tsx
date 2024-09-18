@@ -44,12 +44,11 @@ const Header = ({ statusBar }: { statusBar: boolean }) => {
 
       <SearchBar>
         <SearchLabel>
-          <SearchInputWrapper>
+          <SearchInputWrapper id="step1-home">
             <SearchInputIcon>
               <MyLocationIcon />
             </SearchInputIcon>
             <SearchInput
-              id="step1-home"
               placeholder="Origen"
               value={query.origin}
               onChange={handleChangeOriginLocation}
@@ -88,13 +87,12 @@ const Header = ({ statusBar }: { statusBar: boolean }) => {
       </SearchBar>
       <SearchBar>
         <SearchLabel>
-          <SearchInputWrapper>
+          <SearchInputWrapper id="step2-home">
             <SearchInputIcon>
               <LocationOnIcon />
             </SearchInputIcon>
 
             <SearchInput
-              id="step2-home"
               placeholder="Destino"
               value={query.destination}
               onChange={handleChangeDestinationLocation}
