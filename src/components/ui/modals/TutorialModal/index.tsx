@@ -10,10 +10,10 @@ import {
   Typography,
 } from "@mui/material";
 import React, { useContext, useEffect, useState } from "react";
-import SmartphoneIcon from "@mui/icons-material/Smartphone";
 
 import { IconClose } from "./styled";
 import { ModalContext } from "@/contexts/modalContext";
+import LightbulbIcon from "@mui/icons-material/Lightbulb";
 const TutorialModal = ({ visible: visibleProp }: { visible: boolean }) => {
   const [visible, setVisible] = useState(true);
 
@@ -66,9 +66,9 @@ const TutorialModal = ({ visible: visibleProp }: { visible: boolean }) => {
             }}
           >
             <Box sx={{ display: "flex" }}>
-              <SmartphoneIcon fontSize={"medium"}></SmartphoneIcon>
+              <LightbulbIcon fontSize={"medium"}></LightbulbIcon>
               <Typography fontSize={15} sx={{ fontWeight: "bold" }}>
-                Bienvenido/a!!
+                Tutorial
               </Typography>
             </Box>
             <Typography variant="body2" color={"#181111"}>

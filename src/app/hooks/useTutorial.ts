@@ -21,7 +21,6 @@ const useTutorial = (
   const [steps, setSteps] = useState([]);
   const currentTourName = `tour-${tutorial}`;
   const tourCompleted = localStorage.getItem(currentTourName);
-  const [showTutorial, setShowTutorial] = useState(false);
 
   const handleStartTutorial = () => {
     console.log("ejecuto");
@@ -65,7 +64,6 @@ const useTutorial = (
   }, [showTutorialProp]);
 
   return {
-    showTutorial,
     steps,
   };
 };
