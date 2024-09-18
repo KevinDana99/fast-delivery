@@ -15,7 +15,7 @@ const useDetails = () => {
   const [transaction, setTransaction] = useState<TransactionType>(null);
   const { infoLocation, routeInfo, originLocation, destinationLocation } =
     useContext(RouteContext);
-  const { showTutorial, handleFinishTutorial, handleShowTutorial } =
+  const { showTutorial, handleShowTutorial, handleShowPwaModals } =
     useContext(ModalContext);
   const captureRef = useRef(null);
   const [loading, setLoading] = useState(false);
@@ -25,8 +25,8 @@ const useDetails = () => {
     "details",
     tourRef,
     showTutorial,
-    handleFinishTutorial,
-    handleShowTutorial
+    handleShowTutorial,
+    handleShowPwaModals
   );
   const originParam = originLocation.toString();
   const destinationParam = destinationLocation.toString();

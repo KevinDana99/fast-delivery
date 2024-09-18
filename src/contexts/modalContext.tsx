@@ -6,8 +6,7 @@ import { createContext, useEffect, useState } from "react";
 export const ModalContext = createContext<{
   showPwaModals: boolean;
   showTutorial: boolean;
-  handleFinishTutorial: () => void;
-  handleShowPwaModals: () => void;
+  handleShowPwaModals: (value: boolean) => void;
   handleShowTutorial: (value: boolean) => void;
 }>(null);
 
@@ -15,39 +14,27 @@ export const ModalProvider = ({ children }) => {
   const [showPwaModals, setShowPwaModals] = useState(false);
   const [showTutorial, setShowTutorial] = useState(false);
 
-  const handleFinishTutorial = () => {
-    setShowPwaModals(true);
-    localStorage.setItem("tour-home", "true");
-  };
-
   const handleShowTutorial = (value: boolean) => {
     setShowTutorial(value);
   };
 
-  const handleShowPwaModals = () => {};
-
-  useEffect(() => {
-    const tourCompleted = localStorage?.getItem("tour-home") ?? "false";
-    if (tourCompleted === "true") {
-      setShowPwaModals(true);
-    }
-  }, []);
+  const handleShowPwaModals = (value: boolean) => {
+    setShowPwaModals(value);
+  };
 
   return (
     <ModalContext.Provider
       value={{
         showPwaModals,
         showTutorial,
-        handleFinishTutorial,
         handleShowPwaModals,
         handleShowTutorial,
       }}
     >
-      <TutorialModal visible={!showPwaModals} />
-
+      {!showPwaModals && <TutorialModal visible={!showPwaModals} />}
+      {showPwaModals && <PwaInstall visible={showPwaModals} />}
+      {showPwaModals && <PushNotification visible={showPwaModals} />}
       {children}
     </ModalContext.Provider>
   );
 };
-/*        <PwaInstall visible={showPwaModals} />
-      <PushNotification visible={showPwaModals} />  */

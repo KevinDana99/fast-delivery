@@ -9,11 +9,12 @@ import {
   Stack,
   Typography,
 } from "@mui/material";
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 
 import { IconClose } from "./styled";
 import { ModalContext } from "@/contexts/modalContext";
 import LightbulbIcon from "@mui/icons-material/Lightbulb";
+import useTutorial from "@/app/hooks/useTutorial";
 const TutorialModal = ({ visible: visibleProp }: { visible: boolean }) => {
   const [visible, setVisible] = useState(true);
 
@@ -21,7 +22,11 @@ const TutorialModal = ({ visible: visibleProp }: { visible: boolean }) => {
     setVisible(false);
   };
 
-  const { handleShowTutorial, handleFinishTutorial } = useContext(ModalContext);
+  const { handleShowTutorial } = useContext(ModalContext);
+
+  const handleFinishTutorial = () => {
+    localStorage.setItem("tour-home", "true");
+  };
   useEffect(() => {
     setVisible(visibleProp);
   }, [visibleProp]);

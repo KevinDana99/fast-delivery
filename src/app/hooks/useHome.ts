@@ -5,7 +5,7 @@ import { ModalContext } from "@/contexts/modalContext";
 
 const useHome = () => {
   const routeProps = useContext(RouteContext);
-  const { handleFinishTutorial, showTutorial, handleShowTutorial } =
+  const { showTutorial, handleShowTutorial, handleShowPwaModals } =
     useContext(ModalContext);
   const tourRef = useRef(false);
   console.log(showTutorial);
@@ -13,8 +13,8 @@ const useHome = () => {
     "home",
     tourRef,
     showTutorial,
-    handleFinishTutorial,
-    handleShowTutorial
+    handleShowTutorial,
+    handleShowPwaModals
   );
 
   return {
