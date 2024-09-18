@@ -6,7 +6,7 @@ const INITIAL_LOCATION = [-42.7846027, -65.0511623];
 
 const useLocation = () => {
   const searchParams = useSearchParams();
-  const USER = searchParams.get("user");
+  const USER = localStorage?.getItem("user") ?? searchParams.get("user");
   const shipmentId = searchParams.get("shipment");
   const [location, setLocation] = useState<number[]>(INITIAL_LOCATION);
   const [channelState, setChannelState] = useState<Ably.RealtimeChannel>(null);
@@ -55,6 +55,8 @@ const useLocation = () => {
     }
 
     if (USER === "000Admin") {
+      const ADMIN = USER;
+      localStorage.setItem(`user`, `${ADMIN}`);
       handleWatchLocation();
     }
   }, []);
