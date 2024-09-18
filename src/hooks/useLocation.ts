@@ -1,13 +1,12 @@
 import { useSearchParams } from "next/navigation";
 import { useContext, useEffect, useState } from "react";
 import Ably from "ably";
+import { AuthContext } from "@/contexts/authConext";
 
 const INITIAL_LOCATION = [-42.7846027, -65.0511623];
 
 const useLocation = () => {
-  const searchParams = useSearchParams();
-  const USER = localStorage?.getItem("user") ?? searchParams.get("user");
-  const shipmentId = searchParams.get("shipment");
+  const { user, shipmentId } = useContext(AuthContext);
   const [location, setLocation] = useState<number[]>(INITIAL_LOCATION);
   const [channelState, setChannelState] = useState<Ably.RealtimeChannel>(null);
   const [locationRealTime, setLocationRealTime] =
@@ -42,7 +41,7 @@ const useLocation = () => {
   };
 
   useEffect(() => {
-    if (shipmentId || USER === "000Admin") {
+    if (shipmentId || user === "000Admin") {
       const ably = new Ably.Realtime({
         key: "TaSlrQ.SLHZEw:GLIHt9L_yd9skDWBbKyb29ttDMJFgNt3R6Og6gFvyBo",
       });
@@ -54,8 +53,8 @@ const useLocation = () => {
       });
     }
 
-    if (USER === "000Admin") {
-      const ADMIN = USER;
+    if (user === "000Admin") {
+      const ADMIN = user;
       localStorage.setItem(`user`, `${ADMIN}`);
       handleWatchLocation();
     }

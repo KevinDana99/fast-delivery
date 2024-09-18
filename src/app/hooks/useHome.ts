@@ -2,13 +2,16 @@ import { useContext, useRef } from "react";
 import { RouteContext } from "@/contexts/routeContext";
 import useTutorial from "./useTutorial";
 import { ModalContext } from "@/contexts/modalContext";
+import { AuthContext } from "@/contexts/authConext";
 
 const useHome = () => {
+  const { shipmentId } = useContext(AuthContext);
   const routeProps = useContext(RouteContext);
   const { showTutorial, handleShowTutorial, handleShowPwaModals } =
     useContext(ModalContext);
+
   const tourRef = useRef(false);
-  console.log(showTutorial);
+
   useTutorial(
     "home",
     tourRef,
@@ -19,6 +22,7 @@ const useHome = () => {
 
   return {
     ...routeProps,
+    shipmentId,
   };
 };
 

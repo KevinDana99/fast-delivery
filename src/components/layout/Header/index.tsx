@@ -30,6 +30,7 @@ const Header = ({ statusBar }: { statusBar: boolean }) => {
     handleOnKeyDownInputDestination,
     handleOnKeyDownInputOrigin,
     getDisplayNameLocation,
+    shipmentId,
     infoLocation,
     query,
     searchOptions,
@@ -71,16 +72,19 @@ const Header = ({ statusBar }: { statusBar: boolean }) => {
                 </Option>
               ))}
             </Select>
+
             <CancelContainerButton>
-              <IconCancel
-                visible={
-                  query?.origin?.length !== 0 || infoLocation[0]?.info
-                    ? true
-                    : false
-                }
-                color="inherit"
-                onClick={() => handleCleanInput("origin")}
-              />
+              {!shipmentId && (
+                <IconCancel
+                  visible={
+                    query?.origin?.length !== 0 || infoLocation[0]?.info
+                      ? true
+                      : false
+                  }
+                  color="inherit"
+                  onClick={() => handleCleanInput("origin")}
+                />
+              )}
             </CancelContainerButton>
           </SearchInputWrapper>
         </SearchLabel>
@@ -100,15 +104,19 @@ const Header = ({ statusBar }: { statusBar: boolean }) => {
             />
 
             <CancelContainerButton>
-              <IconCancel
-                visible={
-                  query?.destination?.length !== 0 || infoLocation[0]?.info
-                    ? true
-                    : false
-                }
-                color="inherit"
-                onClick={() => handleCleanInput("destination")}
-              />
+              {!shipmentId && (
+                <IconCancel
+                  visible={
+                    query?.destination?.length !== 0 || infoLocation[0]?.info
+                      ? true
+                      : false
+                  }
+                  color="inherit"
+                  onClick={(e) => {
+                    handleCleanInput("destination");
+                  }}
+                />
+              )}
             </CancelContainerButton>
             <Select
               visible={

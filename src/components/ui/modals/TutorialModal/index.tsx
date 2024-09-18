@@ -14,7 +14,6 @@ import React, { useContext, useEffect, useRef, useState } from "react";
 import { IconClose } from "./styled";
 import { ModalContext } from "@/contexts/modalContext";
 import LightbulbIcon from "@mui/icons-material/Lightbulb";
-import useTutorial from "@/app/hooks/useTutorial";
 const TutorialModal = ({ visible: visibleProp }: { visible: boolean }) => {
   const [visible, setVisible] = useState(true);
 
@@ -32,7 +31,13 @@ const TutorialModal = ({ visible: visibleProp }: { visible: boolean }) => {
   }, [visibleProp]);
 
   return (
-    <Dialog open={visible} onClose={handleCloseModal}>
+    <Dialog
+      open={visible}
+      onClick={() => {
+        handleCloseModal();
+        handleFinishTutorial();
+      }}
+    >
       <Paper
         role="dialog"
         aria-modal="false"
@@ -57,7 +62,10 @@ const TutorialModal = ({ visible: visibleProp }: { visible: boolean }) => {
       >
         <IconClose
           sx={{ alignSelf: "flex-start" }}
-          onClick={handleCloseModal}
+          onClick={() => {
+            handleCloseModal();
+            handleFinishTutorial();
+          }}
         />
 
         <Stack

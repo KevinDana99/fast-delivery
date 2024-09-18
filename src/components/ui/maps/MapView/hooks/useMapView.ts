@@ -1,4 +1,5 @@
 import { LocationType } from "@/app/types";
+import { AuthContext } from "@/contexts/authConext";
 import { RouteContext } from "@/contexts/routeContext";
 
 import { useContext, useEffect, useState } from "react";
@@ -11,7 +12,7 @@ const useMapView = (
   setLocationInfo: React.Dispatch<React.SetStateAction<LocationType[]>>
 ) => {
   const [currentLocation, setCurrentLocation] = useState<L.LatLng>(null);
-  const { shipmentId } = useContext(RouteContext);
+  const { shipmentId } = useContext(AuthContext);
   const getCurrentMarkerLocationInfo = async (latlng: L.LatLng) => {
     const API_URL = `https://nominatim.openstreetmap.org/reverse?lat=${latlng.lat}&lon=${latlng.lng}&format=json&addressdetails=1`;
     const response = await fetch(API_URL);

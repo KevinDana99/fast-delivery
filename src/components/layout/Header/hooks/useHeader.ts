@@ -7,9 +7,11 @@ import React, {
 import { SearchOption, SearchOptions } from "./types";
 import { LocationType } from "@/app/types";
 import { RouteContext } from "@/contexts/routeContext";
+import { AuthContext } from "@/contexts/authConext";
 
 const LOCATION_CITY = "Puerto Madryn";
 const useHeader = () => {
+  const { shipmentId } = useContext(AuthContext);
   const { infoLocation, setInfoLocation, myLocation } =
     useContext(RouteContext);
   const infoLocationPrimary: LocationType = infoLocation[0];
@@ -29,6 +31,16 @@ const useHeader = () => {
     origin: null,
     destination: null,
   });
+
+  const handlePreventDefault = (
+    e:
+      | React.ChangeEvent<HTMLInputElement>
+      | React.KeyboardEvent<HTMLInputElement>
+  ) => {
+    if (shipmentId) {
+      e.preventDefault();
+    }
+  };
 
   const handleSearchLocation = async (locationName: string) => {
     const LOCATION_COUNTRY = "Argentina";
@@ -75,6 +87,7 @@ const useHeader = () => {
   const handleChangeOriginLocation = async (
     e: React.ChangeEvent<HTMLInputElement>
   ) => {
+    handlePreventDefault(e);
     const currentInfo = e.target.value;
     setQuery({ ...query, origin: currentInfo });
   };
@@ -82,6 +95,7 @@ const useHeader = () => {
   const handleChangeDestinationLocation = async (
     e: React.ChangeEvent<HTMLInputElement>
   ) => {
+    handlePreventDefault(e);
     const currentInfo = e.target.value;
     setQuery({ ...query, destination: currentInfo });
   };
@@ -149,39 +163,43 @@ const useHeader = () => {
   const handleOnKeyDownInputOrigin = (
     e: React.KeyboardEvent<HTMLInputElement>
   ) => {
+    handlePreventDefault(e);
     const key = e.key;
     console.log(key);
-    switch (key) {
-      case "Backspace":
-        setInfoLocation([
-          { ...infoLocationPrimary, info: null, marker: [] },
-          infoLocationSecondary,
-        ]);
-        break;
+    if (!shipmentId)
+      switch (key) {
+        case "Backspace":
+          setInfoLocation([
+            { ...infoLocationPrimary, info: null, marker: [] },
+            infoLocationSecondary,
+          ]);
+          break;
 
-      case "Enter":
-        handleSelectedOriginLocation(searchOptions.origin[0]);
-        break;
-    }
+        case "Enter":
+          handleSelectedOriginLocation(searchOptions.origin[0]);
+          break;
+      }
   };
 
   const handleOnKeyDownInputDestination = (
     e: React.KeyboardEvent<HTMLInputElement>
   ) => {
+    handlePreventDefault(e);
     const key = e.key;
     console.log(key);
-    switch (key) {
-      case "Backspace":
-        setInfoLocation([
-          infoLocationPrimary,
-          { ...infoLocationSecondary, info: null, marker: [] },
-        ]);
-        break;
+    if (!shipmentId)
+      switch (key) {
+        case "Backspace":
+          setInfoLocation([
+            infoLocationPrimary,
+            { ...infoLocationSecondary, info: null, marker: [] },
+          ]);
+          break;
 
-      case "Enter":
-        handleSelectedDestinationLocation(searchOptions.destination[0]);
-        break;
-    }
+        case "Enter":
+          handleSelectedDestinationLocation(searchOptions.destination[0]);
+          break;
+      }
   };
 
   useEffect(() => {
@@ -228,6 +246,7 @@ const useHeader = () => {
     handleOnKeyDownInputDestination,
     handleOnKeyDownInputOrigin,
     getDisplayNameLocation,
+    shipmentId,
     infoLocation,
     query,
     searchOptions,

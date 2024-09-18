@@ -9,8 +9,6 @@ export const RouteContext = createContext<{
   myLocation: number[];
   originLocation: number[];
   destinationLocation: number[];
-  shipmentId: string;
-
   setInfoLocation: React.Dispatch<React.SetStateAction<LocationType[]>>;
   setRouteInfo: React.Dispatch<React.SetStateAction<RouteInfo>>;
 }>(null);
@@ -48,7 +46,6 @@ export const RouteProvider = ({ children }: { children: ReactNode }) => {
         myLocation,
         originLocation,
         destinationLocation,
-        shipmentId,
         setInfoLocation,
         setRouteInfo,
       }}
