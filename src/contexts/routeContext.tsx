@@ -24,7 +24,7 @@ export const RouteProvider = ({
 }) => {
   const searchParams = useSearchParams();
   const coordsParam = atob(searchParams.get("coords")).split(",");
-  const shipmentId = searchParams.get("shipment") ?? "";
+  const shipmentId = searchParams.get("shipment");
   const COORDS = coordsParam.map((coord) => parseFloat(coord));
   const VERIFY_COORDS = COORDS.length > 1;
   const [infoLocation, setInfoLocation] = useState<LocationType[]>(

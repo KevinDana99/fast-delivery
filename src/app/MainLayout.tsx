@@ -9,10 +9,12 @@ import useLoading from "@/hooks/useLoading";
 import Loading from "@/components/ui/Loading";
 import PwaInstall from "./sw/PwaInstall";
 import PushNotification from "./sw/PushNotification";
+import { useSearchParams } from "next/navigation";
 const MainLayout = ({ children }: { children: ReactNode }) => {
   const { loading } = useLoading();
   const [showModal, setShowModal] = useState(false);
-
+  const searchParams = useSearchParams();
+  const shipmentId = searchParams.get("shipment");
   const handleFinishTutorial = () => {
     setShowModal(true);
   };
@@ -33,8 +35,12 @@ const MainLayout = ({ children }: { children: ReactNode }) => {
       <StyledThemeProvider theme={theme}>
         <MuiThemeProvider theme={muiTheme}>
           {children}
-          <PwaInstall visible={showModal} />
-          <PushNotification visible={showModal} />
+          {!shipmentId && (
+            <>
+              <PwaInstall visible={showModal} />
+              <PushNotification visible={showModal} />
+            </>
+          )}
         </MuiThemeProvider>
       </StyledThemeProvider>
     </RouteProvider>

@@ -18,6 +18,7 @@ const Home = () => {
     routeInfo,
     originLocation,
     destinationLocation,
+    shipmentId,
   } = useHome();
 
   return (
@@ -31,10 +32,12 @@ const Home = () => {
           routeInfo={routeInfo}
         />
       </WrapperMap>
-      <Footer
-        destinationLocation={destinationLocation}
-        originLocation={originLocation}
-      />
+      {!shipmentId && (
+        <Footer
+          destinationLocation={destinationLocation}
+          originLocation={originLocation}
+        />
+      )}
     </AppContainer>
   );
 };
