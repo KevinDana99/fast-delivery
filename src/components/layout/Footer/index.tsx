@@ -1,7 +1,11 @@
-import React from "react";
+import React, { useContext } from "react";
 import { ButtonLink, Container, MuiButton } from "./styled";
 
 import theme from "@/globals/theme";
+import { StatusShipmentType } from "@/components/ui/bars/StatusBar/types";
+import { Button } from "@mui/material";
+import { RouteContext } from "@/contexts/routeContext";
+import { AuthContext } from "@/contexts/authConext";
 
 const Footer = ({
   originLocation,

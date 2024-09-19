@@ -1,7 +1,9 @@
 import { LocationType, RouteInfo } from "@/app/types";
+import { StatusShipmentType } from "@/components/ui/bars/StatusBar/types";
 import useLocation from "@/hooks/useLocation";
 import { useSearchParams } from "next/navigation";
-import React, { ReactNode, createContext, useState } from "react";
+import React, { ReactNode, createContext, useContext, useState } from "react";
+import { AuthContext } from "./authConext";
 
 export const RouteContext = createContext<{
   infoLocation: LocationType[];
@@ -9,14 +11,25 @@ export const RouteContext = createContext<{
   myLocation: number[];
   originLocation: number[];
   destinationLocation: number[];
+  shipment: {
+    id: string;
+    status: StatusShipmentType["status"];
+  };
   setInfoLocation: React.Dispatch<React.SetStateAction<LocationType[]>>;
   setRouteInfo: React.Dispatch<React.SetStateAction<RouteInfo>>;
+  handleChangeShipmentStatus: (status: StatusShipmentType["status"]) => void;
+  setShipment: React.Dispatch<
+    React.SetStateAction<{
+      id: string;
+      status: StatusShipmentType["status"];
+    }>
+  >;
 }>(null);
 
 export const RouteProvider = ({ children }: { children: ReactNode }) => {
   const searchParams = useSearchParams();
   const coordsParam = atob(searchParams.get("coords")).split(",");
-  const shipmentId = searchParams.get("shipment");
+  const { user, shipmentId } = useContext(AuthContext);
   const COORDS = coordsParam.map((coord) => parseFloat(coord));
   const VERIFY_COORDS = COORDS.length > 1;
   const [infoLocation, setInfoLocation] = useState<LocationType[]>(
@@ -38,6 +51,18 @@ export const RouteProvider = ({ children }: { children: ReactNode }) => {
 
   const [routeInfo, setRouteInfo] = useState<RouteInfo | null>(null);
   const myLocation = useLocation();
+
+  const [shipment, setShipment] = useState<{
+    id: string;
+    status: StatusShipmentType["status"];
+  }>({
+    id: shipmentId,
+    status: "pending",
+  });
+
+  const handleChangeShipmentStatus = (status: StatusShipmentType["status"]) => {
+    setShipment({ ...shipment, status });
+  };
   return (
     <RouteContext.Provider
       value={{
@@ -46,8 +71,11 @@ export const RouteProvider = ({ children }: { children: ReactNode }) => {
         myLocation,
         originLocation,
         destinationLocation,
+        shipment,
         setInfoLocation,
         setRouteInfo,
+        handleChangeShipmentStatus,
+        setShipment,
       }}
     >
       {children}

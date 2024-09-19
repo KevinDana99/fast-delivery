@@ -6,6 +6,8 @@ import useHome from "./hooks/useHome";
 import Footer from "@/components/layout/Footer";
 import Header from "@/components/layout/Header";
 import StatusBar from "@/components/ui/bars/StatusBar";
+import { StatusShipmentType } from "@/components/ui/bars/StatusBar/types";
+import { Button } from "@mui/material";
 
 const DynamicMapView = dynamic(() => import("@/components/ui/maps/MapView"), {
   ssr: false,
@@ -19,6 +21,7 @@ const Home = () => {
     originLocation,
     destinationLocation,
     shipmentId,
+    user,
   } = useHome();
 
   return (
@@ -34,7 +37,7 @@ const Home = () => {
         />
       </WrapperMap>
 
-      {!shipmentId && (
+      {!shipmentId && !user && (
         <Footer
           destinationLocation={destinationLocation}
           originLocation={originLocation}

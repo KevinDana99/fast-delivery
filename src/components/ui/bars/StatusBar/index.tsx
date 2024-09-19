@@ -4,18 +4,13 @@ import theme from "@/globals/theme";
 import { Container } from "./styled";
 import PendingOutlinedIcon from "@mui/icons-material/PendingOutlined";
 import TwoWheelerOutlinedIcon from "@mui/icons-material/TwoWheelerOutlined";
-import NotificationsActiveIcon from "@mui/icons-material/NotificationsActive";
-const StatusBar = () => {
-  const statusInfo = {
-    pending: "Su pedido esta pendiente (Esperando confirmacion)",
-    completed: "Su pedido ha sido completado con exito",
-    canceled: "Su pedido ha sido cancelado",
-    "in-course": "Su pedido esta en camino",
-  };
-  type StatusShipmentType = {
-    status: keyof typeof statusInfo;
-  };
+import { statusInfo, StatusShipmentType } from "./types";
+import useShipment from "./hooks/useShipment";
+import CancelOutlinedIcon from "@mui/icons-material/CancelOutlined";
+import MyLocationIcon from "@mui/icons-material/MyLocation";
+import LocationOnIcon from "@mui/icons-material/LocationOn";
 
+const StatusBar = () => {
   const SelectStatusShipment = ({ status }: StatusShipmentType) => {
     switch (status) {
       case "pending":
@@ -38,10 +33,31 @@ const StatusBar = () => {
             style={{ color: theme.colors.primary, fontSize: "30" }}
           />
         );
+
+      case "canceled":
+        return (
+          <CancelOutlinedIcon
+            style={{ color: theme.colors.primary, fontSize: "30" }}
+          />
+        );
+
+      case "in-origin":
+        return (
+          <MyLocationIcon
+            style={{ color: theme.colors.primary, fontSize: "30" }}
+          />
+        );
+      case "in-destine":
+        return (
+          <LocationOnIcon
+            style={{ color: theme.colors.primary, fontSize: "30" }}
+          />
+        );
     }
   };
 
-  const statusShipment: StatusShipmentType["status"] = "in-course";
+  const { shipment } = useShipment();
+  const statusShipment: StatusShipmentType["status"] = shipment.status;
 
   return (
     <Container>

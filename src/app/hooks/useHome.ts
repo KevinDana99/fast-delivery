@@ -5,7 +5,7 @@ import { ModalContext } from "@/contexts/modalContext";
 import { AuthContext } from "@/contexts/authConext";
 
 const useHome = () => {
-  const { shipmentId } = useContext(AuthContext);
+  const { shipmentId, user } = useContext(AuthContext);
   const routeProps = useContext(RouteContext);
   const { showTutorial, handleShowTutorial, handleShowPwaModals } =
     useContext(ModalContext);
@@ -23,6 +23,7 @@ const useHome = () => {
   return {
     ...routeProps,
     shipmentId,
+    user,
   };
 };
 

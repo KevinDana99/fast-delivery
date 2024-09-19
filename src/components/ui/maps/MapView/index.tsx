@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useRef, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import { MapContainer, Marker, Popup, TileLayer } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 import L from "leaflet";
@@ -18,6 +18,9 @@ import useMapView from "./hooks/useMapView";
 import Tag from "../../tags/Tag";
 import { LatLngExpression } from "leaflet";
 import { getRoutePrice } from "./constants/prices";
+import { AuthContext } from "@/contexts/authConext";
+import OrderBar from "../../bars/OrderBar";
+import SpeelDialBar from "../../bars/SpeelDialBar";
 
 const center_map: LatLngExpression = [-42.774434, -65.039204];
 
@@ -39,7 +42,7 @@ const MapView = ({
   routeInfo: RouteInfo | null;
 }) => {
   const { handleMapClick } = useMapView(infoLocation, setInfoLocation);
-
+  const { user } = useContext(AuthContext);
   return (
     <Container id="step3-home">
       <MapContainer
@@ -64,7 +67,7 @@ const MapView = ({
         )}
         <MapClickHandler onMapClick={handleMapClick} />
       </MapContainer>
-      <Metrics>
+      <Metrics position={user ? "left" : "right"}>
         <Tag
           icon={<AttachMoneyIcon />}
           title={
@@ -82,6 +85,7 @@ const MapView = ({
           title={routeInfo?.time ? `${Math.round(routeInfo.time)} min` : ""}
         />
       </Metrics>
+      {user && <SpeelDialBar />}
     </Container>
   );
 };

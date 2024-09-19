@@ -10,11 +10,11 @@ export const Container = styled.div`
   }
 `;
 
-export const Metrics = styled.div`
+export const Metrics = styled.div<{ position: "right" | "left" }>`
   position: fixed;
   z-index: 1000;
   bottom: 55px;
-  right: 5px;
+  ${({ position }) => `${position}: 16px`};
 
   @media (min-width: 700px) {
     bottom: 5px;
