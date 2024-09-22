@@ -50,7 +50,7 @@ const SpeelDialBar = () => {
   return (
     <SpeedDial
       ariaLabel="SpeedDial basic example"
-      sx={{ position: "absolute", bottom: 45, right: 16 }}
+      sx={{ position: "fixed", bottom: 55, right: 16 }}
       icon={<ShoppingBagIcon fontSize="medium" />}
     >
       {actions.map((action) => (

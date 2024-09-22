@@ -14,7 +14,7 @@ export const Metrics = styled.div<{ position: "right" | "left" }>`
   position: fixed;
   z-index: 1000;
   bottom: 55px;
-  ${({ position }) => `${position}: 16px`};
+  ${({ position }) => `${position}: 10px`};
 
   @media (min-width: 700px) {
     bottom: 5px;
