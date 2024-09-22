@@ -3,9 +3,9 @@ const CONSUMMER_PER_KM = 12.5;
 const PRICE_PER_KM = 270;
 
 const price = {
-  short: 2000,
-  medium: 2500,
-  long: 2800,
+  short: 2500,
+  medium: 2800,
+  long: 3000,
   veryLong: 3500,
   extra: (distance: number) => {
     return Math.round(PRICE_PER_KM * distance);
