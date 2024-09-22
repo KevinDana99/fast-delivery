@@ -10,10 +10,13 @@ export const Container = styled.div`
   }
 `;
 
-export const Metrics = styled.div<{ position: "right" | "left" }>`
+export const Metrics = styled.div<{
+  position: "right" | "left";
+  shipment: boolean;
+}>`
   position: fixed;
   z-index: 1000;
-  bottom: 55px;
+  bottom: ${({ shipment }) => (shipment ? "15" : "65")}px;
   ${({ position }) => `${position}: 10px`};
 
   @media (min-width: 700px) {

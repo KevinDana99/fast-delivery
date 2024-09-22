@@ -1,5 +1,5 @@
 export const statusInfo = {
-  pending: "Su pedido esta pendiente (Esperando confirmacion)",
+  pending: "Su pedido esta pendiente",
   completed: "Su pedido ha sido completado con exito",
   "in-origin": "Su pedido fue retirado",
   "in-destine": "Estamos entregando tu pedido",

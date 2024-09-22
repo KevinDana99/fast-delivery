@@ -42,7 +42,7 @@ const MapView = ({
   routeInfo: RouteInfo | null;
 }) => {
   const { handleMapClick } = useMapView(infoLocation, setInfoLocation);
-  const { user } = useContext(AuthContext);
+  const { user, shipmentId } = useContext(AuthContext);
   return (
     <Container id="step3-home">
       <MapContainer
@@ -67,7 +67,10 @@ const MapView = ({
         )}
         <MapClickHandler onMapClick={handleMapClick} />
       </MapContainer>
-      <Metrics position={user ? "left" : "right"}>
+      <Metrics
+        position={user && shipmentId ? "left" : "right"}
+        shipment={!!shipmentId}
+      >
         <Tag
           icon={<AttachMoneyIcon />}
           title={
@@ -85,7 +88,7 @@ const MapView = ({
           title={routeInfo?.time ? `${Math.round(routeInfo.time)} min` : ""}
         />
       </Metrics>
-      {user && <SpeelDialBar />}
+      {user && shipmentId && <SpeelDialBar />}
     </Container>
   );
 };
