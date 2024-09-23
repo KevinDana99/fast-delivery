@@ -1,6 +1,6 @@
 const COST_OF_CONSUMIBLE = 36.764;
 const CONSUMMER_PER_KM = 12.5;
-const PRICE_PER_KM = 270;
+const PRICE_PER_KM = 200;
 
 const price = {
   short: 2500,
@@ -8,15 +8,21 @@ const price = {
   long: 3000,
   veryLong: 3500,
   extra: (distance: number) => {
-    return Math.round(PRICE_PER_KM * distance);
+    return price.short + Math.round(PRICE_PER_KM * distance);
   },
 };
 
+/*
+const descountPrice = (value: number, route: number) => {
+  return (route * value) / 100;
+};
+*/
+
 const route = {
   short: 3,
-  medium: 7,
-  long: 9,
-  veryLong: 15,
+  medium: 6,
+  long: 8,
+  veryLong: 10,
 };
 
 export const getRoutePrice = (distance: number) => {
