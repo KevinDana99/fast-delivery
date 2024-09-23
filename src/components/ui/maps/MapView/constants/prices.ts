@@ -22,7 +22,7 @@ const route = {
   short: 3,
   medium: 6,
   long: 8,
-  veryLong: 10,
+  veryLong: 11,
 };
 
 export const getRoutePrice = (distance: number) => {
