@@ -37,7 +37,7 @@ const Home = () => {
         />
       </WrapperMap>
 
-      {(!shipmentId || !user) && (
+      {!shipmentId && (
         <Footer
           destinationLocation={destinationLocation}
           originLocation={originLocation}

@@ -12,12 +12,6 @@ const price = {
   },
 };
 
-/*
-const descountPrice = (value: number, route: number) => {
-  return (route * value) / 100;
-};
-*/
-
 const route = {
   short: 3,
   medium: 6,
