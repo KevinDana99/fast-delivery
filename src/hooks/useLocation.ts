@@ -3,7 +3,7 @@ import { useContext, useEffect, useState } from "react";
 import Ably from "ably";
 import { AuthContext } from "@/contexts/authConext";
 
-const INITIAL_LOCATION = [-42.7846027, -65.0511623];
+const INITIAL_LOCATION = [-42.7522194, -65.0497759];
 
 const useLocation = () => {
   const { user, shipmentId } = useContext(AuthContext);
